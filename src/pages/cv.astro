@@ -89,7 +89,7 @@ const { name, title, contact, experience, education, training, skills, languages
               <h3 class="cv-entry-title">{entry.title}</h3>
               {entry.subtitle && <p class="cv-entry-sub">{entry.subtitle}</p>}
             </div>
-            <span class="cv-entry-date">{entry.period}</span>
+            {entry.period && <span class="cv-entry-date">{entry.period}</span>}
           </div>
           {entry.note && <p class="cv-entry-note">{entry.note}</p>}
         </div>

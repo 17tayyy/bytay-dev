@@ -26,6 +26,7 @@ collections:
       - { name: description, label: Description, widget: string }
       - { name: tags, label: Tags, widget: list, default: [] }
       - { name: draft, label: Draft, widget: boolean, default: false }
+      - { name: pinned, label: Pinned, widget: boolean, default: false }
       - { name: body, label: Body, widget: markdown }
 
   - name: pages
@@ -98,6 +99,7 @@ collections:
             summary: "{{fields.name}}"
             fields:
               - { name: name, label: Name, widget: string }
+              - { name: pinned, label: Pinned, widget: boolean, default: false }
               - { name: status, label: Status, widget: string, required: false }
               - {
                   name: visibility,

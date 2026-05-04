@@ -2,6 +2,7 @@
   "projects": [
     {
       "name": "shellox",
+      "pinned": true,
       "status": "",
       "visibility": "public",
       "type": "",
@@ -11,6 +12,7 @@
     },
     {
       "name": "Fluxo",
+      "pinned": true,
       "status": "active",
       "visibility": "private",
       "type": "",
@@ -20,6 +22,7 @@
     },
     {
       "name": "Argus",
+      "pinned": false,
       "status": "",
       "visibility": "",
       "type": "",
@@ -29,6 +32,7 @@
     },
     {
       "name": "TgCloud",
+      "pinned": true,
       "status": "",
       "visibility": "public",
       "type": "",
@@ -38,6 +42,7 @@
     },
     {
       "name": "TgRAT",
+      "pinned": false,
       "status": "",
       "visibility": "public",
       "type": "",
@@ -47,6 +52,7 @@
     },
     {
       "name": "SBid POC",
+      "pinned": false,
       "status": "",
       "visibility": "public",
       "type": "disclosure",
@@ -56,6 +62,7 @@
     },
     {
       "name": "Hack The Box",
+      "pinned": false,
       "status": "",
       "visibility": "",
       "type": "ctf",
