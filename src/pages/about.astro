@@ -4,7 +4,6 @@ import { getEntry, render } from 'astro:content';
 
 const entry = await getEntry('about', 'about');
 const { Content } = await render(entry);
-const { experience, education, training } = entry.data;
 ---
 
 <Layout
@@ -18,107 +17,15 @@ const { experience, education, training } = entry.data;
   </div>
 
   <div class="about-content">
-
-    <section class="about-intro">
+    <div class="prose narrative">
       <Content />
-    </section>
+    </div>
 
-    <hr class="divider" />
-
-    <section class="about-section">
-      <h2 class="about-section-title">
-        <span class="label">Experience</span>
-      </h2>
-
-      {experience.map((exp) => (
-        <div class="experience-item">
-          <div class="experience-header">
-            <div>
-              <h3 class="exp-role">{exp.role}</h3>
-              <p class="exp-company">
-                {exp.company}
-                <span class="exp-period">· {exp.period}</span>
-              </p>
-            </div>
-          </div>
-          <div class="exp-body">
-            {exp.paragraphs.map((p) => <p>{p}</p>)}
-            {exp.tags.length > 0 && (
-              <div class="tags" style="margin-top: 1rem;">
-                {exp.tags.map((tag) => <span class="tag">{tag}</span>)}
-              </div>
-            )}
-          </div>
-        </div>
-      ))}
-    </section>
-
-    <hr class="divider" />
-
-    <section class="about-section">
-      <h2 class="about-section-title">
-        <span class="label">Education</span>
-      </h2>
-
-      <div class="edu-list">
-        {education.map((edu) => (
-          <div class="edu-item">
-            <div class="edu-main">
-              <h3 class="edu-degree">{edu.degree}</h3>
-              <p class="edu-place">
-                {edu.institution && `${edu.institution} `}
-                <span class="exp-period">{edu.institution ? `· ${edu.period}` : edu.period}</span>
-              </p>
-            </div>
-            {edu.description && <p class="edu-desc">{edu.description}</p>}
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <hr class="divider" />
-
-    <section class="about-section">
-      <h2 class="about-section-title">
-        <span class="label">Other training</span>
-      </h2>
-
-      <div class="edu-list">
-        {training.map((item) => (
-          <div class="edu-item">
-            <div class="edu-main">
-              <h3 class="edu-degree">{item.title}</h3>
-              {item.subtitle && <p class="edu-place">{item.subtitle}</p>}
-            </div>
-            {item.description && <p class="edu-desc">{item.description}</p>}
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <hr class="divider" />
-
-    <section class="about-section">
-      <h2 class="about-section-title">
-        <span class="label">Contact</span>
-      </h2>
-      <div class="contact-links">
-        <a href="mailto:oscarfdst@proton.me" class="contact-item">
-          <span class="contact-label">Email</span>
-          <span class="contact-value">oscarfdst@proton.me</span>
-        </a>
-        <a href="https://github.com/17tayyy" target="_blank" rel="noopener noreferrer" class="contact-item">
-          <span class="contact-label">GitHub</span>
-          <span class="contact-value">github.com/17tayyy</span>
-        </a>
-        <a href="https://www.linkedin.com/in/oscar-fernandez-45891229b/" target="_blank" rel="noopener noreferrer" class="contact-item">
-          <span class="contact-label">LinkedIn</span>
-          <span class="contact-value">oscar-fernandez-45891229b</span>
-        </a>
-      </div>
-    </section>
-
+    <p class="cv-nudge">
+      <a href="/cv">The structured version lives here.</a>
+    </p>
   </div>
+
 </Layout>
 
 <style>
@@ -126,126 +33,28 @@ const { experience, education, training } = entry.data;
     max-width: 600px;
   }
 
-  .about-intro p {
+  .narrative p {
     font-size: 0.95rem;
     color: var(--text-2);
-    line-height: 1.8;
-    margin-bottom: 1rem;
+    line-height: 1.85;
+    margin-bottom: 1.1rem;
   }
 
-  .about-intro p:last-child {
+  .narrative p:last-child {
     margin-bottom: 0;
   }
 
-  .about-section {
-    margin-bottom: 0;
-  }
-
-  .about-section-title {
-    margin-bottom: 1.5rem;
-  }
-
-  /* Experience */
-  .experience-item {
-    margin-bottom: 2rem;
-  }
-
-  .experience-header {
-    margin-bottom: 1rem;
-  }
-
-  .exp-role {
-    font-size: 0.95rem;
-    font-weight: 500;
-    margin-bottom: 0.15rem;
-  }
-
-  .exp-company {
+  .cv-nudge {
+    margin-top: 2.5rem;
     font-size: 0.82rem;
-    color: var(--text-2);
   }
 
-  .exp-period {
+  .cv-nudge a {
     color: var(--text-3);
-  }
-
-  .exp-body p {
-    font-size: 0.88rem;
-    color: var(--text-2);
-    line-height: 1.75;
-    margin-bottom: 0.85rem;
-  }
-
-  .exp-body p:last-child {
-    margin-bottom: 0;
-  }
-
-  /* Education */
-  .edu-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .edu-item {}
-
-  .edu-main {
-    margin-bottom: 0.35rem;
-  }
-
-  .edu-degree {
-    font-size: 0.92rem;
-    font-weight: 500;
-    margin-bottom: 0.1rem;
-  }
-
-  .edu-place {
-    font-size: 0.8rem;
-    color: var(--text-2);
-  }
-
-  .edu-desc {
-    font-size: 0.85rem;
-    color: var(--text-2);
-    line-height: 1.7;
-    margin-top: 0.4rem;
-  }
-
-  /* Contact */
-  .contact-links {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .contact-item {
-    display: flex;
-    align-items: baseline;
-    gap: 1.5rem;
-    padding: 0.65rem 0;
-    border-bottom: 1px solid var(--border);
     transition: color 0.15s;
   }
 
-  .contact-item:first-child {
-    border-top: 1px solid var(--border);
-  }
-
-  .contact-item:hover .contact-value {
-    color: var(--accent);
-  }
-
-  .contact-label {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
+  .cv-nudge a:hover {
     color: var(--text-2);
-    min-width: 4rem;
-    flex-shrink: 0;
-  }
-
-  .contact-value {
-    font-size: 0.82rem;
-    color: var(--text);
-    transition: color 0.15s;
   }
 </style>
