@@ -1,9 +1,9 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
-import projectsData from "../data/projects.json";
+import projects from "../data/projects.json";
 
-const pinnedProjects = projectsData.projects
+const pinnedProjects = projects
   .filter((p) => p.pinned)
   .slice(0, 3);
 

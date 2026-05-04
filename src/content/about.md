@@ -1,6 +1,3 @@
----
----
-
 I'm Oscar Fernandez — Tay online. 18 years old, from Mataró, a medium-sized city near Barcelona that's best known for being not quite Barcelona.
 
 I got into programming the way most people probably shouldn't: cheating in FiveM servers. I wanted free items, so I learned Lua. Then I wanted to understand why the exploits worked, so I learned more. Then I wanted to build the things I was breaking, and somewhere in that process it stopped being about the cheats entirely.
