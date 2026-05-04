@@ -15,26 +15,7 @@ const blog = defineCollection({
 
 const about = defineCollection({
   loader: glob({ pattern: 'about.md', base: './src/content' }),
-  schema: z.object({
-    experience: z.array(z.object({
-      role: z.string(),
-      company: z.string(),
-      period: z.string(),
-      tags: z.array(z.string()).default([]),
-      paragraphs: z.array(z.string()),
-    })),
-    education: z.array(z.object({
-      degree: z.string(),
-      institution: z.string().default(''),
-      period: z.string(),
-      description: z.string().default(''),
-    })),
-    training: z.array(z.object({
-      title: z.string(),
-      subtitle: z.string().default(''),
-      description: z.string().default(''),
-    })),
-  }),
+  schema: z.object({}),
 });
 
 export const collections = { blog, about };
