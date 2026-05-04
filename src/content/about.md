@@ -1,24 +1,40 @@
 ---
 experience:
+  - role: "Backend Developer & DevOps"
+    company: "Intake · Lanzadera"
+    period: "April 2025 – present"
+    tags:
+      - Python
+      - FastAPI
+      - MongoDB
+      - PostgreSQL
+      - Redis
+      - AWS ECS
+      - ECR
+      - S3
+      - CloudFront
+      - Docker
+      - GitHub Actions
+    paragraphs:
+      - "Intake is a B2B SaaS helpdesk platform with a conversational AI agent, knowledge base management, and ticketing. The company is part of Lanzadera, Valencia's startup accelerator. I joined as the backend developer and, at some point, also became responsible for the infrastructure."
+      - "I designed and own the full AWS architecture: ECS Fargate for services, ECR for container images, ElastiCache Redis, S3 + CloudFront for frontends, Secrets Manager, and GPU instances for running Hugging Face models. The kind of setup where the decisions you make have a direct line to the bill."
+      - "The CI/CD pipeline runs on GitHub Actions: main branch deploys to pre-production, version tags go to production with manual approval. Ten ECS services across four repositories. Once it was working, deployments stopped being something to think about."
+      - "On the backend: FastAPI, HTTP logging middleware with UUID traceability, structured logging with structlog, a custom domain error system, rate limiting and validation handlers. Also built the integrations with Slack, Microsoft Teams, and WhatsApp Business for the conversational agent, and designed the RAG pipeline — embeddings, retrieval, prompt construction with Ollama on AWS — which is evolving toward function calling via Anthropic API and routing through Amazon Bedrock."
   - role: "Full Stack Developer Intern"
     company: "Moodest"
-    period: "2025 – present"
+    period: "January 2025 – April 2025"
     tags:
       - TypeScript
-      - NestJS
       - Angular
       - Python
       - FastAPI
-      - aiohttp
       - MongoDB
       - Redis
       - Docker
       - Nginx
     paragraphs:
-      - "Moodest builds a B2B SaaS HR AI platform. When I joined, they needed someone to build the full product dashboard. That someone became me."
-      - "The stack is Angular and NestJS with TypeScript. I learned both faster than I expected when the alternative was blocking the whole team. The dashboard includes integrations with Slack, Microsoft Teams, and WhatsApp Business — essentially teaching enterprise software to conduct HR conversations through chat apps, which is a stranger job than it sounds."
-      - "The other main project: a FastAPI API integrating with a time-tracking platform with 300,000+ users. Auth, roles, KPI endpoints, production security review, and deployment. When you're building auth for a system that size, you stop assuming anything and start verifying everything."
-      - "I also ended up doing DevOps. CI/CD with GitHub Actions, Docker Compose, Nginx on the production server. Nobody officially asked me to take it on; I took it on because watching a deployment fail manually is worse than just fixing the pipeline. Agile environment, Scrum and Kanban, pull requests, code reviews — the full process."
+      - "Moodest builds a B2B SaaS HR AI platform. I joined to build the full product dashboard — Angular + TypeScript, from scratch — and ended up also owning a FastAPI API that integrates with a time-tracking platform used by 300,000+ users: authentication, roles, KPI endpoints, security review, and production deployment."
+      - "DevOps came with the territory: Docker Compose, Nginx on the production server. Nobody officially assigned it; it just made more sense to fix the pipeline than to watch it fail. Agile environment, Scrum and Kanban, pull requests, code reviews — the full process."
 education:
   - degree: "Grado Medio SMR"
     institution: "Escola Pia Santa Anna, Mataró"
@@ -38,14 +54,14 @@ training:
     description: "Offensive Python, intro to hacking, Linux administration. Where I learned to stop thinking like a developer and start thinking like someone trying to break what developers built. The perspective shift is irreversible, which is mostly a good thing."
   - title: "Rust"
     subtitle: "Self-directed · 2025"
-    description: "Ownership, borrowing, lifetimes, pattern matching, data structures, systems projects. Rust will make you understand memory management whether you intended to learn it or not. I consider this a feature."
+    description: "Ownership, borrowing, concurrency with Tokio, systems projects. Rust will make you understand memory management whether you intended to learn it or not. I consider this a feature."
 ---
 
 I'm Oscar Fernandez — Tay online. 18 years old, from Mataró, a medium-sized city
 near Barcelona that's best known for being not quite Barcelona. I'm currently
-working as a Full Stack Developer Intern at Moodest while simultaneously enrolled
-in two academic programs. I didn't plan it this way. It just kind of happened,
-and now it's my life.
+working as a Backend Developer and DevOps at Intake, a startup in Valencia's
+Lanzadera accelerator, while simultaneously enrolled in two academic programs.
+I didn't plan it this way. It just kind of happened, and now it's my life.
 
 I got into programming because I wanted to understand how things worked, and
 into security because I wanted to understand how things broke. It turns out those

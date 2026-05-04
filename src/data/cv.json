@@ -4,22 +4,35 @@
   "contact": {
     "email": "oscarfdst@proton.me",
     "github": "https://github.com/17tayyy",
-    "linkedin": "https://www.linkedin.com/in/oscar-fernandez-45891229b/"
+    "linkedin": "https://www.linkedin.com/in/oscar-fernandez/"
   },
   "experience": [
     {
+      "role": "Backend Developer & DevOps",
+      "company": "Intake · Lanzadera",
+      "location": "Valencia",
+      "period": "April 2025 – present",
+      "bullets": [
+        "Full design and ownership of the AWS architecture: ECS Fargate, ECR, ElastiCache Redis, S3 + CloudFront for frontends, Secrets Manager, and GPU instances for Hugging Face models.",
+        "Implemented the CI/CD pipeline with GitHub Actions: main branch → pre-production, v* tags → production with manual approval, managing 10 ECS services across 4 repositories.",
+        "Backend in FastAPI: HTTP logging middleware with UUID traceability, structured logging with structlog, custom domain error system, rate limiting and validation handlers.",
+        "Built integrations with Slack, Microsoft Teams, and WhatsApp Business for the conversational agent.",
+        "Designed the RAG pipeline (ai_core): embeddings, retrieval, and prompt construction with Ollama on AWS, evolving toward function calling via Anthropic API and routing through Amazon Bedrock."
+      ],
+      "tags": ["Python", "FastAPI", "MongoDB", "PostgreSQL", "Redis", "AWS ECS", "ECR", "S3", "CloudFront", "Secrets Manager", "Docker", "GitHub Actions"]
+    },
+    {
       "role": "Full Stack Developer Intern",
       "company": "Moodest",
-      "location": "Barcelona, Spain",
-      "period": "2025 – present",
+      "location": "Tecnocampus, Mataró",
+      "period": "January 2025 – April 2025",
       "bullets": [
-        "Main developer of the full product dashboard for a B2B SaaS HR AI platform.",
-        "Built integrations with Slack, Microsoft Teams, and WhatsApp Business for a conversational HR agent.",
-        "Developed a FastAPI API integrating with a time-tracking platform with 300,000+ users: auth, roles, KPI endpoints, security, and production deployment.",
-        "DevOps: CI/CD with GitHub Actions, Docker Compose, Nginx on production server.",
-        "Agile environment: Scrum and Kanban, pull requests, code reviews."
+        "Developed a FastAPI API integrating with a time-tracking platform with 300,000+ users: authentication, roles, KPIs, security, and deployment.",
+        "Main developer of the full Angular + TypeScript dashboard: feature implementation, user flows, and business logic.",
+        "DevOps: containerization with Docker Compose and Nginx configuration on the production server.",
+        "Agile environment with Scrum/Kanban, pull requests, and code reviews."
       ],
-      "tags": ["TypeScript", "NestJS", "Angular", "Python", "FastAPI", "aiohttp", "MongoDB", "Redis", "Docker", "Nginx", "GitHub Actions"]
+      "tags": ["TypeScript", "Angular", "Python", "FastAPI", "MongoDB", "Redis", "Docker", "Nginx"]
     }
   ],
   "education": [
@@ -53,17 +66,16 @@
       "title": "Rust Programming",
       "subtitle": "Self-directed",
       "period": "2025",
-      "note": "Ownership, borrowing, lifetimes, pattern matching, data structures, systems projects."
+      "note": "Ownership, borrowing, concurrency with Tokio, systems projects and published personal projects."
     }
   ],
   "skills": [
-    { "label": "Languages", "value": "Python, TypeScript / JavaScript, Rust, Bash" },
-    { "label": "Frameworks", "value": "NestJS, Angular, React, FastAPI, Django" },
+    { "label": "Languages", "value": "Python, TypeScript/JavaScript, Rust, Bash" },
+    { "label": "Frameworks", "value": "FastAPI, Angular, React, Django" },
     { "label": "Databases", "value": "MongoDB, PostgreSQL, Redis" },
-    { "label": "DevOps", "value": "Docker, GitHub Actions, Nginx, Linux" },
-    { "label": "Web3 / Crypto", "value": "Ethereum, Solana, Polygon, wallet integration" },
-    { "label": "Security", "value": "Pentesting, C2 frameworks, basic exploitation, evasion" },
-    { "label": "Tools", "value": "Git, pnpm, aiohttp, Telethon" }
+    { "label": "Cloud & DevOps", "value": "AWS (ECS Fargate, ECR, S3, CloudFront, Secrets Manager), Docker, GitHub Actions, Nginx, Linux" },
+    { "label": "Security", "value": "Pentesting, C2, reverse shells, evasion, Hack The Box (25+ machines)" },
+    { "label": "Tools", "value": "Git, pnpm, aiohttp, Telethon, aiogram, structlog" }
   ],
   "languages": [
     { "label": "Spanish", "value": "Native" },

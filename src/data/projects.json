@@ -1,6 +1,15 @@
 {
   "projects": [
     {
+      "name": "shellox",
+      "status": "",
+      "visibility": "public",
+      "type": "",
+      "description": "Encrypted reverse shell with multi-session support. Encrypted communications and concurrent connection management with Tokio.",
+      "tags": ["Rust"],
+      "links": [{ "label": "GitHub", "href": "https://github.com/17tayyy/shellox" }]
+    },
+    {
       "name": "Fluxo",
       "status": "active",
       "visibility": "private",
@@ -10,12 +19,21 @@
       "links": []
     },
     {
+      "name": "Argus",
+      "status": "",
+      "visibility": "",
+      "type": "",
+      "description": "OSINT platform for real-time monitoring of Telegram bots and chats. Multi-bot manager, Redis Pub/Sub + SSE for live streaming, JWT auth, and dockerized deployment.",
+      "tags": ["FastAPI", "React", "PostgreSQL", "Redis"],
+      "links": []
+    },
+    {
       "name": "TgCloud",
       "status": "",
       "visibility": "public",
       "type": "",
-      "description": "Full-stack platform for using Telegram as cloud storage. Web frontend, JWT authentication, and an encrypted CLI for people who prefer not to use browsers for anything. Goes further than it probably should.",
-      "tags": ["Go", "Python", "React"],
+      "description": "Full-stack storage platform built on Telegram with a web frontend, JWT authentication, and an encrypted CLI for people who prefer not to use browsers for anything.",
+      "tags": ["FastAPI", "React", "TypeScript"],
       "links": [{ "label": "GitHub", "href": "https://github.com/17tayyy/TgCloud" }]
     },
     {
@@ -26,15 +44,6 @@
       "description": "Multi-client Command & Control framework using Telegram as the communication layer. Encrypted communications throughout. Built for security research and to understand how these systems work from the inside out.",
       "tags": ["Python"],
       "links": [{ "label": "GitHub", "href": "https://github.com/17tayyy" }]
-    },
-    {
-      "name": "Argus",
-      "status": "",
-      "visibility": "",
-      "type": "",
-      "description": "Full-stack intelligence application for monitoring multiple Telegram channels simultaneously. Built for a specific operational use case and it does that use case well. Not much more to say about it publicly.",
-      "tags": ["full stack"],
-      "links": []
     },
     {
       "name": "SBid POC",

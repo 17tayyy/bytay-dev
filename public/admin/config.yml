@@ -3,6 +3,7 @@ backend:
   repo: 17tayyy/bytay-dev
   branch: main
   base_url: https://bytay-cms-oauth.17tay.workers.dev
+  publish_mode: editorial_workflow
 
 media_folder: public/images
 public_folder: /images
@@ -15,7 +16,13 @@ collections:
     slug: "{{slug}}"
     fields:
       - { name: title, label: Title, widget: string }
-      - { name: date, label: Date, widget: datetime, time_format: false, format: YYYY-MM-DD }
+      - {
+          name: date,
+          label: Date,
+          widget: datetime,
+          time_format: false,
+          format: YYYY-MM-DD,
+        }
       - { name: description, label: Description, widget: string }
       - { name: tags, label: Tags, widget: list, default: [] }
       - { name: draft, label: Draft, widget: boolean, default: false }
@@ -47,17 +54,37 @@ collections:
             summary: "{{fields.degree}}"
             fields:
               - { name: degree, label: Degree, widget: string }
-              - { name: institution, label: Institution, widget: string, required: false }
+              - {
+                  name: institution,
+                  label: Institution,
+                  widget: string,
+                  required: false,
+                }
               - { name: period, label: Period, widget: string }
-              - { name: description, label: Description, widget: text, required: false }
+              - {
+                  name: description,
+                  label: Description,
+                  widget: text,
+                  required: false,
+                }
           - name: training
             label: Training
             widget: list
             summary: "{{fields.title}}"
             fields:
               - { name: title, label: Title, widget: string }
-              - { name: subtitle, label: Subtitle, widget: string, required: false }
-              - { name: description, label: Description, widget: text, required: false }
+              - {
+                  name: subtitle,
+                  label: Subtitle,
+                  widget: string,
+                  required: false,
+                }
+              - {
+                  name: description,
+                  label: Description,
+                  widget: text,
+                  required: false,
+                }
           - { name: body, label: Body, widget: markdown }
 
       - name: projects
@@ -72,7 +99,12 @@ collections:
             fields:
               - { name: name, label: Name, widget: string }
               - { name: status, label: Status, widget: string, required: false }
-              - { name: visibility, label: Visibility, widget: string, required: false }
+              - {
+                  name: visibility,
+                  label: Visibility,
+                  widget: string,
+                  required: false,
+                }
               - { name: type, label: Type, widget: string, required: false }
               - { name: description, label: Description, widget: text }
               - { name: tags, label: Tags, widget: list, default: [] }
@@ -118,7 +150,12 @@ collections:
             summary: "{{fields.degree}}"
             fields:
               - { name: degree, label: Degree, widget: string }
-              - { name: institution, label: Institution, widget: string, required: false }
+              - {
+                  name: institution,
+                  label: Institution,
+                  widget: string,
+                  required: false,
+                }
               - { name: period, label: Period, widget: string }
               - { name: note, label: Note, widget: string, required: false }
           - name: training
@@ -127,7 +164,12 @@ collections:
             summary: "{{fields.title}}"
             fields:
               - { name: title, label: Title, widget: string }
-              - { name: subtitle, label: Subtitle, widget: string, required: false }
+              - {
+                  name: subtitle,
+                  label: Subtitle,
+                  widget: string,
+                  required: false,
+                }
               - { name: period, label: Period, widget: string }
               - { name: note, label: Note, widget: text, required: false }
           - name: skills
