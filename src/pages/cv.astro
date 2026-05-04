@@ -1,0 +1,382 @@
+---
+import Layout from "../layouts/Layout.astro";
+import cvData from "../data/cv.json";
+
+const { name, title, contact, experience, education, training, skills, languages } = cvData;
+---
+
+<Layout
+  title="CV"
+  description="CV of Oscar Fernandez — Full Stack Developer and Security Researcher."
+>
+  <div class="cv-actions">
+    <button onclick="window.print()" class="print-btn">Print / Save PDF</button>
+  </div>
+
+  <div class="cv" id="cv-print">
+
+    <!-- Header -->
+    <header class="cv-header">
+      <div class="cv-identity">
+        <h1 class="cv-name">{name}</h1>
+        <p class="cv-title">{title}</p>
+      </div>
+      <div class="cv-contact">
+        <a href={`mailto:${contact.email}`}>{contact.email}</a>
+        <a href={contact.github} target="_blank" rel="noopener noreferrer">{contact.github.replace('https://', '')}</a>
+        <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">linkedin</a>
+      </div>
+    </header>
+
+    <hr class="cv-rule" />
+
+    <!-- Experience -->
+    <section class="cv-section">
+      <h2 class="cv-section-title">Experience</h2>
+      {experience.map((entry) => (
+        <div class="cv-entry">
+          <div class="cv-entry-header">
+            <div class="cv-entry-left">
+              <h3 class="cv-entry-title">{entry.role}</h3>
+              <p class="cv-entry-sub">
+                {entry.company}
+                {entry.location && <span class="cv-entry-loc">— {entry.location}</span>}
+              </p>
+            </div>
+            <span class="cv-entry-date">{entry.period}</span>
+          </div>
+          <ul class="cv-entry-body">
+            {entry.bullets.map((bullet) => <li>{bullet}</li>)}
+          </ul>
+          {entry.tags.length > 0 && (
+            <div class="tags" style="margin-top: 0.85rem;">
+              {entry.tags.map((tag) => <span class="tag">{tag}</span>)}
+            </div>
+          )}
+        </div>
+      ))}
+    </section>
+
+    <hr class="cv-rule" />
+
+    <!-- Education -->
+    <section class="cv-section">
+      <h2 class="cv-section-title">Education</h2>
+      {education.map((entry) => (
+        <div class="cv-entry">
+          <div class="cv-entry-header">
+            <div class="cv-entry-left">
+              <h3 class="cv-entry-title">{entry.degree}</h3>
+              {entry.institution && <p class="cv-entry-sub">{entry.institution}</p>}
+            </div>
+            <span class="cv-entry-date">{entry.period}</span>
+          </div>
+          {entry.note && <p class="cv-entry-note">{entry.note}</p>}
+        </div>
+      ))}
+    </section>
+
+    <hr class="cv-rule" />
+
+    <!-- Complementary Training -->
+    <section class="cv-section">
+      <h2 class="cv-section-title">Complementary Training</h2>
+      {training.map((entry) => (
+        <div class="cv-entry">
+          <div class="cv-entry-header">
+            <div class="cv-entry-left">
+              <h3 class="cv-entry-title">{entry.title}</h3>
+              {entry.subtitle && <p class="cv-entry-sub">{entry.subtitle}</p>}
+            </div>
+            <span class="cv-entry-date">{entry.period}</span>
+          </div>
+          {entry.note && <p class="cv-entry-note">{entry.note}</p>}
+        </div>
+      ))}
+    </section>
+
+    <hr class="cv-rule" />
+
+    <!-- Skills -->
+    <section class="cv-section">
+      <h2 class="cv-section-title">Technical Skills</h2>
+      <div class="cv-skills">
+        {skills.map((skill) => (
+          <div class="cv-skill-row">
+            <span class="cv-skill-label">{skill.label}</span>
+            <span class="cv-skill-value">{skill.value}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr class="cv-rule" />
+
+    <!-- Languages -->
+    <section class="cv-section">
+      <h2 class="cv-section-title">Languages</h2>
+      <div class="cv-skills">
+        {languages.map((lang) => (
+          <div class="cv-skill-row">
+            <span class="cv-skill-label">{lang.label}</span>
+            <span class="cv-skill-value">{lang.value}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+  </div>
+</Layout>
+
+<style>
+  /* Print button */
+  .cv-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 2rem;
+  }
+
+  .print-btn {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-2);
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--border-2);
+    border-radius: var(--radius);
+    background: var(--surface);
+    cursor: pointer;
+    transition:
+      color 0.15s,
+      border-color 0.15s;
+    letter-spacing: 0.02em;
+  }
+
+  .print-btn:hover {
+    color: var(--text);
+    border-color: var(--text-3);
+  }
+
+  /* CV layout */
+  .cv {
+    max-width: 660px;
+  }
+
+  /* CV header */
+  .cv-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .cv-name {
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.25rem;
+  }
+
+  .cv-title {
+    font-size: 0.82rem;
+    color: var(--text-2);
+  }
+
+  .cv-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  @media (max-width: 520px) {
+    .cv-contact {
+      align-items: flex-start;
+      text-align: left;
+    }
+  }
+
+  .cv-contact a {
+    font-size: 0.78rem;
+    color: var(--text-2);
+    transition: color 0.15s;
+  }
+
+  .cv-contact a:hover {
+    color: var(--accent);
+  }
+
+  .cv-rule {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+
+  /* CV sections */
+  .cv-section {
+    margin-bottom: 0;
+  }
+
+  .cv-section-title {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 400;
+    color: var(--text-2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.25rem;
+  }
+
+  /* CV entries */
+  .cv-entry {
+    margin-bottom: 1.5rem;
+  }
+
+  .cv-entry:last-child {
+    margin-bottom: 0;
+  }
+
+  .cv-entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .cv-entry-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.1rem;
+  }
+
+  .cv-entry-sub {
+    font-size: 0.8rem;
+    color: var(--text-2);
+  }
+
+  .cv-entry-loc {
+    color: var(--text-3);
+  }
+
+  .cv-entry-date {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-2);
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding-top: 0.1rem;
+  }
+
+  .cv-entry-body {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .cv-entry-body li {
+    font-size: 0.85rem;
+    color: var(--text-2);
+    line-height: 1.65;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .cv-entry-body li::before {
+    content: "–";
+    position: absolute;
+    left: 0;
+    color: var(--text-3);
+  }
+
+  .cv-entry-note {
+    font-size: 0.82rem;
+    color: var(--text-2);
+    line-height: 1.6;
+  }
+
+  /* Skills table */
+  .cv-skills {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .cv-skill-row {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.85rem;
+    align-items: baseline;
+  }
+
+  .cv-skill-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-2);
+    min-width: 8rem;
+    flex-shrink: 0;
+  }
+
+  .cv-skill-value {
+    color: var(--text);
+  }
+
+  @media print {
+    :root {
+      --bg: #ffffff;
+      --surface: #f9f9f9;
+      --surface-2: #f3f3f3;
+      --border: #e0e0e0;
+      --border-2: #c8c8c8;
+      --text: #111111;
+      --text-2: #555555;
+      --text-3: #aaaaaa;
+      --accent: #e55d00;
+    }
+
+    body {
+      background: #fff;
+    }
+
+    .cv-actions {
+      display: none;
+    }
+
+    .site-main {
+      padding: 0;
+    }
+
+    .container {
+      padding: 0;
+      max-width: 100%;
+    }
+
+    .cv {
+      max-width: 100%;
+    }
+
+    .cv-rule {
+      border-color: #ddd;
+    }
+
+    .tag {
+      border-color: #ccc;
+      background: #f4f4f4;
+      color: #555;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    @page {
+      margin: 1.5cm 2cm;
+    }
+  }
+</style>

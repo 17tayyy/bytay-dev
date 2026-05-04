@@ -1,0 +1,58 @@
+{
+  "projects": [
+    {
+      "name": "Fluxo",
+      "status": "active",
+      "visibility": "private",
+      "type": "",
+      "description": "Decentralized crypto payment platform with multi-chain support — Ethereum, Solana, Polygon. Two custody models for merchants: hosted and self-custody. Think Stripe, but on-chain. Still in development.",
+      "tags": ["FastAPI", "React", "PostgreSQL", "Redis", "Ethereum", "Solana", "Polygon"],
+      "links": []
+    },
+    {
+      "name": "TgCloud",
+      "status": "",
+      "visibility": "public",
+      "type": "",
+      "description": "Full-stack platform for using Telegram as cloud storage. Web frontend, JWT authentication, and an encrypted CLI for people who prefer not to use browsers for anything. Goes further than it probably should.",
+      "tags": ["Go", "Python", "React"],
+      "links": [{ "label": "GitHub", "href": "https://github.com/17tayyy/TgCloud" }]
+    },
+    {
+      "name": "TgRAT",
+      "status": "",
+      "visibility": "public",
+      "type": "",
+      "description": "Multi-client Command & Control framework using Telegram as the communication layer. Encrypted communications throughout. Built for security research and to understand how these systems work from the inside out.",
+      "tags": ["Python"],
+      "links": [{ "label": "GitHub", "href": "https://github.com/17tayyy" }]
+    },
+    {
+      "name": "Argus",
+      "status": "",
+      "visibility": "",
+      "type": "",
+      "description": "Full-stack intelligence application for monitoring multiple Telegram channels simultaneously. Built for a specific operational use case and it does that use case well. Not much more to say about it publicly.",
+      "tags": ["full stack"],
+      "links": []
+    },
+    {
+      "name": "SBid POC",
+      "status": "",
+      "visibility": "public",
+      "type": "disclosure",
+      "description": "Found a real vulnerability in a live production system. Documented it, reported it to the maintainers through responsible disclosure, then published the proof of concept. The system has since been patched, as far as I know.",
+      "tags": ["vulnerability research", "PoC"],
+      "links": []
+    },
+    {
+      "name": "Hack The Box",
+      "status": "",
+      "visibility": "",
+      "type": "ctf",
+      "description": "25+ machines completed across various difficulty levels. The interesting ones are the ones where the intended path isn't obvious until you've been staring at it long enough that something clicks.",
+      "tags": ["pentesting", "CTF"],
+      "links": [{ "label": "Profile", "href": "https://app.hackthebox.com" }]
+    }
+  ]
+}

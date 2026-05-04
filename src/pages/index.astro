@@ -1,11 +1,177 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+  title="Tay"
+  description="Backend developer and security researcher. 18, Mataró, Barcelona."
+>
+  <div class="home">
+    <section class="hero">
+      <p class="hero-label label">Oscar Fernandez</p>
+      <h1 class="hero-name">Tay</h1>
+      <p class="hero-meta">
+        Backend developer &amp; security researcher
+        <span class="sep">·</span>
+        18
+        <span class="sep">·</span>
+        Mataró, Barcelona
+      </p>
+
+      <hr class="divider" />
+
+      <p class="tagline">
+        Writes code that ships.<br />
+        Finds code that shouldn't.
+      </p>
+
+      <div class="bio">
+        <p>
+          Currently interning at Moodest, an AI startup in Barcelona, where I'm
+          the main developer of their full product dashboard. Angular and NestJS
+          for the platform, FastAPI for a time-tracking integration with 300k+
+          users, DevOps on the side, and sleep nowhere in the equation.
+        </p>
+        <p>
+          When I'm not shipping features, I'm doing security research — Hack The
+          Box, vulnerability disclosure, and building tools that the readme will
+          describe as "for educational purposes." The last part is why I
+          double-check my own code.
+        </p>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <nav class="section-nav" aria-label="Site sections">
+      <a href="/about" class="section-link">
+        <span class="section-link-title">about</span>
+        <span class="section-link-desc">who I am and how I got here</span>
+      </a>
+      <a href="/projects" class="section-link">
+        <span class="section-link-title">projects</span>
+        <span class="section-link-desc"
+          >things I've built, some of which I can talk about</span
+        >
+      </a>
+      <a href="/cv" class="section-link">
+        <span class="section-link-title">cv</span>
+        <span class="section-link-desc"
+          >the formal version with actual dates</span
+        >
+      </a>
+      <a href="/blog" class="section-link">
+        <span class="section-link-title">blog</span>
+        <span class="section-link-desc"
+          >technical notes, when I find the time</span
+        >
+      </a>
+    </nav>
+  </div>
 </Layout>
+
+<style>
+  .home {
+    padding-top: 1.5rem;
+    max-width: 580px;
+  }
+
+  /* Override global hr margin just on this page */
+  .home .divider {
+    margin: 1.5rem 0;
+  }
+
+  /* Hero */
+  .hero-label {
+    margin-bottom: 0.4rem;
+  }
+
+  .hero-name {
+    font-size: 3.5rem;
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    margin-bottom: 0.6rem;
+  }
+
+  @media (min-width: 640px) {
+    .hero-name {
+      font-size: 4.5rem;
+    }
+  }
+
+  .hero-meta {
+    font-size: 0.82rem;
+    color: var(--text-2);
+  }
+
+  .sep {
+    margin: 0 0.35rem;
+    color: var(--text-3);
+  }
+
+  .tagline {
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.25rem;
+    color: var(--text);
+  }
+
+  @media (min-width: 640px) {
+    .tagline {
+      font-size: 1.2rem;
+    }
+  }
+
+  .bio p {
+    font-size: 0.88rem;
+    color: var(--text-2);
+    line-height: 1.75;
+    margin-bottom: 0.6rem;
+  }
+
+  .bio p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Section nav */
+  .section-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .section-link {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
+  }
+
+  .section-link:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  .section-link:hover .section-link-title {
+    color: var(--accent);
+  }
+
+  .section-link-title {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text);
+    min-width: 5.5rem;
+    flex-shrink: 0;
+    transition: color 0.15s;
+  }
+
+  .section-link-desc {
+    font-size: 0.82rem;
+    color: var(--text-2);
+  }
+</style>

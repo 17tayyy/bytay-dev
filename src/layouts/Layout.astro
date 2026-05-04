@@ -1,23 +1,100 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Tay',
+  description = 'Backend developer and security researcher based in Mataró, Barcelona.',
+} = Astro.props;
+
+const nav = [
+  { label: 'about',    href: '/about' },
+  { label: 'projects', href: '/projects' },
+  { label: 'cv',       href: '/cv' },
+  { label: 'blog',     href: '/blog' },
+];
+
+const pathname = Astro.url.pathname;
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>{title === 'Tay' ? 'Tay' : `${title} — Tay`}</title>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <div class="header-inner">
+          <a href="/" class="site-logo">tay</a>
+          <nav class="site-nav" aria-label="Main navigation">
+            {nav.map((item) => {
+              const isActive =
+                item.href === '/'
+                  ? pathname === '/'
+                  : pathname === item.href || pathname.startsWith(item.href + '/');
+              return (
+                <a
+                  href={item.href}
+                  class="nav-link"
+                  data-active={isActive ? 'true' : 'false'}
+                  aria-current={isActive ? 'page' : undefined}
+                >
+                  {item.label}
+                </a>
+              );
+            })}
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="site-main">
+      <div class="container">
+        <slot />
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-inner">
+          <span class="footer-copy">© 2025 Oscar Fernandez</span>
+          <nav class="footer-links" aria-label="Social links">
+            <a href="https://github.com/17tayyy" target="_blank" rel="noopener noreferrer">
+              GitHub
+            </a>
+            <a
+              href="https://www.linkedin.com/in/oscar-fernandez-45891229b/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
+            <a href="mailto:oscarfdst@proton.me">Email</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

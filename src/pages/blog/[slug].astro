@@ -1,0 +1,110 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) =>
+    import.meta.env.PROD ? !data.draft : true
+  );
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-GB', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+---
+
+<Layout title={post.data.title} description={post.data.description}>
+
+  <div class="post-header">
+    <a href="/blog" class="back-link">← blog</a>
+    <div class="post-meta">
+      <time datetime={post.data.date.toISOString()} class="post-date">
+        {formatDate(post.data.date)}
+      </time>
+      {post.data.tags.length > 0 && (
+        <div class="tags">
+          {post.data.tags.map((tag) => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
+      )}
+    </div>
+    <h1 class="post-title">{post.data.title}</h1>
+    <p class="post-description">{post.data.description}</p>
+  </div>
+
+  <hr class="divider" />
+
+  <article class="prose">
+    <Content />
+  </article>
+
+</Layout>
+
+<style>
+  .post-header {
+    max-width: 660px;
+  }
+
+  .back-link {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-2);
+    margin-bottom: 1.75rem;
+    transition: color 0.15s;
+  }
+
+  .back-link:hover {
+    color: var(--accent);
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+    flex-wrap: wrap;
+  }
+
+  .post-date {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-2);
+  }
+
+  .post-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1.25;
+    margin-bottom: 0.6rem;
+  }
+
+  @media (min-width: 640px) {
+    .post-title {
+      font-size: 1.75rem;
+    }
+  }
+
+  .post-description {
+    font-size: 0.9rem;
+    color: var(--text-2);
+    line-height: 1.7;
+  }
+
+  .prose {
+    max-width: 660px;
+  }
+</style>
