@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="404 — Tay" description="Page not found.">
+  <div class="not-found">
+    <p class="code">404</p>
+    <h1 class="message">Page not found</h1>
+    <p class="sub">Whatever you were looking for isn't here.</p>
+    <a href="/" class="home-link">← back home</a>
+  </div>
+</Layout>
+
+<style>
+  .not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 4rem 0;
+  }
+
+  .code {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+
+  .message {
+    font-size: 1.75rem;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+  }
+
+  .sub {
+    font-size: 0.9rem;
+    color: var(--text-2);
+    margin-bottom: 2rem;
+  }
+
+  .home-link {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-2);
+    transition: color 0.15s;
+  }
+
+  .home-link:hover {
+    color: var(--accent);
+  }
+</style>
