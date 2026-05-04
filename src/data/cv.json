@@ -4,13 +4,13 @@
   "contact": {
     "email": "oscarfdst@proton.me",
     "github": "https://github.com/17tayyy",
-    "linkedin": "https://www.linkedin.com/in/oscar-fernandez/"
+    "linkedin": "www.linkedin.com/in/oscar-fernandez-45891229b"
   },
   "experience": [
     {
       "role": "Backend Developer & DevOps",
       "company": "Intake · Lanzadera",
-      "location": "Barcelona",
+      "location": "Valencia (Remote)",
       "period": "April 2026 – present",
       "bullets": [
         "Full design and ownership of the AWS architecture: ECS Fargate, ECR, ElastiCache Redis, S3 + CloudFront for frontends, Secrets Manager, and GPU instances for Hugging Face models.",
@@ -19,7 +19,20 @@
         "Built integrations with Slack, Microsoft Teams, and WhatsApp Business for the conversational agent.",
         "Designed the RAG pipeline (ai_core): embeddings, retrieval, and prompt construction with Ollama on AWS, evolving toward function calling via Anthropic API and routing through Amazon Bedrock."
       ],
-      "tags": ["Python", "FastAPI", "MongoDB", "PostgreSQL", "Redis", "AWS ECS", "ECR", "S3", "CloudFront", "Secrets Manager", "Docker", "GitHub Actions"]
+      "tags": [
+        "Python",
+        "FastAPI",
+        "MongoDB",
+        "PostgreSQL",
+        "Redis",
+        "AWS ECS",
+        "ECR",
+        "S3",
+        "CloudFront",
+        "Secrets Manager",
+        "Docker",
+        "GitHub Actions"
+      ]
     },
     {
       "role": "Full Stack Developer Intern",
@@ -32,7 +45,16 @@
         "DevOps: containerization with Docker Compose and Nginx configuration on the production server.",
         "Agile environment with Scrum/Kanban, pull requests, and code reviews."
       ],
-      "tags": ["TypeScript", "Angular", "Python", "FastAPI", "MongoDB", "Redis", "Docker", "Nginx"]
+      "tags": [
+        "TypeScript",
+        "Angular",
+        "Python",
+        "FastAPI",
+        "MongoDB",
+        "Redis",
+        "Docker",
+        "Nginx"
+      ]
     }
   ],
   "education": [
@@ -70,15 +92,33 @@
     }
   ],
   "skills": [
-    { "label": "Languages",      "value": "Python, TypeScript/JavaScript, Rust, Bash" },
-    { "label": "Backend",        "value": "FastAPI, Django, Flask" },
-    { "label": "Frontend",       "value": "React, Angular, Next.js" },
-    { "label": "Databases",      "value": "MongoDB, PostgreSQL, Redis" },
-    { "label": "Cloud & DevOps", "value": "AWS (ECS Fargate, ECR, S3, CloudFront, Secrets Manager), Docker, GitHub Actions, Nginx, Linux" },
-    { "label": "AI / ML",        "value": "Anthropic API, Amazon Bedrock, Ollama, Hugging Face, RAG pipelines, embeddings" },
-    { "label": "Security",       "value": "Pentesting, C2, reverse shells, evasion, Hack The Box (25+ machines)" },
-    { "label": "Protocols",      "value": "HTTP, REST, WebSocket, SSE, Redis Pub/Sub, Telegram Bot API, WhatsApp Business API" },
-    { "label": "Tools",          "value": "Git, Docker Compose, structlog, aiohttp, Telethon, aiogram" }
+    {
+      "label": "Languages",
+      "value": "Python, TypeScript/JavaScript, Rust, Bash"
+    },
+    { "label": "Backend", "value": "FastAPI, Django, Flask" },
+    { "label": "Frontend", "value": "React, Angular, Next.js" },
+    { "label": "Databases", "value": "MongoDB, PostgreSQL, Redis" },
+    {
+      "label": "Cloud & DevOps",
+      "value": "AWS (ECS Fargate, ECR, S3, CloudFront, Secrets Manager), Docker, GitHub Actions, Nginx, Linux"
+    },
+    {
+      "label": "AI / ML",
+      "value": "Anthropic API, Amazon Bedrock, Ollama, Hugging Face, RAG pipelines, embeddings"
+    },
+    {
+      "label": "Security",
+      "value": "Pentesting, C2, reverse shells, evasion, Hack The Box (25+ machines)"
+    },
+    {
+      "label": "Protocols",
+      "value": "HTTP, REST, WebSocket, SSE, Redis Pub/Sub, Telegram Bot API, WhatsApp Business API"
+    },
+    {
+      "label": "Tools",
+      "value": "Git, Docker Compose, structlog, aiohttp, Telethon, aiogram"
+    }
   ],
   "languages": [
     { "label": "Spanish", "value": "Native" },
