@@ -2,22 +2,37 @@
   "projects": [
     {
       "name": "shellox",
-      "pinned": true,
+      "pinned": false,
       "status": "",
       "visibility": "public",
       "type": "",
       "description": "Encrypted reverse shell with multi-session support. Encrypted communications and concurrent connection management with Tokio.",
-      "tags": ["Rust"],
-      "links": [{ "label": "GitHub", "href": "https://github.com/17tayyy/shellox" }]
+      "tags": [
+        "Rust"
+      ],
+      "links": [
+        {
+          "label": "GitHub",
+          "href": "https://github.com/17tayyy/shellox"
+        }
+      ]
     },
     {
       "name": "Fluxo",
-      "pinned": true,
+      "pinned": false,
       "status": "active",
       "visibility": "private",
       "type": "",
       "description": "Decentralized crypto payment platform with multi-chain support — Ethereum, Solana, Polygon. Two custody models for merchants: hosted and self-custody. Think Stripe, but on-chain. Still in development.",
-      "tags": ["FastAPI", "React", "PostgreSQL", "Redis", "Ethereum", "Solana", "Polygon"],
+      "tags": [
+        "FastAPI",
+        "React",
+        "PostgreSQL",
+        "Redis",
+        "Ethereum",
+        "Solana",
+        "Polygon"
+      ],
       "links": []
     },
     {
@@ -27,18 +42,32 @@
       "visibility": "",
       "type": "",
       "description": "OSINT platform for real-time monitoring of Telegram bots and chats. Multi-bot manager, Redis Pub/Sub + SSE for live streaming, JWT auth, and dockerized deployment.",
-      "tags": ["FastAPI", "React", "PostgreSQL", "Redis"],
+      "tags": [
+        "FastAPI",
+        "React",
+        "PostgreSQL",
+        "Redis"
+      ],
       "links": []
     },
     {
       "name": "TgCloud",
-      "pinned": true,
+      "pinned": false,
       "status": "",
       "visibility": "public",
       "type": "",
       "description": "Full-stack storage platform built on Telegram with a web frontend, JWT authentication, and an encrypted CLI for people who prefer not to use browsers for anything.",
-      "tags": ["FastAPI", "React", "TypeScript"],
-      "links": [{ "label": "GitHub", "href": "https://github.com/17tayyy/TgCloud" }]
+      "tags": [
+        "FastAPI",
+        "React",
+        "TypeScript"
+      ],
+      "links": [
+        {
+          "label": "GitHub",
+          "href": "https://github.com/17tayyy/TgCloud"
+        }
+      ]
     },
     {
       "name": "TgRAT",
@@ -47,8 +76,15 @@
       "visibility": "public",
       "type": "",
       "description": "Multi-client Command & Control framework using Telegram as the communication layer. Encrypted communications throughout. Built for security research and to understand how these systems work from the inside out.",
-      "tags": ["Python"],
-      "links": [{ "label": "GitHub", "href": "https://github.com/17tayyy" }]
+      "tags": [
+        "Python"
+      ],
+      "links": [
+        {
+          "label": "GitHub",
+          "href": "https://github.com/17tayyy"
+        }
+      ]
     },
     {
       "name": "SBid POC",
@@ -57,7 +93,10 @@
       "visibility": "public",
       "type": "disclosure",
       "description": "Found a real vulnerability in a live production system. Documented it, reported it to the maintainers through responsible disclosure, then published the proof of concept. The system has since been patched, as far as I know.",
-      "tags": ["vulnerability research", "PoC"],
+      "tags": [
+        "vulnerability research",
+        "PoC"
+      ],
       "links": []
     },
     {
@@ -67,8 +106,16 @@
       "visibility": "",
       "type": "ctf",
       "description": "25+ machines completed across various difficulty levels. The interesting ones are the ones where the intended path isn't obvious until you've been staring at it long enough that something clicks.",
-      "tags": ["pentesting", "CTF"],
-      "links": [{ "label": "Profile", "href": "https://app.hackthebox.com" }]
+      "tags": [
+        "pentesting",
+        "CTF"
+      ],
+      "links": [
+        {
+          "label": "Profile",
+          "href": "https://app.hackthebox.com"
+        }
+      ]
     }
   ]
 }
