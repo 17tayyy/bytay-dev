@@ -1,6 +1,7 @@
 [
   {
     "name": "shellox",
+    "slug": "shellox",
     "pinned": false,
     "status": "",
     "visibility": "public",
@@ -13,6 +14,7 @@
   },
   {
     "name": "Fluxo",
+    "slug": "fluxo",
     "pinned": false,
     "status": "active",
     "visibility": "private",
@@ -31,6 +33,7 @@
   },
   {
     "name": "Argus",
+    "slug": "argus",
     "pinned": false,
     "status": "",
     "visibility": "",
@@ -41,6 +44,7 @@
   },
   {
     "name": "TgCloud",
+    "slug": "tgcloud",
     "pinned": false,
     "status": "",
     "visibility": "public",
@@ -53,6 +57,7 @@
   },
   {
     "name": "TgRAT",
+    "slug": "tgrat",
     "pinned": false,
     "status": "",
     "visibility": "public",
@@ -63,6 +68,7 @@
   },
   {
     "name": "SBid POC",
+    "slug": "sbid",
     "pinned": false,
     "status": "",
     "visibility": "public",

@@ -1,15 +1,22 @@
 ---
 import '../styles/global.css';
+import SEO from '../components/SEO.astro';
 
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  type?: 'website' | 'article';
 }
 
 const {
   title = 'Tay',
   description = 'Backend developer and security researcher based in Mataró, Barcelona.',
+  image,
+  type = 'website',
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, 'https://bytay.dev').href;
 
 const nav = [
   { label: 'about',    href: '/about' },
@@ -26,7 +33,6 @@ const pathname = Astro.url.pathname;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -39,7 +45,7 @@ const pathname = Astro.url.pathname;
       rel="stylesheet"
     />
 
-    <title>{title === 'Tay' ? 'Tay' : `${title} — Tay`}</title>
+    <SEO {title} {description} {image} {type} canonicalURL={canonicalURL} />
   </head>
 
   <body>
