@@ -2,7 +2,16 @@
 import Layout from "../layouts/Layout.astro";
 import cvData from "../data/cv.json";
 
-const { name, title, contact, experience, education, training, skills, languages } = cvData;
+const {
+  name,
+  title,
+  contact,
+  experience,
+  education,
+  training,
+  skills,
+  languages,
+} = cvData;
 ---
 
 <Layout
@@ -15,7 +24,6 @@ const { name, title, contact, experience, education, training, skills, languages
   </div>
 
   <div class="cv" id="cv-print">
-
     <!-- Header -->
     <header class="cv-header">
       <div class="cv-identity">
@@ -24,8 +32,12 @@ const { name, title, contact, experience, education, training, skills, languages
       </div>
       <div class="cv-contact">
         <a href={`mailto:${contact.email}`}>{contact.email}</a>
-        <a href={contact.github} target="_blank" rel="noopener noreferrer">{contact.github.replace('https://', '')}</a>
-        <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">linkedin</a>
+        <a href={contact.github} target="_blank" rel="noopener noreferrer"
+          >{contact.github.replace("https://", "")}</a
+        >
+        <a href={contact.linkedin} target="_blank" rel="noopener noreferrer"
+          >linkedin</a
+        >
       </div>
     </header>
 
@@ -34,28 +46,36 @@ const { name, title, contact, experience, education, training, skills, languages
     <!-- Experience -->
     <section class="cv-section">
       <h2 class="cv-section-title">Experience</h2>
-      {experience.map((entry) => (
-        <div class="cv-entry">
-          <div class="cv-entry-header">
-            <div class="cv-entry-left">
-              <h3 class="cv-entry-title">{entry.role}</h3>
-              <p class="cv-entry-sub">
-                {entry.company}
-                {entry.location && <span class="cv-entry-loc">— {entry.location}</span>}
-              </p>
+      {
+        experience.map((entry) => (
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <div class="cv-entry-left">
+                <h3 class="cv-entry-title">{entry.role}</h3>
+                <p class="cv-entry-sub">
+                  {entry.company}
+                  {entry.location && (
+                    <span class="cv-entry-loc">— {entry.location}</span>
+                  )}
+                </p>
+              </div>
+              <span class="cv-entry-date">{entry.period}</span>
             </div>
-            <span class="cv-entry-date">{entry.period}</span>
+            <ul class="cv-entry-body">
+              {entry.bullets.map((bullet) => (
+                <li>{bullet}</li>
+              ))}
+            </ul>
+            {entry.tags.length > 0 && (
+              <div class="tags" style="margin-top: 0.85rem;">
+                {entry.tags.map((tag) => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+            )}
           </div>
-          <ul class="cv-entry-body">
-            {entry.bullets.map((bullet) => <li>{bullet}</li>)}
-          </ul>
-          {entry.tags.length > 0 && (
-            <div class="tags" style="margin-top: 0.85rem;">
-              {entry.tags.map((tag) => <span class="tag">{tag}</span>)}
-            </div>
-          )}
-        </div>
-      ))}
+        ))
+      }
     </section>
 
     <hr class="cv-rule" />
@@ -63,18 +83,22 @@ const { name, title, contact, experience, education, training, skills, languages
     <!-- Education -->
     <section class="cv-section">
       <h2 class="cv-section-title">Education</h2>
-      {education.map((entry) => (
-        <div class="cv-entry">
-          <div class="cv-entry-header">
-            <div class="cv-entry-left">
-              <h3 class="cv-entry-title">{entry.degree}</h3>
-              {entry.institution && <p class="cv-entry-sub">{entry.institution}</p>}
+      {
+        education.map((entry) => (
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <div class="cv-entry-left">
+                <h3 class="cv-entry-title">{entry.degree}</h3>
+                {entry.institution && (
+                  <p class="cv-entry-sub">{entry.institution}</p>
+                )}
+              </div>
+              <span class="cv-entry-date">{entry.period}</span>
             </div>
-            <span class="cv-entry-date">{entry.period}</span>
+            {entry.note && <p class="cv-entry-note">{entry.note}</p>}
           </div>
-          {entry.note && <p class="cv-entry-note">{entry.note}</p>}
-        </div>
-      ))}
+        ))
+      }
     </section>
 
     <hr class="cv-rule" />
@@ -82,18 +106,22 @@ const { name, title, contact, experience, education, training, skills, languages
     <!-- Complementary Training -->
     <section class="cv-section">
       <h2 class="cv-section-title">Complementary Training</h2>
-      {training.map((entry) => (
-        <div class="cv-entry">
-          <div class="cv-entry-header">
-            <div class="cv-entry-left">
-              <h3 class="cv-entry-title">{entry.title}</h3>
-              {entry.subtitle && <p class="cv-entry-sub">{entry.subtitle}</p>}
+      {
+        training.map((entry) => (
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <div class="cv-entry-left">
+                <h3 class="cv-entry-title">{entry.title}</h3>
+                {entry.subtitle && <p class="cv-entry-sub">{entry.subtitle}</p>}
+              </div>
+              {entry.period && (
+                <span class="cv-entry-date">{entry.period}</span>
+              )}
             </div>
-            {entry.period && <span class="cv-entry-date">{entry.period}</span>}
+            {entry.note && <p class="cv-entry-note">{entry.note}</p>}
           </div>
-          {entry.note && <p class="cv-entry-note">{entry.note}</p>}
-        </div>
-      ))}
+        ))
+      }
     </section>
 
     <hr class="cv-rule" />
@@ -102,12 +130,14 @@ const { name, title, contact, experience, education, training, skills, languages
     <section class="cv-section">
       <h2 class="cv-section-title">Technical Skills</h2>
       <div class="cv-skills">
-        {skills.map((skill) => (
-          <div class="cv-skill-row">
-            <span class="cv-skill-label">{skill.label}</span>
-            <span class="cv-skill-value">{skill.value}</span>
-          </div>
-        ))}
+        {
+          skills.map((skill) => (
+            <div class="cv-skill-row">
+              <span class="cv-skill-label">{skill.label}</span>
+              <span class="cv-skill-value">{skill.value}</span>
+            </div>
+          ))
+        }
       </div>
     </section>
 
@@ -117,15 +147,16 @@ const { name, title, contact, experience, education, training, skills, languages
     <section class="cv-section">
       <h2 class="cv-section-title">Languages</h2>
       <div class="cv-skills">
-        {languages.map((lang) => (
-          <div class="cv-skill-row">
-            <span class="cv-skill-label">{lang.label}</span>
-            <span class="cv-skill-value">{lang.value}</span>
-          </div>
-        ))}
+        {
+          languages.map((lang) => (
+            <div class="cv-skill-row">
+              <span class="cv-skill-label">{lang.label}</span>
+              <span class="cv-skill-value">{lang.value}</span>
+            </div>
+          ))
+        }
       </div>
     </section>
-
   </div>
 </Layout>
 
@@ -150,6 +181,7 @@ const { name, title, contact, experience, education, training, skills, languages
       color 0.15s,
       border-color 0.15s;
     letter-spacing: 0.02em;
+    margin-left: 1rem;
   }
 
   .print-btn:hover {

@@ -3,9 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import projects from "../data/projects.json";
 
-const pinnedProjects = projects
-  .filter((p) => p.pinned)
-  .slice(0, 3);
+const pinnedProjects = projects.filter((p) => p.pinned).slice(0, 3);
 
 const allPosts = await getCollection("blog", ({ data }) => {
   if (import.meta.env.PROD && data.draft) return false;
@@ -50,9 +48,9 @@ function formatDate(date: Date): string {
 
       <div class="bio">
         <p>
-          Currently at Intake — a B2B SaaS helpdesk with a conversational AI
+          Currently at Intake, a B2B SaaS helpdesk with a conversational AI
           agent — as Backend Developer and DevOps. I own the full AWS
-          architecture and FastAPI backend. The company is part of Barcelona's
+          architecture and FastAPI backend. The company is part of Valencia's
           Lanzadera startup accelerator, which mostly means the deadlines are
           real.
         </p>
@@ -65,52 +63,64 @@ function formatDate(date: Date): string {
       </div>
     </section>
 
-    {pinnedProjects.length > 0 && (
-      <section class="pinned-section">
-        <h2 class="pinned-heading">pinned projects</h2>
-        <div class="pinned-projects">
-          {pinnedProjects.map((project) => (
-            <div class="pinned-project">
-              <div class="pinned-project-header">
-                <span class="pinned-project-name">{project.name}</span>
-                {project.links.length > 0 && (
-                  <a
-                    href={project.links[0].href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="pinned-project-link"
-                  >
-                    {project.links[0].label} →
-                  </a>
+    {
+      pinnedProjects.length > 0 && (
+        <section class="pinned-section">
+          <h2 class="pinned-heading">pinned projects</h2>
+          <div class="pinned-projects">
+            {pinnedProjects.map((project) => (
+              <div class="pinned-project">
+                <div class="pinned-project-header">
+                  <span class="pinned-project-name">{project.name}</span>
+                  {project.links.length > 0 && (
+                    <a
+                      href={project.links[0].href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="pinned-project-link"
+                    >
+                      {project.links[0].label} →
+                    </a>
+                  )}
+                </div>
+                <p class="pinned-project-desc">{project.description}</p>
+                {project.tags.length > 0 && (
+                  <div class="tags">
+                    {project.tags.map((tag) => (
+                      <span class="tag">{tag}</span>
+                    ))}
+                  </div>
                 )}
               </div>
-              <p class="pinned-project-desc">{project.description}</p>
-              {project.tags.length > 0 && (
-                <div class="tags">
-                  {project.tags.map((tag) => <span class="tag">{tag}</span>)}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-        <a href="/projects" class="more-link">all projects →</a>
-      </section>
-    )}
+            ))}
+          </div>
+          <a href="/projects" class="more-link">
+            all projects →
+          </a>
+        </section>
+      )
+    }
 
-    {pinnedPosts.length > 0 && (
-      <section class="pinned-section">
-        <h2 class="pinned-heading">writing</h2>
-        <div class="pinned-posts">
-          {pinnedPosts.map((post) => (
-            <a href={`/blog/${post.id}`} class="pinned-post">
-              <span class="pinned-post-title">{post.data.title}</span>
-              <span class="pinned-post-date">{formatDate(post.data.date)}</span>
-            </a>
-          ))}
-        </div>
-        <a href="/blog" class="more-link">all posts →</a>
-      </section>
-    )}
+    {
+      pinnedPosts.length > 0 && (
+        <section class="pinned-section">
+          <h2 class="pinned-heading">writing</h2>
+          <div class="pinned-posts">
+            {pinnedPosts.map((post) => (
+              <a href={`/blog/${post.id}`} class="pinned-post">
+                <span class="pinned-post-title">{post.data.title}</span>
+                <span class="pinned-post-date">
+                  {formatDate(post.data.date)}
+                </span>
+              </a>
+            ))}
+          </div>
+          <a href="/blog" class="more-link">
+            all posts →
+          </a>
+        </section>
+      )
+    }
 
     <hr class="divider" />
 
