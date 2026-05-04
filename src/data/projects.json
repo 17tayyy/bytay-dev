@@ -33,7 +33,12 @@
         "Solana",
         "Polygon"
       ],
-      "links": []
+      "links": [
+        {
+          "label": "Github Org",
+          "href": "https://github.com/fluxo-pay"
+        }
+      ]
     },
     {
       "name": "Argus",
@@ -48,7 +53,12 @@
         "PostgreSQL",
         "Redis"
       ],
-      "links": []
+      "links": [
+        {
+          "label": "Github",
+          "href": "https://github.com/17tayyy/Argus"
+        }
+      ]
     },
     {
       "name": "TgCloud",
@@ -82,7 +92,7 @@
       "links": [
         {
           "label": "GitHub",
-          "href": "https://github.com/17tayyy"
+          "href": "https://github.com/17tayyy/TgRAT"
         }
       ]
     },
@@ -97,7 +107,12 @@
         "vulnerability research",
         "PoC"
       ],
-      "links": []
+      "links": [
+        {
+          "label": "Github",
+          "href": "https://github.com/17tayyy/sbid-poc"
+        }
+      ]
     },
     {
       "name": "Hack The Box",
@@ -105,7 +120,7 @@
       "status": "",
       "visibility": "",
       "type": "ctf",
-      "description": "25+ machines completed across various difficulty levels. The interesting ones are the ones where the intended path isn't obvious until you've been staring at it long enough that something clicks.",
+      "description": "Various machines completed across different levels. The interesting ones are the ones where the intended path isn't obvious until you've been staring at it long enough that something clicks.",
       "tags": [
         "pentesting",
         "CTF"
