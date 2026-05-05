@@ -22,11 +22,20 @@ const {
 <link rel="canonical" href={canonicalURL} />
 
 <!-- Open Graph -->
+<meta property="og:site_name" content="bytay.dev" />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:type" content={type} />
 <meta property="og:url" content={canonicalURL} />
-{image && <meta property="og:image" content={image} />}
+{image && (
+  <>
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content={title} />
+  </>
+)}
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />

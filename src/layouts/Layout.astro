@@ -18,6 +18,13 @@ const {
 
 const canonicalURL = new URL(Astro.url.pathname, 'https://bytay.dev').href;
 
+// Always resolve to an absolute URL — LinkedIn and other crawlers require it.
+// Falls back to the default branded OG image when no per-page image is provided.
+const DEFAULT_OG = 'https://bytay.dev/og.png';
+const ogImage = image
+  ? (image.startsWith('http') ? image : new URL(image, 'https://bytay.dev').href)
+  : DEFAULT_OG;
+
 const nav = [
   { label: 'about',    href: '/about' },
   { label: 'projects', href: '/projects' },
@@ -45,7 +52,7 @@ const pathname = Astro.url.pathname;
       rel="stylesheet"
     />
 
-    <SEO {title} {description} {image} {type} canonicalURL={canonicalURL} />
+    <SEO {title} {description} image={ogImage} {type} canonicalURL={canonicalURL} />
   </head>
 
   <body>
