@@ -1,35 +1,37 @@
 ---
-import '../styles/global.css';
-import SEO from '../components/SEO.astro';
+import "../styles/global.css";
+import SEO from "../components/SEO.astro";
 
 interface Props {
   title?: string;
   description?: string;
   image?: string;
-  type?: 'website' | 'article';
+  type?: "website" | "article";
 }
 
 const {
-  title = 'Tay',
-  description = 'Backend developer and security researcher based in Mataró, Barcelona.',
+  title = "Tay",
+  description = "Backend developer and security researcher based in Mataró, Barcelona.",
   image,
-  type = 'website',
+  type = "website",
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, 'https://bytay.dev').href;
+const canonicalURL = new URL(Astro.url.pathname, "https://bytay.dev").href;
 
 // Always resolve to an absolute URL — LinkedIn and other crawlers require it.
 // Falls back to the default branded OG image when no per-page image is provided.
-const DEFAULT_OG = 'https://bytay.dev/og.png';
+const DEFAULT_OG = "https://bytay.dev/og.png";
 const ogImage = image
-  ? (image.startsWith('http') ? image : new URL(image, 'https://bytay.dev').href)
+  ? image.startsWith("http")
+    ? image
+    : new URL(image, "https://bytay.dev").href
   : DEFAULT_OG;
 
 const nav = [
-  { label: 'about',    href: '/about' },
-  { label: 'projects', href: '/projects' },
-  { label: 'cv',       href: '/cv' },
-  { label: 'blog',     href: '/blog' },
+  { label: "about", href: "/about" },
+  { label: "projects", href: "/projects" },
+  { label: "cv", href: "/cv" },
+  { label: "blog", href: "/blog" },
 ];
 
 const pathname = Astro.url.pathname;
@@ -52,7 +54,13 @@ const pathname = Astro.url.pathname;
       rel="stylesheet"
     />
 
-    <SEO {title} {description} image={ogImage} {type} canonicalURL={canonicalURL} />
+    <SEO
+      {title}
+      {description}
+      image={ogImage}
+      {type}
+      canonicalURL={canonicalURL}
+    />
   </head>
 
   <body>
@@ -61,22 +69,25 @@ const pathname = Astro.url.pathname;
         <div class="header-inner">
           <a href="/" class="site-logo">tay</a>
           <nav class="site-nav" aria-label="Main navigation">
-            {nav.map((item) => {
-              const isActive =
-                item.href === '/'
-                  ? pathname === '/'
-                  : pathname === item.href || pathname.startsWith(item.href + '/');
-              return (
-                <a
-                  href={item.href}
-                  class="nav-link"
-                  data-active={isActive ? 'true' : 'false'}
-                  aria-current={isActive ? 'page' : undefined}
-                >
-                  {item.label}
-                </a>
-              );
-            })}
+            {
+              nav.map((item) => {
+                const isActive =
+                  item.href === "/"
+                    ? pathname === "/"
+                    : pathname === item.href ||
+                      pathname.startsWith(item.href + "/");
+                return (
+                  <a
+                    href={item.href}
+                    class="nav-link"
+                    data-active={isActive ? "true" : "false"}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {item.label}
+                  </a>
+                );
+              })
+            }
           </nav>
         </div>
       </div>
@@ -91,9 +102,13 @@ const pathname = Astro.url.pathname;
     <footer class="site-footer">
       <div class="container">
         <div class="footer-inner">
-          <span class="footer-copy">© 2025 Oscar Fernandez</span>
+          <span class="footer-copy">© 2026 Oscar Fernandez</span>
           <nav class="footer-links" aria-label="Social links">
-            <a href="https://github.com/17tayyy" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://github.com/17tayyy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               GitHub
             </a>
             <a
