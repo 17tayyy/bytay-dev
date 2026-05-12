@@ -1,65 +1,65 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
 
-const allPosts = await getCollection('blog', ({ data }) =>
-  import.meta.env.PROD ? !data.draft : true
+const allPosts = await getCollection("blog", ({ data }) =>
+  import.meta.env.PROD ? !data.draft : true,
 );
 
 const posts = allPosts.sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
 
 function formatDate(date: Date): string {
-  return date.toLocaleDateString('en-GB', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
+  return date.toLocaleDateString("en-GB", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
   });
 }
 ---
 
 <Layout
-  title="Blog — Tay"
+  title="Blog | Tay"
   description="Technical notes on backend systems, security research, Rust, and whatever I'm building at the time."
 >
-
   <div class="page-header">
     <h1 class="page-title">Blog</h1>
     <p class="page-desc">Technical notes. Irregularly updated.</p>
   </div>
 
-  {posts.length === 0 ? (
-    <div class="empty-state">
-      <p class="empty-text">
-        No posts yet. I have drafts. They're just in indefinite review.
-      </p>
-    </div>
-  ) : (
-    <div class="post-list">
-      {posts.map((post) => (
-        <a href={`/blog/${post.id}`} class="post-item">
-          <div class="post-meta">
-            <time datetime={post.data.date.toISOString()} class="post-date">
-              {formatDate(post.data.date)}
-            </time>
-            {post.data.tags.length > 0 && (
-              <div class="post-tags">
-                {post.data.tags.slice(0, 3).map((tag) => (
-                  <span class="tag">{tag}</span>
-                ))}
-              </div>
-            )}
-          </div>
-          <div class="post-content">
-            <h2 class="post-title">{post.data.title}</h2>
-            <p class="post-desc">{post.data.description}</p>
-          </div>
-        </a>
-      ))}
-    </div>
-  )}
-
+  {
+    posts.length === 0 ? (
+      <div class="empty-state">
+        <p class="empty-text">
+          No posts yet. I have drafts. They're just in indefinite review.
+        </p>
+      </div>
+    ) : (
+      <div class="post-list">
+        {posts.map((post) => (
+          <a href={`/blog/${post.id}`} class="post-item">
+            <div class="post-meta">
+              <time datetime={post.data.date.toISOString()} class="post-date">
+                {formatDate(post.data.date)}
+              </time>
+              {post.data.tags.length > 0 && (
+                <div class="post-tags">
+                  {post.data.tags.slice(0, 3).map((tag) => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div class="post-content">
+              <h2 class="post-title">{post.data.title}</h2>
+              <p class="post-desc">{post.data.description}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    )
+  }
 </Layout>
 
 <style>

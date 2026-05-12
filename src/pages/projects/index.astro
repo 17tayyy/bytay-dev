@@ -4,8 +4,8 @@ import projects from "../../data/projects.json";
 ---
 
 <Layout
-  title="Projects — Tay"
-  description="Things I've built — backend tools, security research, C2 frameworks, and a few things with interesting readmes."
+  title="Projects | Tay"
+  description="Things I've built, backend tools, security research, C2 frameworks, and a few things with interesting readmes."
 >
   <div class="page-header">
     <h1 class="page-title">Projects</h1>
@@ -51,9 +51,7 @@ import projects from "../../data/projects.json";
                   ))}
                 </div>
               )}
-              {hasPage && (
-                <span class="project-arrow">→</span>
-              )}
+              {hasPage && <span class="project-arrow">→</span>}
             </div>
             <p class="project-desc">{project.description}</p>
             {project.tags.length > 0 && (
@@ -186,7 +184,9 @@ import projects from "../../data/projects.json";
     font-size: 0.85rem;
     color: var(--text-2);
     flex-shrink: 0;
-    transition: color 0.15s, transform 0.15s;
+    transition:
+      color 0.15s,
+      transform 0.15s;
     display: inline-block;
   }
 

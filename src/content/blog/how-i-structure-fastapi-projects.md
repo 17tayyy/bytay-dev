@@ -1,7 +1,7 @@
 ---
-title: "How I Structure FastAPI Projects in Production — and Why"
+title: "How I Structure FastAPI Projects in Production: and Why"
 date: 2026-05-05
-description: "What most FastAPI tutorials skip: how I structure routes, services, exceptions, logging, and multi-tenancy in a production B2B SaaS — and the reasoning behind each decision."
+description: "What most FastAPI tutorials skip: how I structure routes, services, exceptions, logging, and multi-tenancy in a production B2B SaaS, and the reasoning behind each decision."
 tags: ["fastapi", "architecture", "python"]
 draft: false
 pinned: true
@@ -9,7 +9,7 @@ pinned: true
 
 Most FastAPI tutorials will get you to a working endpoint in five minutes. What they won't show you is what happens six months later when the codebase has grown, someone else is touching it, and every router file has become a 300-line mix of business logic, database queries, and HTTP concerns tangled together.
 
-This is how I structure FastAPI in a production B2B SaaS, and the reasoning behind each decision. Not theory — production code.
+This is how I structure FastAPI in a production B2B SaaS, and the reasoning behind each decision. Not just theory, but production code.
 
 ---
 
@@ -26,7 +26,7 @@ async def create_ticket(data: TicketCreate, user: CurrentUser) -> DataResponse[T
     return DataResponse(data=TicketRead.model_validate(ticket))
 ```
 
-Four lines. Input comes in, service handles it, response goes out. The router doesn't know what creating a ticket involves, and it shouldn't. The service is pure Python — no FastAPI imports, no HTTPException, no Request object. It could run in a CLI, a test, or a background task without modification.
+Four lines. Input comes in, service handles it, response goes out. The router doesn't know what creating a ticket involves, and it shouldn't. The service is pure Python, no FastAPI imports, no HTTPException, no Request object. It could run in a CLI, a test, or a background task without modification.
 
 ---
 
@@ -55,13 +55,13 @@ async def create_ticket(data: TicketCreate, user: CurrentUser):
     ...
 ```
 
-`Annotated` attaches metadata to a type — in this case the `Depends()` — which FastAPI reads at startup to wire up dependency injection. You're not doing anything clever, you're using the framework as intended. The alias means you define the dependency once, and if `get_current_user` ever changes, you update it in one place instead of hunting through every router file.
+`Annotated` attaches metadata to a type, in this case the `Depends()`, which FastAPI reads at startup to wire up dependency injection. You're not doing anything clever, you're using the framework as intended. The alias means you define the dependency once, and if `get_current_user` ever changes, you update it in one place instead of hunting through every router file.
 
 ---
 
 **Custom exceptions, not HTTPException**
 
-Since services are pure Python with no FastAPI imports, they can't raise `HTTPException`. Which is fine — they shouldn't. Instead, define a base exception class and subclass it per error type:
+Since services are pure Python with no FastAPI imports, they can't raise `HTTPException`. Which is fine, they shouldn't. Instead, define a base exception class and subclass it per error type:
 
 ```python
 class AppError(Exception):
@@ -128,7 +128,7 @@ async def list_tickets(...) -> PaginatedResponse[TicketRead]: ...
 async def delete_ticket(...) -> MessageResponse: ...
 ```
 
-Two reasons this matters. First, whoever consumes your API — a frontend, a mobile app, another service — always knows what shape is coming back. They don't need to check the docs for every endpoint to know if the data is nested under a key or not. Second, if you ever need to change the response format, you change it in one place. Not across 50 endpoints.
+Two reasons this matters. First, whoever consumes your API, a frontend, a mobile app, another service, always knows what shape is coming back. They don't need to check the docs for every endpoint to know if the data is nested under a key or not. Second, if you ever need to change the response format, you change it in one place. Not across 50 endpoints.
 
 Combined with the custom exception format from the previous section, your API now has a fully predictable contract: successes always look one way, errors always look another.
 
@@ -160,7 +160,7 @@ print(f"Ticket {ticket.id} created by user {user.id}")
 logger.info("ticket.created", ticket_id=str(ticket.id), user_id=str(user.id))
 ```
 
-The event name follows a `domain.action` convention — `ticket.created`, `auth.login_failed`, `billing.webhook_failed`. This makes filtering trivial and gives you a consistent vocabulary across the entire codebase.
+The event name follows a `domain.action` convention, `ticket.created`, `auth.login_failed`, `billing.webhook_failed`. This makes filtering trivial and gives you a consistent vocabulary across the entire codebase.
 
 The other killer feature is context binding. You can attach a request ID at the start of each request and have it appear automatically in every log line that request generates, without passing it explicitly:
 
@@ -176,7 +176,7 @@ One hard rule: never log passwords, tokens, raw LLM responses, or file contents.
 
 **Multi-tenancy is a hard rule, not a guideline**
 
-In a multi-tenant SaaS every database query must be scoped to the current organization. Not most queries — every query.
+In a multi-tenant SaaS every database query must be scoped to the current organization. Not most queries, every query.
 
 ```python
 # This is a security bug
@@ -186,9 +186,9 @@ await Ticket.find_one({"_id": ticket_id})
 await Ticket.find_one({"_id": ticket_id, "organization_id": user.organization_id})
 ```
 
-The first version is an IDOR vulnerability — Insecure Direct Object Reference. Any authenticated user can access any other organization's data by guessing or enumerating IDs. I've found this exact bug in production systems, including one I reported publicly. It's one of the most common vulnerabilities in multi-tenant applications and one of the easiest to prevent: always include `organization_id` in your queries, no exceptions.
+The first version is an IDOR vulnerability, Insecure Direct Object Reference. Any authenticated user can access any other organization's data by guessing or enumerating IDs. I've found this exact bug in production systems, including one I reported publicly. It's one of the most common vulnerabilities in multi-tenant applications and one of the easiest to prevent: always include `organization_id` in your queries, no exceptions.
 
-For projects with stricter isolation requirements, you can go further — dynamic database sessions scoped per tenant, or data isolation at the schema or database level. For most early-stage SaaS applications, consistent query scoping is sufficient if applied without exceptions.
+For projects with stricter isolation requirements, you can go further, dynamic database sessions scoped per tenant, or data isolation at the schema or database level. For most early-stage SaaS applications, consistent query scoping is sufficient if applied without exceptions.
 
 ---
 
@@ -196,7 +196,7 @@ For projects with stricter isolation requirements, you can go further — dynami
 
 When you need background tasks in a FastAPI application, Celery is the default answer. It's mature, well-documented, and battle-tested. It's also synchronous at its core, which means running it alongside an async FastAPI app requires managing two different concurrency models.
 
-ARQ is the modern alternative. It's built on asyncio, so it runs natively in the same async context as FastAPI. No separate thread pool, no synchronous worker process — just async functions that run in the background via a Redis queue.
+ARQ is the modern alternative. It's built on asyncio, so it runs natively in the same async context as FastAPI. No separate thread pool, no synchronous worker process, just async functions that run in the background via a Redis queue.
 
 ```python
 # Enqueue from anywhere
@@ -237,16 +237,16 @@ app/
     └── schemas.py          # Pydantic I/O schemas
 ```
 
-`core/` contains everything that cuts across domains — infrastructure, not business logic. Each domain folder is self-contained. The dependency direction is always inward: routers depend on services, services depend on models, nothing depends on routers.
+`core/` contains everything that cuts across domains, infrastructure, not business logic. Each domain folder is self-contained. The dependency direction is always inward: routers depend on services, services depend on models, nothing depends on routers.
 
 ---
 
-This isn't the only way to structure a FastAPI project. But every decision here exists because the alternative caused a real problem — either in code I wrote, code I inherited, or vulnerabilities I found in other people's systems. The patterns that survive production tend to be the simple ones.
+This isn't the only way to structure a FastAPI project. But every decision here exists because the alternative caused a real problem, either in code I wrote, code I inherited, or vulnerabilities I found in other people's systems. The patterns that survive production tend to be the simple ones.
 
 ---
 
 **If you want to use these conventions with an LLM**
 
-I put all of these rules together as a `SKILL.md` you can drop into any LLM context — Claude, Cursor, Copilot, or any other. It covers everything in this post plus more, with a complete CRUD example at the end.
+I put all of these rules together as a `SKILL.md` you can drop into any LLM context, Claude, Cursor, Copilot, or any other. It covers everything in this post plus more, with a complete CRUD example at the end.
 
 → [fastapi-production-rules](https://github.com/17tayyy/fastapi-production-rules)

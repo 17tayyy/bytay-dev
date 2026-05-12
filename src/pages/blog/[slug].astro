@@ -1,10 +1,10 @@
 ---
-import { getCollection, render } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ data }) =>
-    import.meta.env.PROD ? !data.draft : true
+  const posts = await getCollection("blog", ({ data }) =>
+    import.meta.env.PROD ? !data.draft : true,
   );
   return posts.map((post) => ({
     params: { slug: post.id },
@@ -16,29 +16,35 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 
 function formatDate(date: Date): string {
-  return date.toLocaleDateString('en-GB', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+  return date.toLocaleDateString("en-GB", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 }
 ---
 
-<Layout title={`${post.data.title} — Tay`} description={post.data.description} type="article" image={post.data.image}>
-
+<Layout
+  title={`${post.data.title} | Tay`}
+  description={post.data.description}
+  type="article"
+  image={post.data.image}
+>
   <div class="post-header">
     <a href="/blog" class="back-link">← blog</a>
     <div class="post-meta">
       <time datetime={post.data.date.toISOString()} class="post-date">
         {formatDate(post.data.date)}
       </time>
-      {post.data.tags.length > 0 && (
-        <div class="tags">
-          {post.data.tags.map((tag) => (
-            <span class="tag">{tag}</span>
-          ))}
-        </div>
-      )}
+      {
+        post.data.tags.length > 0 && (
+          <div class="tags">
+            {post.data.tags.map((tag) => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+        )
+      }
     </div>
     <h1 class="post-title">{post.data.title}</h1>
     <p class="post-description">{post.data.description}</p>
@@ -49,7 +55,6 @@ function formatDate(date: Date): string {
   <article class="prose">
     <Content />
   </article>
-
 </Layout>
 
 <style>

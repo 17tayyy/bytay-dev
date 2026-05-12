@@ -1,10 +1,10 @@
 ---
-import { getCollection, render } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
-import projectsData from '../../data/projects.json';
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import projectsData from "../../data/projects.json";
 
 export async function getStaticPaths() {
-  const entries = await getCollection('projects');
+  const entries = await getCollection("projects");
   return entries.map((entry) => ({
     params: { slug: entry.id },
     props: { entry },
@@ -14,50 +14,60 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 
-const meta = projectsData.find(
-  (p) => 'slug' in p && p.slug === entry.id
-);
+const meta = projectsData.find((p) => "slug" in p && p.slug === entry.id);
 ---
 
-<Layout title={`${entry.data.title} — Tay`} description={meta?.description ?? ''} type="article">
-
+<Layout
+  title={`${entry.data.title} | Tay`}
+  description={meta?.description ?? ""}
+  type="article"
+>
   <div class="project-header">
     <a href="/projects" class="back-link">← projects</a>
     <div class="title-row">
       <h1 class="project-title">{entry.data.title}</h1>
-      {meta && (
-        <div class="badges">
-          {meta.visibility === 'private' && (
-            <span class="badge badge-private">private</span>
-          )}
-          {meta.status === 'active' && (
-            <span class="badge badge-active">active</span>
-          )}
-          {meta.type === 'disclosure' && (
-            <span class="badge badge-disclosure">disclosure</span>
-          )}
-        </div>
-      )}
+      {
+        meta && (
+          <div class="badges">
+            {meta.visibility === "private" && (
+              <span class="badge badge-private">private</span>
+            )}
+            {meta.status === "active" && (
+              <span class="badge badge-active">active</span>
+            )}
+            {meta.type === "disclosure" && (
+              <span class="badge badge-disclosure">disclosure</span>
+            )}
+          </div>
+        )
+      }
     </div>
-    {meta && (
-      <p class="project-desc">{meta.description}</p>
-    )}
-    {meta && meta.tags.length > 0 && (
-      <div class="tags">
-        {meta.tags.map((tag) => (
-          <span class="tag">{tag}</span>
-        ))}
-      </div>
-    )}
-    {meta && meta.links.length > 0 && (
-      <div class="project-links">
-        {meta.links.map((link) => (
-          <a href={link.href} target="_blank" rel="noopener noreferrer" class="project-link">
-            {link.label} ↗
-          </a>
-        ))}
-      </div>
-    )}
+    {meta && <p class="project-desc">{meta.description}</p>}
+    {
+      meta && meta.tags.length > 0 && (
+        <div class="tags">
+          {meta.tags.map((tag) => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
+      )
+    }
+    {
+      meta && meta.links.length > 0 && (
+        <div class="project-links">
+          {meta.links.map((link) => (
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-link"
+            >
+              {link.label} ↗
+            </a>
+          ))}
+        </div>
+      )
+    }
   </div>
 
   <hr class="divider" />
@@ -65,7 +75,6 @@ const meta = projectsData.find(
   <article class="prose">
     <Content />
   </article>
-
 </Layout>
 
 <style>

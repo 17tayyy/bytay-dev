@@ -1,16 +1,15 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getEntry, render } from 'astro:content';
+import Layout from "../layouts/Layout.astro";
+import { getEntry, render } from "astro:content";
 
-const entry = await getEntry('about', 'about');
+const entry = await getEntry("about", "about");
 const { Content } = await render(entry);
 ---
 
 <Layout
-  title="About — Tay"
+  title="About | Tay"
   description="The longer version. How I went from modding game servers to building production backend systems and doing security research."
 >
-
   <div class="page-header">
     <h1 class="page-title">About</h1>
     <p class="page-desc">The longer version.</p>
@@ -25,7 +24,6 @@ const { Content } = await render(entry);
       <a href="/cv">The structured version lives here.</a>
     </p>
   </div>
-
 </Layout>
 
 <style>
