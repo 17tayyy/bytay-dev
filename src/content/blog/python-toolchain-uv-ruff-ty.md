@@ -60,7 +60,7 @@ dev = [
   "pytest>=8.0.0",
   "pytest-asyncio>=0.24.0",
   "ruff>=0.8.0",
-  "ty==0.0.12",
+  "ty==0.0.35",
   "pytest-cov>=7.1.0",
 ]
 ```
@@ -154,7 +154,7 @@ I'd tried both before and neither stuck. `mypy` is slow and its error messages o
 uv run ty check app/
 ```
 
-It's currently in beta (`ty==0.0.12` at the time of writing), which I know sounds like a reason to wait. I'd say the opposite, I've been running it in production CI for months without a single false positive or crash. It's beta in version number, not in stability.
+It's currently in beta (`ty==0.0.35` at the time of writing), which I know sounds like a reason to wait. I'd say the opposite, I've been running it in production CI for months without a single false positive or crash. It's beta in version number, not in stability.
 
 Configuration in `pyproject.toml` is minimal:
 
