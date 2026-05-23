@@ -3,6 +3,9 @@ import Layout from "../layouts/Layout.astro";
 import { getEntry, render } from "astro:content";
 
 const entry = await getEntry("about", "about");
+if (!entry) {
+  throw new Error("About content entry not found at src/content/about.md");
+}
 const { Content } = await render(entry);
 ---
 

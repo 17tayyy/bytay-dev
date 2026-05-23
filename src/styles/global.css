@@ -1,6 +1,7 @@
 /* Fonts are loaded via <link> in Layout.astro */
 
-:root {
+:root,
+:root[data-theme="dark"] {
   --bg: #0a0a0a;
   --surface: #111111;
   --surface-2: #181818;
@@ -8,11 +9,22 @@
   --border-2: #2c2c2c;
 
   --text: #e6e6e6;
-  --text-2: #6b6b6b;
-  --text-3: #3a3a3a;
+  --text-2: #a3a3a3;
+  --text-3: #787878;
 
   --accent: #f97316;
   --accent-dim: rgba(249, 115, 22, 0.08);
+
+  --header-bg: rgba(10, 10, 10, 0.88);
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+
+  /* View-transition layer order: light sheet is always on top */
+  --vt-old-z: 1;
+  --vt-new-z: 2;
+
+  /* Shiki dual-theme indirection (custom props inherit as-declared,
+     so var(--shiki-dark) resolves at the token span, not here) */
+  --shiki-token: var(--shiki-dark);
 
   --font-sans:
     "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -22,6 +34,55 @@
   --max-width: 720px;
   --header-height: 64px;
   --radius: 3px;
+}
+
+:root[data-theme="light"] {
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --surface-2: #f0f0f0;
+  --border: #e4e4e4;
+  --border-2: #d4d4d4;
+
+  --text: #18181b;
+  --text-2: #525252;
+  --text-3: #737373;
+
+  --accent: #ea580c;
+  --accent-dim: rgba(234, 88, 12, 0.08);
+
+  --header-bg: rgba(250, 250, 250, 0.88);
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+
+  --shiki-token: var(--shiki-light);
+}
+
+/* When animating TOWARDS dark, the old (light) snapshot needs to be on top
+   so it can contract and reveal the dark beneath. */
+:root[data-theme="dark"] {
+  --vt-old-z: 2;
+  --vt-new-z: 1;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: var(--vt-old-z);
+}
+
+::view-transition-new(root) {
+  z-index: var(--vt-new-z);
+}
+
+/* Shiki dual-theme: --shiki-token is resolved at the token span,
+   reading either --shiki-light or --shiki-dark from its inline style */
+.astro-code,
+.astro-code span {
+  color: var(--shiki-token);
+  background-color: transparent;
 }
 
 *,
@@ -98,12 +159,18 @@ ol {
   }
 }
 
+@media (min-width: 1100px) {
+  .container.wide {
+    max-width: 1024px;
+  }
+}
+
 .site-header {
   position: sticky;
   top: 0;
   z-index: 100;
   height: var(--header-height);
-  background: rgba(10, 10, 10, 0.88);
+  background: var(--header-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
@@ -134,23 +201,67 @@ ol {
 .site-nav {
   display: flex;
   align-items: center;
-  gap: 0.125rem;
+  gap: 1.25rem;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  color: var(--text-2);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  color: var(--accent);
+}
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+:root[data-theme="light"] .theme-icon-sun,
+:root[data-theme="dark"] .theme-icon-moon {
+  display: none;
 }
 
 .nav-link {
-  font-size: 0.8rem;
+  position: relative;
+  font-size: 0.88rem;
   color: var(--text-2);
-  padding: 0.35rem 0.6rem;
-  border-radius: var(--radius);
+  padding: 0.35rem 0;
   letter-spacing: 0.01em;
-  transition:
-    color 0.15s,
-    background 0.15s;
+  transition: color 0.2s ease;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.2rem;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
 }
 
 .nav-link:hover {
-  color: var(--text);
-  background: var(--surface-2);
+  color: var(--accent);
+}
+
+.nav-link:hover::after,
+.nav-link[data-active="true"]::after {
+  transform: scaleX(1);
 }
 
 .nav-link[data-active="true"] {
@@ -186,13 +297,31 @@ ol {
 }
 
 .footer-links a {
+  position: relative;
   font-size: 0.8rem;
   color: var(--text-2);
-  transition: color 0.15s;
+  transition: color 0.2s ease;
+}
+
+.footer-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
 }
 
 .footer-links a:hover {
-  color: var(--text);
+  color: var(--accent);
+}
+
+.footer-links a:hover::after {
+  transform: scaleX(1);
 }
 
 .label {
@@ -294,16 +423,32 @@ a.tag:hover {
   color: var(--text);
 }
 
-.prose a {
+.prose a:not(.heading-anchor) {
+  position: relative;
   color: var(--text);
-  text-decoration: underline;
-  text-decoration-color: var(--border-2);
-  text-underline-offset: 3px;
-  transition: text-decoration-color 0.15s;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-.prose a:hover {
-  text-decoration-color: var(--accent);
+.prose a:not(.heading-anchor)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.prose a:not(.heading-anchor):hover {
+  color: var(--accent);
+}
+
+.prose a:not(.heading-anchor):hover::after {
+  transform: scaleX(1);
 }
 
 .prose ul,
@@ -332,14 +477,134 @@ a.tag:hover {
 }
 
 .prose pre {
-  background: var(--surface);
-  border: 1px solid var(--border);
+  position: relative;
+  background: var(--surface-2);
+  border: 1px solid var(--border-2);
   border-radius: var(--radius);
   padding: 1.25rem;
   overflow-x: auto;
   font-size: 0.82rem;
   line-height: 1.7;
   margin: 1.5rem 0;
+}
+
+/* Copy button on code blocks */
+.copy-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  color: var(--text-2);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity 0.2s,
+    color 0.15s,
+    border-color 0.15s;
+}
+
+.copy-btn svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+.prose pre:hover .copy-btn,
+.copy-btn:focus-visible {
+  opacity: 1;
+}
+
+.copy-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.copy-btn.is-copied {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Heading anchors (rehype-autolink-headings) */
+.prose h2,
+.prose h3,
+.prose h4 {
+  scroll-margin-top: calc(var(--header-height) + 1rem);
+}
+
+.prose h2 .heading-anchor,
+.prose h3 .heading-anchor,
+.prose h4 .heading-anchor {
+  margin-left: 0.5rem;
+  color: var(--text-2);
+  font-weight: 400;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.prose h2 .heading-anchor:hover,
+.prose h3 .heading-anchor:hover,
+.prose h4 .heading-anchor:hover {
+  color: var(--accent);
+}
+
+/* GitHub-style alerts (remark-github-blockquote-alert) */
+.markdown-alert {
+  padding: 0.9rem 1.1rem;
+  margin: 1.5rem 0;
+  border-left: 3px solid var(--alert-color, var(--text-3));
+  background: var(--surface);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.markdown-alert > :first-child {
+  margin-top: 0;
+}
+
+.markdown-alert > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-alert-title {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--alert-color);
+  margin-bottom: 0.4rem !important;
+  text-transform: capitalize;
+  line-height: 1;
+}
+
+.markdown-alert-title svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+.markdown-alert-note {
+  --alert-color: #58a6ff;
+}
+.markdown-alert-tip {
+  --alert-color: #3fb950;
+}
+.markdown-alert-important {
+  --alert-color: #d2a8ff;
+}
+.markdown-alert-warning {
+  --alert-color: #d29922;
+}
+.markdown-alert-caution {
+  --alert-color: #f85149;
 }
 
 .prose hr {

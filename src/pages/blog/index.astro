@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import PostItem from "../../components/PostItem.astro";
 import { getAllTags } from "../../utils/tags";
+import { breadcrumbSchema } from "../../utils/schema";
 
 const allPosts = await getCollection("blog", ({ data }) =>
   import.meta.env.PROD ? !data.draft : true,
@@ -13,11 +14,17 @@ const posts = allPosts.sort(
 );
 
 const tags = getAllTags(posts);
+
+const schema = breadcrumbSchema([
+  { name: "Home", url: "https://bytay.dev/" },
+  { name: "Blog", url: "https://bytay.dev/blog/" },
+]);
 ---
 
 <Layout
   title="Blog | Tay"
   description="Technical notes on backend systems, security research, Rust, and whatever I'm building at the time."
+  {schema}
 >
   <div class="page-header">
     <h1 class="page-title">Blog</h1>

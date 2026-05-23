@@ -7,6 +7,8 @@ interface Props {
   description?: string;
   image?: string;
   type?: "website" | "article";
+  wide?: boolean;
+  schema?: object | object[];
 }
 
 const {
@@ -14,12 +16,12 @@ const {
   description = "Backend developer and security researcher based in Mataró, Barcelona.",
   image,
   type = "website",
+  wide = false,
+  schema,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, "https://bytay.dev").href;
 
-// Always resolve to an absolute URL — LinkedIn and other crawlers require it.
-// Falls back to the default branded OG image when no per-page image is provided.
 const DEFAULT_OG = "https://bytay.dev/og.png";
 const ogImage = image
   ? image.startsWith("http")
@@ -28,9 +30,9 @@ const ogImage = image
   : DEFAULT_OG;
 
 const nav = [
-  { label: "about", href: "/about" },
-  { label: "cv", href: "/cv" },
-  { label: "blog", href: "/blog" },
+  { label: "About", href: "/about" },
+  { label: "CV", href: "/cv" },
+  { label: "Blog", href: "/blog" },
 ];
 
 const pathname = Astro.url.pathname;
@@ -42,6 +44,17 @@ const pathname = Astro.url.pathname;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        const prefersLight = window.matchMedia(
+          "(prefers-color-scheme: light)",
+        ).matches;
+        const theme = stored ?? (prefersLight ? "light" : "dark");
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
@@ -66,6 +79,7 @@ const pathname = Astro.url.pathname;
       image={ogImage}
       {type}
       canonicalURL={canonicalURL}
+      {schema}
     />
   </head>
 
@@ -94,16 +108,113 @@ const pathname = Astro.url.pathname;
                 );
               })
             }
+            <button
+              class="theme-toggle"
+              type="button"
+              aria-label="Toggle theme"
+              title="Toggle theme"
+            >
+              <svg
+                class="theme-icon-sun"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="4"></circle>
+                <path
+                  d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+                ></path>
+              </svg>
+              <svg
+                class="theme-icon-moon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+            </button>
           </nav>
         </div>
       </div>
     </header>
 
     <main class="site-main">
-      <div class="container">
+      <div class:list={["container", { wide }]}>
         <slot />
       </div>
     </main>
+
+    <script>
+      function setupThemeToggle() {
+        const btn = document.querySelector<HTMLButtonElement>(".theme-toggle");
+        if (!btn || btn.dataset.bound === "true") return;
+        btn.dataset.bound = "true";
+
+        btn.addEventListener("click", async (event) => {
+          const current = document.documentElement.dataset.theme ?? "dark";
+          const next = current === "dark" ? "light" : "dark";
+
+          const apply = () => {
+            document.documentElement.dataset.theme = next;
+            localStorage.setItem("theme", next);
+          };
+
+          const supportsViewTransitions =
+            typeof (document as any).startViewTransition === "function";
+          const reducedMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)",
+          ).matches;
+
+          if (!supportsViewTransitions || reducedMotion) {
+            apply();
+            return;
+          }
+
+          const x = event.clientX;
+          const y = event.clientY;
+          const endRadius = Math.hypot(
+            Math.max(x, window.innerWidth - x),
+            Math.max(y, window.innerHeight - y),
+          );
+
+          const transition = (document as any).startViewTransition(apply);
+
+          try {
+            await transition.ready;
+            const clipPath = [
+              `circle(0px at ${x}px ${y}px)`,
+              `circle(${endRadius}px at ${x}px ${y}px)`,
+            ];
+            const reverse = next === "dark";
+            document.documentElement.animate(
+              {
+                clipPath: reverse ? [...clipPath].reverse() : clipPath,
+              },
+              {
+                duration: 500,
+                easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+                fill: "forwards",
+                pseudoElement: reverse
+                  ? "::view-transition-old(root)"
+                  : "::view-transition-new(root)",
+              },
+            );
+          } catch {}
+        });
+      }
+
+      setupThemeToggle();
+      document.addEventListener("astro:after-swap", setupThemeToggle);
+    </script>
 
     <footer class="site-footer">
       <div class="container">

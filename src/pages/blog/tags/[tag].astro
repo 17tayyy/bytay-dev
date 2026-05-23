@@ -2,10 +2,8 @@
 import { getCollection } from "astro:content";
 import Layout from "../../../layouts/Layout.astro";
 import PostItem from "../../../components/PostItem.astro";
-import {
-  getAllTags,
-  getPostsByTagSlug,
-} from "../../../utils/tags";
+import { getAllTags, getPostsByTagSlug, tagSlug } from "../../../utils/tags";
+import { breadcrumbSchema } from "../../../utils/schema";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) =>
@@ -24,11 +22,18 @@ export async function getStaticPaths() {
 }
 
 const { tagName, posts } = Astro.props;
+
+const schema = breadcrumbSchema([
+  { name: "Home", url: "https://bytay.dev/" },
+  { name: "Blog", url: "https://bytay.dev/blog/" },
+  { name: `#${tagName}`, url: `https://bytay.dev/blog/tags/${tagSlug(tagName)}/` },
+]);
 ---
 
 <Layout
   title={`Posts tagged "${tagName}" | Tay`}
   description={`Posts tagged with ${tagName}.`}
+  {schema}
 >
   <div class="page-header">
     <a href="/blog" class="back-link">← blog</a>

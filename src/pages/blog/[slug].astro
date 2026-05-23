@@ -4,6 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import PostItem from "../../components/PostItem.astro";
 import { readingTime } from "../../utils/reading";
 import { getRelatedPosts, tagSlug } from "../../utils/tags";
+import { articleSchema, breadcrumbSchema } from "../../utils/schema";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) =>
@@ -22,6 +23,27 @@ const ogImage = post.data.image ?? `/og/blog/${post.id}.png`;
 const reading = readingTime(post.body);
 const related = getRelatedPosts(post, allPosts, 2);
 
+const postUrl = `https://bytay.dev/blog/${post.id}/`;
+const ogImageAbsolute = ogImage.startsWith("http")
+  ? ogImage
+  : `https://bytay.dev${ogImage}`;
+
+const schema = [
+  articleSchema({
+    title: post.data.title,
+    description: post.data.description,
+    datePublished: post.data.date,
+    url: postUrl,
+    image: ogImageAbsolute,
+    tags: post.data.tags,
+  }),
+  breadcrumbSchema([
+    { name: "Home", url: "https://bytay.dev/" },
+    { name: "Blog", url: "https://bytay.dev/blog/" },
+    { name: post.data.title, url: postUrl },
+  ]),
+];
+
 function formatDate(date: Date): string {
   return date.toLocaleDateString("en-GB", {
     year: "numeric",
@@ -36,6 +58,7 @@ function formatDate(date: Date): string {
   description={post.data.description}
   type="article"
   image={ogImage}
+  {schema}
 >
   <div class="post-header">
     <a href="/blog" class="back-link">← blog</a>
@@ -79,6 +102,72 @@ function formatDate(date: Date): string {
     )
   }
 </Layout>
+
+<script>
+  const COPY_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
+  const CHECK_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+
+  function setupCopyButtons() {
+    document.querySelectorAll<HTMLPreElement>(".prose pre").forEach((pre) => {
+      if (pre.querySelector(".copy-btn")) return;
+      const btn = document.createElement("button");
+      btn.className = "copy-btn";
+      btn.type = "button";
+      btn.innerHTML = COPY_ICON;
+      btn.setAttribute("aria-label", "Copy code");
+      btn.addEventListener("click", async () => {
+        const code = pre.querySelector("code")?.innerText ?? pre.innerText;
+        try {
+          await navigator.clipboard.writeText(code);
+        } catch {}
+        btn.innerHTML = CHECK_ICON;
+        btn.classList.add("is-copied");
+        setTimeout(() => {
+          btn.innerHTML = COPY_ICON;
+          btn.classList.remove("is-copied");
+        }, 1500);
+      });
+      pre.appendChild(btn);
+    });
+  }
+
+  function setupHeadingAnchors() {
+    document
+      .querySelectorAll<HTMLAnchorElement>(".prose .heading-anchor")
+      .forEach((anchor) => {
+        if (anchor.dataset.bound === "true") return;
+        anchor.dataset.bound = "true";
+        const original = anchor.textContent ?? "#";
+        anchor.addEventListener("click", async (e) => {
+          e.preventDefault();
+          const hash = anchor.getAttribute("href") ?? "";
+          const url = `${window.location.origin}${window.location.pathname}${hash}`;
+          try {
+            await navigator.clipboard.writeText(url);
+          } catch {}
+          history.replaceState(null, "", hash);
+          const id = hash.slice(1);
+          document
+            .getElementById(id)
+            ?.scrollIntoView({ behavior: "smooth", block: "start" });
+          anchor.textContent = "✓";
+          anchor.classList.add("is-copied");
+          setTimeout(() => {
+            anchor.textContent = original;
+            anchor.classList.remove("is-copied");
+          }, 1200);
+        });
+      });
+  }
+
+  function init() {
+    setupCopyButtons();
+    setupHeadingAnchors();
+  }
+
+  init();
+  document.addEventListener("astro:after-swap", init);
+</script>
 
 <style>
   .post-header {

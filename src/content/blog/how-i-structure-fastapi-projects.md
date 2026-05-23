@@ -12,7 +12,7 @@ This is how I structure FastAPI in a production B2B SaaS, and the reasoning behi
 
 ---
 
-**Your router is not your application**
+## **Your router is not your application**
 
 The most common mistake I see in FastAPI codebases is logic living in routers. A router has one job: receive an HTTP request, validate the input via Pydantic, call a service, and return a response. That's it. It's a translator between HTTP and your actual application.
 
@@ -29,7 +29,7 @@ Four lines. Input comes in, service handles it, response goes out. The router do
 
 ---
 
-**Use Annotated. Seriously.**
+## **Use Annotated. Seriously.**
 
 FastAPI supports `Annotated` natively and recommends it in their own docs, yet most codebases still write dependencies like this:
 
@@ -58,7 +58,7 @@ async def create_ticket(data: TicketCreate, user: CurrentUser):
 
 ---
 
-**Custom exceptions, not HTTPException**
+## **Custom exceptions, not HTTPException**
 
 Since services are pure Python with no FastAPI imports, they can't raise `HTTPException`. Which is fine, they shouldn't. Instead, define a base exception class and subclass it per error type:
 
@@ -95,7 +95,7 @@ One hard rule: never expose internal details in error messages. `NotFoundError("
 
 ---
 
-**Consistent response structure**
+## **Consistent response structure**
 
 Every endpoint returns one of three wrappers. Always. No raw objects, no arbitrary dicts, no `{"status": "ok"}` invented on the spot.
 
@@ -133,19 +133,19 @@ Combined with the custom exception format from the previous section, your API no
 
 ---
 
-**Don't add layers you don't need**
+## **Don't add layers you don't need**
 
 Two patterns I see constantly in FastAPI projects that add complexity without value:
 
-**Repository pattern** — if you're using an ORM like Beanie or SQLAlchemy, you already have an abstraction layer over the database. Adding a repository layer on top is just writing your own ORM on top of an ORM. The only case where it makes sense is if you're using raw SQL without an ORM, where you actually need that abstraction. Otherwise you end up with `ticket_repository.find_by_id()` that does nothing except call `Ticket.find_one()`.
+**Repository pattern**: if you're using an ORM like Beanie or SQLAlchemy, you already have an abstraction layer over the database. Adding a repository layer on top is just writing your own ORM on top of an ORM. The only case where it makes sense is if you're using raw SQL without an ORM, where you actually need that abstraction. Otherwise you end up with `ticket_repository.find_by_id()` that does nothing except call `Ticket.find_one()`.
 
-**Abstract base classes for services** — services are not interchangeable. You're never going to swap `TicketService` for a `MockTicketService` at runtime. Abstract base classes here are cargo cult from Java-style architecture applied to a language and framework that don't need it. Write plain functions in your service files and call them directly.
+**Abstract base classes for services**: services are not interchangeable. You're never going to swap `TicketService` for a `MockTicketService` at runtime. Abstract base classes here are cargo cult from Java-style architecture applied to a language and framework that don't need it. Write plain functions in your service files and call them directly.
 
 The general principle: every layer you add has a cost. It needs to be maintained, understood by new developers, and debugged when something goes wrong. Only add a layer when it solves a real problem you actually have.
 
 ---
 
-**Structured logging with structlog**
+## **Structured logging with structlog**
 
 Most projects start with Python's built-in `logging` module, or worse, `print()` statements. The problem with both is that they're designed for human-readable output, which is fine in development but useless in production where you need to query, filter, and aggregate logs programmatically.
 
@@ -173,7 +173,7 @@ One hard rule: never log passwords, tokens, raw LLM responses, or file contents.
 
 ---
 
-**Multi-tenancy is a hard rule, not a guideline**
+## **Multi-tenancy is a hard rule, not a guideline**
 
 In a multi-tenant SaaS every database query must be scoped to the current organization. Not most queries, every query.
 
@@ -191,7 +191,7 @@ For projects with stricter isolation requirements, you can go further, dynamic d
 
 ---
 
-**ARQ over Celery for async stacks**
+## **ARQ over Celery for async stacks**
 
 When you need background tasks in a FastAPI application, Celery is the default answer. It's mature, well-documented, and battle-tested. It's also synchronous at its core, which means running it alongside an async FastAPI app requires managing two different concurrency models.
 
@@ -215,7 +215,7 @@ Two rules for background tasks: they must be idempotent (safe to retry if they f
 
 ---
 
-**The structure that holds all of this together**
+## **The structure that holds all of this together**
 
 ```
 app/
@@ -244,7 +244,7 @@ This isn't the only way to structure a FastAPI project. But every decision here 
 
 ---
 
-**If you want to use these conventions with an LLM**
+## **If you want to use these conventions with an LLM**
 
 I put all of these rules together as a `SKILL.md` you can drop into any LLM context, Claude, Cursor, Copilot, or any other. It covers everything in this post plus more, with a complete CRUD example at the end.
 

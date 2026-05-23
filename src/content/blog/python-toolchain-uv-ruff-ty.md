@@ -17,7 +17,7 @@ That's the short version. Here's the long one.
 
 ---
 
-**Who is Astral and why should you care**
+## **Who is Astral and why should you care**
 
 Before getting into the tools, it's worth knowing who's building them. Astral is the company behind `ruff`, `uv`, and `ty`, three tools that are quietly replacing the Python toolchain most developers have been using for years. Everything they build is written in Rust, which is why the performance numbers look the way they do. They're not just incrementally faster, they're in a different category.
 
@@ -25,7 +25,7 @@ I found out about them the same way most people do: I kept seeing serious open s
 
 ---
 
-**uv: the package manager you didn't know you needed**
+## **uv: the package manager you didn't know you needed**
 
 If you're still using `pip` + `requirements.txt`, you're not doing anything wrong, but you're leaving a lot on the table.
 
@@ -87,7 +87,7 @@ One important note: never use `pip` in a `uv` project. `uv` manages a lockfile (
 
 ---
 
-**ruff: one tool instead of four**
+## **ruff: one tool instead of four**
 
 Most Python projects use a combination of `black` for formatting, `flake8` for linting, `isort` for import sorting, and maybe `pyupgrade` for syntax upgrades. That's four tools to configure, four tools to run, four tools to keep in sync.
 
@@ -143,7 +143,7 @@ The `per-file-ignores` section is important, you don't want `S101` flagged in yo
 
 ---
 
-**ty: type checking that doesn't make you want to give up**
+## **ty: type checking that doesn't make you want to give up**
 
 `ty` is Astral's type checker, also written in Rust. It's designed to be a modern alternative to `mypy` and `pyright`.
 
@@ -164,7 +164,7 @@ Configuration in `pyproject.toml` is minimal:
 
 ---
 
-**Putting it all together: CI/CD with GitHub Actions**
+## **Putting it all together: CI/CD with GitHub Actions**
 
 The real value of this stack is how cleanly it integrates. Everything runs through `uv run`, everything is configured in `pyproject.toml`, and the GitHub Actions setup is straightforward.
 
@@ -236,7 +236,7 @@ A few things worth explaining:
 
 **Auto-format in CI.** The lint job doesn't just check formatting, it applies it and commits the result automatically. This means formatting is never a blocker. A developer pushes code, ruff formats it, the commit goes back to the branch. No failed pipelines because someone forgot to run the formatter locally.
 
-**`astral-sh/setup-uv@v3`** — Astral provides an official GitHub Action to install uv. Use it instead of installing manually. It handles caching and always installs the latest stable version.
+**`astral-sh/setup-uv@v3`**: Astral provides an official GitHub Action to install uv. Use it instead of installing manually. It handles caching and always installs the latest stable version.
 
 **Pre-commit checklist before every commit:**
 
@@ -251,7 +251,7 @@ In that order. Fix and format first, then type check, then tests. If all four pa
 
 ---
 
-**The full picture**
+## **The full picture**
 
 Before this stack I was using `pip` + `requirements.txt` + `black` + `flake8` + `mypy`. Five separate tools with five separate configs, slow feedback, and constant friction.
 
@@ -269,7 +269,7 @@ If you're starting a new Python project, there's no reason not to use this stack
 
 ---
 
-**If you want to use these conventions with an LLM**
+## **If you want to use these conventions with an LLM**
 
 The conventions from this post and my previous one on FastAPI architecture are both included in a `SKILL.md` you can drop into any LLM context.
 

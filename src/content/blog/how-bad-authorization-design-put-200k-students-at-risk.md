@@ -69,7 +69,7 @@ moduleaction=showDadesQuadernAlumne  → enrolled FP programs
 
 Nine vulnerable endpoints in total. Every one of them accepting any authenticated session and returning whatever ID you asked for.
 
-No authorization checks. No role validation. No ownership verification. Authentication and authorization are not the same thing — and whoever built sBID either didn't know that, or didn't care.
+No authorization checks. No role validation. No ownership verification. Authentication and authorization are not the same thing, and whoever built sBID either didn't know that, or didn't care.
 
 ---
 
@@ -125,7 +125,7 @@ moduleaction=dadesUsuari&user_entity_id={target_id}&edit=true
 → username
 ```
 
-**Step 2: Request a password reset — without authentication**
+**Step 2: Request a password reset, without authentication**
 
 This endpoint required no session cookie. Anyone could trigger a reset for any account:
 
@@ -149,7 +149,7 @@ POST /sBid/modules/Missatges
 moduleaction=viewMailEntradaAjax&a={target_user_id}&m={message_id}
 ```
 
-After 5-6 requests, the reset message appears in the response — a JavaScript snippet rendering a modal with the full reset link embedded.
+After 5-6 requests, the reset message appears in the response, a JavaScript snippet rendering a modal with the full reset link embedded.
 
 **Step 5: Extract the token and change the password**
 
@@ -239,6 +239,6 @@ Beyond that, a few things would have stopped or significantly slowed down the fu
 
 **Require authentication for password reset requests.** Or at minimum, implement rate limiting. The `renewPass` endpoint accepted unauthenticated requests with no throttling whatsoever.
 
-**Store reset tokens out of band.** Sending reset links through the platform's own internal messaging system — which was itself vulnerable to IDOR — created a direct path from "read someone's messages" to "own their account".
+**Store reset tokens out of band.** Sending reset links through the platform's own internal messaging system, which was itself vulnerable to IDOR, created a direct path from "read someone's messages" to "own their account".
 
 None of these are exotic security measures. They're basics. But skipping all of them at once, in a system handling the personal data of hundreds of thousands of students, turned a bad day into a critical incident.
