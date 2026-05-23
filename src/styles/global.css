@@ -235,6 +235,17 @@ ol {
   line-height: 1.5;
 }
 
+a.tag {
+  transition:
+    color 0.15s,
+    border-color 0.15s;
+}
+
+a.tag:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
 .tags {
   display: flex;
   flex-wrap: wrap;

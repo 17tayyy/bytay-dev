@@ -4,7 +4,6 @@ date: 2026-05-16
 description: "How I discovered a chain of IDORs in a public education platform used by every FP student in Catalonia, chained them into a full account takeover, and reported it responsibly."
 tags: ["security", "idor", "web-security", "responsible-disclosure"]
 draft: false
-pinned: true
 ---
 
 ## Context

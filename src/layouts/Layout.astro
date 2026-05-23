@@ -29,7 +29,6 @@ const ogImage = image
 
 const nav = [
   { label: "about", href: "/about" },
-  { label: "projects", href: "/projects" },
   { label: "cv", href: "/cv" },
   { label: "blog", href: "/blog" },
 ];
@@ -45,6 +44,13 @@ const pathname = Astro.url.pathname;
     <meta name="generator" content={Astro.generator} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Tay - Blog"
+      href={new URL("rss.xml", "https://bytay.dev").href}
+    />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -119,6 +125,7 @@ const pathname = Astro.url.pathname;
               LinkedIn
             </a>
             <a href="mailto:oscarfdst@proton.me">Email</a>
+            <a href="/rss.xml">RSS</a>
           </nav>
         </div>
       </div>

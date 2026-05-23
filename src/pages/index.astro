@@ -1,31 +1,20 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
-import projects from "../data/projects.json";
+import PostItem from "../components/PostItem.astro";
 
-const pinnedProjects = projects.filter((p) => p.pinned).slice(0, 3);
+const allPosts = await getCollection("blog", ({ data }) =>
+  import.meta.env.PROD ? !data.draft : true,
+);
 
-const allPosts = await getCollection("blog", ({ data }) => {
-  if (import.meta.env.PROD && data.draft) return false;
-  return data.pinned;
-});
-
-const pinnedPosts = allPosts
+const recentPosts = allPosts
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
-
-function formatDate(date: Date): string {
-  return date.toLocaleDateString("en-GB", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-}
+  .slice(0, 2);
 ---
 
 <Layout
   title="Tay | Backend Developer & Security Researcher"
-  description="Backend developer and security researcher. I build backend systems, own AWS infrastructure, and do security research on the side. Based in Mataró, Barcelona."
+  description="Backend developer and security researcher. Writing about backend systems, security research, and whatever I'm building. Based in Mataró, Barcelona."
 >
   <div class="home">
     <section class="hero">
@@ -39,80 +28,18 @@ function formatDate(date: Date): string {
         Mataró, Barcelona
       </p>
 
-      <hr class="divider" />
-
       <p class="tagline">
         Writes code that ships.<br />
         Finds code that shouldn't.
       </p>
-
-      <div class="bio">
-        <p>
-          Currently at Intake, a B2B SaaS helpdesk with a conversational AI
-          agent, as Backend Developer and DevOps. I own the full AWS
-          architecture and FastAPI backend. The company is part of Valencia's
-          Lanzadera startup accelerator, which mostly means the deadlines are
-          real.
-        </p>
-        <p>
-          When I'm not shipping features, I'm doing security research. Hack The
-          Box, vulnerability disclosure, and building tools that the readme will
-          describe as "for educational purposes." The last part is why I
-          double-check my own code.
-        </p>
-      </div>
     </section>
 
     {
-      pinnedProjects.length > 0 && (
-        <section class="pinned-section">
-          <h2 class="pinned-heading">pinned projects</h2>
-          <div class="pinned-projects">
-            {pinnedProjects.map((project) => (
-              <div class="pinned-project">
-                <div class="pinned-project-header">
-                  <span class="pinned-project-name">{project.name}</span>
-                  {project.links.length > 0 && (
-                    <a
-                      href={project.links[0].href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="pinned-project-link"
-                    >
-                      {project.links[0].label} →
-                    </a>
-                  )}
-                </div>
-                <p class="pinned-project-desc">{project.description}</p>
-                {project.tags.length > 0 && (
-                  <div class="tags">
-                    {project.tags.map((tag) => (
-                      <span class="tag">{tag}</span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-          <a href="/projects" class="more-link">
-            all projects →
-          </a>
-        </section>
-      )
-    }
-
-    {
-      pinnedPosts.length > 0 && (
-        <section class="pinned-section">
-          <h2 class="pinned-heading">writing</h2>
-          <div class="pinned-posts">
-            {pinnedPosts.map((post) => (
-              <a href={`/blog/${post.id}`} class="pinned-post">
-                <span class="pinned-post-title">{post.data.title}</span>
-                <span class="pinned-post-date">
-                  {formatDate(post.data.date)}
-                </span>
-              </a>
+      recentPosts.length > 0 && (
+        <section class="writing-section">
+          <div class="post-list">
+            {recentPosts.map((post) => (
+              <PostItem post={post} />
             ))}
           </div>
           <a href="/blog" class="more-link">
@@ -121,31 +48,6 @@ function formatDate(date: Date): string {
         </section>
       )
     }
-
-    <nav class="section-nav" aria-label="Site sections">
-      <a href="/about" class="section-link">
-        <span class="section-link-title">about</span>
-        <span class="section-link-desc">who I am and how I got here</span>
-      </a>
-      <a href="/projects" class="section-link">
-        <span class="section-link-title">projects</span>
-        <span class="section-link-desc"
-          >things I've built, some of which I can talk about</span
-        >
-      </a>
-      <a href="/cv" class="section-link">
-        <span class="section-link-title">cv</span>
-        <span class="section-link-desc"
-          >the formal version with actual dates</span
-        >
-      </a>
-      <a href="/blog" class="section-link">
-        <span class="section-link-title">blog</span>
-        <span class="section-link-desc"
-          >technical notes, when I find the time</span
-        >
-      </a>
-    </nav>
   </div>
 </Layout>
 
@@ -155,7 +57,6 @@ function formatDate(date: Date): string {
     max-width: 580px;
   }
 
-  /* Hero */
   .hero-label {
     margin-bottom: 0.4rem;
   }
@@ -189,7 +90,7 @@ function formatDate(date: Date): string {
     font-weight: 400;
     line-height: 1.5;
     letter-spacing: -0.01em;
-    margin-bottom: 1.25rem;
+    margin-top: 1.5rem;
     color: var(--text);
   }
 
@@ -199,121 +100,16 @@ function formatDate(date: Date): string {
     }
   }
 
-  .bio p {
-    font-size: 0.88rem;
-    color: var(--text-2);
-    line-height: 1.75;
-    margin-bottom: 0.6rem;
+  .writing-section {
+    margin-top: 3rem;
   }
 
-  .bio p:last-child {
-    margin-bottom: 0;
-  }
-
-  /* Pinned sections */
-  .pinned-section {
-    margin-top: 2rem;
-  }
-
-  .pinned-heading {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 400;
-    color: var(--text-2);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 1rem;
-  }
-
-  /* Pinned projects */
-  .pinned-projects {
+  .post-list {
     display: flex;
     flex-direction: column;
     gap: 0;
   }
 
-  .pinned-project {
-    padding: 0.9rem 0;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .pinned-project:first-child {
-    border-top: 1px solid var(--border);
-  }
-
-  .pinned-project-header {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 0.35rem;
-  }
-
-  .pinned-project-name {
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: var(--text);
-  }
-
-  .pinned-project-link {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--text-2);
-    flex-shrink: 0;
-    transition: color 0.15s;
-  }
-
-  .pinned-project-link:hover {
-    color: var(--accent);
-  }
-
-  .pinned-project-desc {
-    font-size: 0.82rem;
-    color: var(--text-2);
-    line-height: 1.65;
-    margin-bottom: 0.5rem;
-  }
-
-  /* Pinned posts */
-  .pinned-posts {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .pinned-post {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.7rem 0;
-    border-bottom: 1px solid var(--border);
-    transition: color 0.15s;
-  }
-
-  .pinned-post:first-child {
-    border-top: 1px solid var(--border);
-  }
-
-  .pinned-post:hover .pinned-post-title {
-    color: var(--accent);
-  }
-
-  .pinned-post-title {
-    font-size: 0.85rem;
-    color: var(--text);
-    transition: color 0.15s;
-  }
-
-  .pinned-post-date {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--text-2);
-    flex-shrink: 0;
-  }
-
-  /* More link */
   .more-link {
     display: inline-block;
     font-family: var(--font-mono);
@@ -325,45 +121,5 @@ function formatDate(date: Date): string {
 
   .more-link:hover {
     color: var(--accent);
-  }
-
-  /* Section nav */
-  .section-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin-top: 2rem;
-  }
-
-  .section-link {
-    display: flex;
-    align-items: baseline;
-    gap: 1rem;
-    padding: 0.7rem 0;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.1s;
-  }
-
-  .section-link:first-child {
-    border-top: 1px solid var(--border);
-  }
-
-  .section-link:hover .section-link-title {
-    color: var(--accent);
-  }
-
-  .section-link-title {
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: var(--text);
-    min-width: 5.5rem;
-    flex-shrink: 0;
-    transition: color 0.15s;
-  }
-
-  .section-link-desc {
-    font-size: 0.82rem;
-    color: var(--text-2);
   }
 </style>

@@ -1,0 +1,66 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../../layouts/Layout.astro";
+import PostItem from "../../../components/PostItem.astro";
+import {
+  getAllTags,
+  getPostsByTagSlug,
+} from "../../../utils/tags";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) =>
+    import.meta.env.PROD ? !data.draft : true,
+  );
+  const tags = getAllTags(posts);
+  return tags.map(({ slug, tag }) => ({
+    params: { tag: slug },
+    props: {
+      tagName: tag,
+      posts: getPostsByTagSlug(posts, slug).sort(
+        (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+      ),
+    },
+  }));
+}
+
+const { tagName, posts } = Astro.props;
+---
+
+<Layout
+  title={`Posts tagged "${tagName}" | Tay`}
+  description={`Posts tagged with ${tagName}.`}
+>
+  <div class="page-header">
+    <a href="/blog" class="back-link">← blog</a>
+    <h1 class="page-title">#{tagName}</h1>
+    <p class="page-desc">
+      {posts.length}
+      {posts.length === 1 ? "post" : "posts"} tagged "{tagName}"
+    </p>
+  </div>
+
+  <div class="post-list">
+    {posts.map((post) => <PostItem post={post} />)}
+  </div>
+</Layout>
+
+<style>
+  .back-link {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-2);
+    margin-bottom: 1.75rem;
+    transition: color 0.15s;
+  }
+
+  .back-link:hover {
+    color: var(--accent);
+  }
+
+  .post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+</style>

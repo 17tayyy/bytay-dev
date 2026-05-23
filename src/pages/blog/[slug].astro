@@ -1,6 +1,9 @@
 ---
 import { getCollection, render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import PostItem from "../../components/PostItem.astro";
+import { readingTime } from "../../utils/reading";
+import { getRelatedPosts, tagSlug } from "../../utils/tags";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) =>
@@ -8,14 +11,16 @@ export async function getStaticPaths() {
   );
   return posts.map((post) => ({
     params: { slug: post.id },
-    props: { post },
+    props: { post, allPosts: posts },
   }));
 }
 
-const { post } = Astro.props;
+const { post, allPosts } = Astro.props;
 const { Content } = await render(post);
 
 const ogImage = post.data.image ?? `/og/blog/${post.id}.png`;
+const reading = readingTime(post.body);
+const related = getRelatedPosts(post, allPosts, 2);
 
 function formatDate(date: Date): string {
   return date.toLocaleDateString("en-GB", {
@@ -38,11 +43,14 @@ function formatDate(date: Date): string {
       <time datetime={post.data.date.toISOString()} class="post-date">
         {formatDate(post.data.date)}
       </time>
+      <span class="post-reading">{reading}</span>
       {
         post.data.tags.length > 0 && (
           <div class="tags">
             {post.data.tags.map((tag) => (
-              <span class="tag">{tag}</span>
+              <a href={`/blog/tags/${tagSlug(tag)}`} class="tag">
+                {tag}
+              </a>
             ))}
           </div>
         )
@@ -57,6 +65,19 @@ function formatDate(date: Date): string {
   <article class="prose">
     <Content />
   </article>
+
+  {
+    related.length > 0 && (
+      <section class="related">
+        <h2 class="related-heading">related</h2>
+        <div class="related-list">
+          {related.map((p) => (
+            <PostItem post={p} />
+          ))}
+        </div>
+      </section>
+    )
+  }
 </Layout>
 
 <style>
@@ -85,7 +106,8 @@ function formatDate(date: Date): string {
     flex-wrap: wrap;
   }
 
-  .post-date {
+  .post-date,
+  .post-reading {
     font-family: var(--font-mono);
     font-size: 0.72rem;
     color: var(--text-2);
@@ -113,5 +135,26 @@ function formatDate(date: Date): string {
 
   .prose {
     max-width: 660px;
+  }
+
+  .related {
+    max-width: 660px;
+    margin-top: 4rem;
+  }
+
+  .related-heading {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 400;
+    color: var(--text-2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+
+  .related-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
   }
 </style>

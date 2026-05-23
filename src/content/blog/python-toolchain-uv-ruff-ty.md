@@ -4,7 +4,6 @@ date: 2026-05-12
 description: "Why I replaced pip, black, flake8, and mypy with a single stack from Astral, and how I integrate it in CI/CD with GitHub Actions."
 tags: ["python", "tooling", "devops"]
 draft: false
-pinned: true
 ---
 
 54x. That's how much faster `uv` installs dependencies compared to `pip` in my production project. Not a synthetic benchmark, my actual project, 74 packages, measured today.

@@ -4,7 +4,6 @@ date: 2026-05-05
 description: "What most FastAPI tutorials skip: how I structure routes, services, exceptions, logging, and multi-tenancy in a production B2B SaaS, and the reasoning behind each decision."
 tags: ["fastapi", "architecture", "python"]
 draft: false
-pinned: true
 ---
 
 Most FastAPI tutorials will get you to a working endpoint in five minutes. What they won't show you is what happens six months later when the codebase has grown, someone else is touching it, and every router file has become a 300-line mix of business logic, database queries, and HTTP concerns tangled together.

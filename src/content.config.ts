@@ -9,7 +9,6 @@ const blog = defineCollection({
     description: z.string(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
-    pinned: z.boolean().default(false),
     // Optional per-post OG image. Can be an absolute URL or a /public-relative path.
     image: z.string().optional(),
   }),
@@ -20,11 +19,4 @@ const about = defineCollection({
   schema: z.object({}),
 });
 
-const projects = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
-  schema: z.object({
-    title: z.string(),
-  }),
-});
-
-export const collections = { blog, about, projects };
+export const collections = { blog, about };
