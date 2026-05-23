@@ -2,6 +2,8 @@
 
 :root,
 :root[data-theme="dark"] {
+  color-scheme: dark;
+
   --bg: #0a0a0a;
   --surface: #111111;
   --surface-2: #181818;
@@ -21,11 +23,6 @@
   /* View-transition layer order: light sheet is always on top */
   --vt-old-z: 1;
   --vt-new-z: 2;
-
-  /* Shiki dual-theme indirection (custom props inherit as-declared,
-     so var(--shiki-dark) resolves at the token span, not here) */
-  --shiki-token: var(--shiki-dark);
-
   --font-sans:
     "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono:
@@ -37,6 +34,8 @@
 }
 
 :root[data-theme="light"] {
+  color-scheme: light;
+
   --bg: #fafafa;
   --surface: #ffffff;
   --surface-2: #f0f0f0;
@@ -52,8 +51,6 @@
 
   --header-bg: rgba(250, 250, 250, 0.88);
   --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-
-  --shiki-token: var(--shiki-light);
 }
 
 /* When animating TOWARDS dark, the old (light) snapshot needs to be on top
@@ -77,11 +74,9 @@
   z-index: var(--vt-new-z);
 }
 
-/* Shiki dual-theme: --shiki-token is resolved at the token span,
-   reading either --shiki-light or --shiki-dark from its inline style */
 .astro-code,
 .astro-code span {
-  color: var(--shiki-token);
+  color: light-dark(var(--shiki-light), var(--shiki-dark));
   background-color: transparent;
 }
 
