@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
 import SEO from "../components/SEO.astro";
 
 interface Props {
@@ -47,12 +48,17 @@ const pathname = Astro.url.pathname;
 
     <script is:inline>
       (function () {
-        const stored = localStorage.getItem("theme");
-        const prefersLight = window.matchMedia(
-          "(prefers-color-scheme: light)",
-        ).matches;
-        const theme = stored ?? (prefersLight ? "light" : "dark");
-        document.documentElement.dataset.theme = theme;
+        function getTheme() {
+          const stored = localStorage.getItem("theme");
+          const prefersLight = window.matchMedia(
+            "(prefers-color-scheme: light)",
+          ).matches;
+          return stored ?? (prefersLight ? "light" : "dark");
+        }
+        document.documentElement.dataset.theme = getTheme();
+        document.addEventListener("astro:before-swap", (e) => {
+          e.newDocument.documentElement.dataset.theme = getTheme();
+        });
       })();
     </script>
 
@@ -81,6 +87,8 @@ const pathname = Astro.url.pathname;
       canonicalURL={canonicalURL}
       {schema}
     />
+
+    <ClientRouter />
   </head>
 
   <body>
@@ -186,7 +194,11 @@ const pathname = Astro.url.pathname;
             Math.max(y, window.innerHeight - y),
           );
 
+          document.documentElement.classList.add("theme-transitioning");
           const transition = (document as any).startViewTransition(apply);
+          transition.finished.finally(() => {
+            document.documentElement.classList.remove("theme-transitioning");
+          });
 
           try {
             await transition.ready;

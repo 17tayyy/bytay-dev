@@ -60,17 +60,26 @@
   --vt-new-z: 1;
 }
 
+/* Disable default page-nav transitions — keep theme-toggle reveal only */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
 }
 
-::view-transition-old(root) {
+:root.theme-transitioning::view-transition-old(root) {
   z-index: var(--vt-old-z);
 }
 
-::view-transition-new(root) {
+:root.theme-transitioning::view-transition-new(root) {
+  z-index: var(--vt-new-z);
+}
+
+:root.theme-transitioning::view-transition-old(root) {
+  z-index: var(--vt-old-z);
+}
+
+:root.theme-transitioning::view-transition-new(root) {
   z-index: var(--vt-new-z);
 }
 
@@ -223,7 +232,10 @@ ol {
   display: block;
 }
 
-:root[data-theme="light"] .theme-icon-sun,
+:root[data-theme="light"] .theme-icon-sun {
+  display: none;
+}
+
 :root[data-theme="dark"] .theme-icon-moon {
   display: none;
 }
@@ -483,6 +495,32 @@ a.tag:hover {
   margin: 1.5rem 0;
 }
 
+/* Language label */
+.prose pre[data-language]:not([data-language="plaintext"]):not(
+    [data-language="text"]
+  ) {
+  padding-top: 2.4rem;
+}
+
+.prose pre[data-language]::before {
+  content: attr(data-language);
+  position: absolute;
+  top: 0.65rem;
+  left: 0.95rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-3);
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  pointer-events: none;
+}
+
+.prose pre[data-language="plaintext"]::before,
+.prose pre[data-language="text"]::before {
+  display: none;
+}
+
+
 /* Copy button on code blocks */
 .copy-btn {
   position: absolute;
@@ -541,7 +579,19 @@ a.tag:hover {
   color: var(--text-2);
   font-weight: 400;
   text-decoration: none;
-  transition: color 0.15s;
+  opacity: 0;
+  transition:
+    color 0.15s,
+    opacity 0.15s;
+}
+
+.prose h2:hover .heading-anchor,
+.prose h3:hover .heading-anchor,
+.prose h4:hover .heading-anchor,
+.prose h2 .heading-anchor:focus-visible,
+.prose h3 .heading-anchor:focus-visible,
+.prose h4 .heading-anchor:focus-visible {
+  opacity: 1;
 }
 
 .prose h2 .heading-anchor:hover,
