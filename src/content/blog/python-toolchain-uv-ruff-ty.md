@@ -2,7 +2,7 @@
 title: "The Python Toolchain I Use in Production: uv, ruff, and ty"
 date: 2026-05-12
 description: "Why I replaced pip, black, flake8, and mypy with a single stack from Astral, and how I integrate it in CI/CD with GitHub Actions."
-tags: ["python", "tooling", "devops"]
+tags: ["python", "tooling", "devops", "benchmarks"]
 draft: false
 ---
 
