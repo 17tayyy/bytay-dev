@@ -1,6 +1,6 @@
 I'm Oscar Fernandez, Tay online. 18 years old, from Mataró, a medium-sized city near Barcelona that's best known for being not quite Barcelona.
 
-I got into programming the way most people probably shouldn't: cheating in FiveM servers. I wanted free items, so I learned Lua. Then I wanted to understand why the exploits worked, so I learned more. Then I wanted to build the things I was breaking, and somewhere in that process it stopped being about the cheats entirely.
+I got into programming the way most people probably shouldn't, cheating in FiveM servers. I wanted free items exploit servers... so I learned some scripting basics (lua...). Then I wanted to understand why the exploits worked, so I learned more. Then I wanted to build the things I was breaking, and somewhere in that process it stopped being about the cheats entirely.
 
 That led me to hacking courses, pentesting, and eventually to the realization that what I actually enjoy most is the other side. Designing systems, thinking through architecture, writing code that does what it's supposed to do and doesn't embarrass you six months later. Security gave me a way of thinking about software that most developers don't have at the start. I still use it.
 
