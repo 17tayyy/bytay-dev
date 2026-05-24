@@ -59,19 +59,19 @@
   ],
   "education": [
     {
-      "degree": "Grado Medio SMR",
+      "degree": "Vocational Degree in Computer Systems and Networks",
       "institution": "Escola Pia Santa Anna, Mataró",
       "period": "2024 – 2026",
-      "note": "Sistemas Microinformáticos y Redes"
+      "note": "Sistemas Microinformáticos y Redes (SMR)"
     },
     {
-      "degree": "Máster en Programación y Desarrollo Web",
+      "degree": "Master's in Programming and Web Development",
       "institution": "",
       "period": "2024 – 2026",
       "note": "Frontend: HTML, CSS, JS, React, Next.js. Backend: Python, Django, Flask, FastAPI."
     },
     {
-      "degree": "ESO",
+      "degree": "Secondary Education (ESO)",
       "institution": "Institut Esteve Albert, Sant Vicenç De Montalt",
       "period": "2020 – 2024",
       "note": ""
@@ -85,10 +85,10 @@
       "note": "Offensive Python, Intro to Hacking, Linux administration."
     },
     {
-      "title": "Rust Programming",
+      "title": "Self-Taught Development & Security Research",
       "subtitle": "Self-directed",
-      "period": "2025",
-      "note": "Ownership, borrowing, concurrency with Tokio, systems projects and published personal projects."
+      "period": "2022 – Present",
+      "note": "3+ years of independent learning across backend engineering, offensive security, and systems programming. Built and published open-source tools in Python and Rust; researched and responsibly disclosed real-world vulnerabilities; hands-on with FastAPI, Docker, Redis, PostgreSQL, MongoDB, CI/CD pipelines, and cloud infrastructure (AWS). Driven entirely by personal projects and curiosity."
     }
   ],
   "skills": [
