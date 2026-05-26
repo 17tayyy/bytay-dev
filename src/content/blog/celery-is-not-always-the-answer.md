@@ -2,7 +2,7 @@
 title: "Celery Is Not Always the Answer: A Real Comparison of Python Task Queues"
 date: 2026-05-25
 description: "I migrated from ARQ to Celery at work. During that process I tested every serious Python task queue out there. Here's what the benchmarks say, and what they don't"
-tags: ["python", "fastapi", "celery", "redis", "benchmarks"]
+tags: ["python", "fastapi", "celery", "benchmarks"]
 draft: true
 ---
 
@@ -20,7 +20,7 @@ every problem on Stack Overflow, it's battle tested, and it's not going
 anywhere.
 
 But during that migration I started looking at what else was out there.
-Dramatiq, Taskiq, Streaq — libraries I'd heard of but never seriously
+Dramatiq, Taskiq, Streaq, libraries I'd heard of but never seriously
 evaluated. And I couldn't find a single honest comparison that was not made
 by the own organization. Most posts are either tutorials or surface-level
 overviews with no real benchmark data.
