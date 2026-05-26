@@ -88,7 +88,7 @@ function buildSiteOg() {
             marginBottom: 28,
           },
         },
-        "tay",
+        "Oscar Fernandez",
       ),
       h(
         "div",
