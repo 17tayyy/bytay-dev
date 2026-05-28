@@ -186,7 +186,7 @@ function buildFooter() {
           letterSpacing: "0.04em",
         },
       },
-      "tay",
+      "Oscar Fernandez",
     ),
   );
 }
