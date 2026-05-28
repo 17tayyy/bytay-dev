@@ -1,6 +1,6 @@
 ---
 title: "Celery Is Not Always the Answer: A Real Comparison of Python Task Queues"
-date: 2026-05-25
+date: 2026-05-28
 description: "I migrated from ARQ to Celery at work. During that process I tested every serious Python task queue out there. Here's what the benchmarks say, and what they don't."
 tags: ["python", "fastapi", "celery", "redis", "benchmarks"]
 draft: false
