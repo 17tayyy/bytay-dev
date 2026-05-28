@@ -566,12 +566,14 @@ a.tag:hover {
 }
 
 /* Heading anchors (rehype-autolink-headings) */
+.prose h1,
 .prose h2,
 .prose h3,
 .prose h4 {
   scroll-margin-top: calc(var(--header-height) + 1rem);
 }
 
+.prose h1 .heading-anchor,
 .prose h2 .heading-anchor,
 .prose h3 .heading-anchor,
 .prose h4 .heading-anchor {
@@ -585,15 +587,18 @@ a.tag:hover {
     opacity 0.15s;
 }
 
+.prose h1:hover .heading-anchor,
 .prose h2:hover .heading-anchor,
 .prose h3:hover .heading-anchor,
 .prose h4:hover .heading-anchor,
+.prose h1 .heading-anchor:focus-visible,
 .prose h2 .heading-anchor:focus-visible,
 .prose h3 .heading-anchor:focus-visible,
 .prose h4 .heading-anchor:focus-visible {
   opacity: 1;
 }
 
+.prose h1 .heading-anchor:hover,
 .prose h2 .heading-anchor:hover,
 .prose h3 .heading-anchor:hover,
 .prose h4 .heading-anchor:hover {
@@ -659,6 +664,45 @@ a.tag:hover {
 .prose strong {
   font-weight: 500;
   color: var(--text);
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  margin: 1.75rem 0;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.prose thead {
+  border-bottom: 1px solid var(--border-2);
+}
+
+.prose th {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-2);
+  text-align: left;
+  padding: 0.55rem 1rem;
+  white-space: nowrap;
+}
+
+.prose td {
+  padding: 0.6rem 1rem;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.prose tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.prose tbody tr:hover td {
+  background: var(--surface-2);
+  transition: background 0.12s ease;
 }
 
 .divider {
