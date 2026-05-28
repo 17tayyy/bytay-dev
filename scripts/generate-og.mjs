@@ -182,7 +182,7 @@ function buildFooter() {
         style: {
           fontSize: 24,
           fontWeight: 400,
-          color: "#3a3a3a",
+          color: "#6b6b6b",
           letterSpacing: "0.04em",
         },
       },
