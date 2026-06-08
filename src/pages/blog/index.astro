@@ -33,12 +33,39 @@ const schema = breadcrumbSchema([
 
   {
     tags.length > 0 && (
-      <div class="tag-filter">
-        {tags.map(({ slug, tag }) => (
-          <a href={`/blog/tags/${slug}`} class="tag">
-            {tag}
-          </a>
-        ))}
+      <div class="tag-filter-wrap is-collapsed" data-tag-filter>
+        <div class="tag-filter-fade">
+          <div class="tag-filter" data-tag-list>
+            {tags.map(({ slug, tag }) => (
+              <a href={`/blog/tags/${slug}`} class="tag">
+                {tag}
+              </a>
+            ))}
+          </div>
+        </div>
+        <button
+          class="tag-toggle"
+          type="button"
+          data-tag-toggle
+          aria-expanded="false"
+          hidden
+        >
+          <span class="tag-toggle-text" data-tag-toggle-text>
+            Show all ({tags.length})
+          </span>
+          <svg
+            class="tag-toggle-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
       </div>
     )
   }
@@ -61,11 +88,90 @@ const schema = breadcrumbSchema([
 </Layout>
 
 <style>
+  .tag-filter-wrap {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .tag-filter-fade {
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .tag-filter-fade::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4rem;
+    height: 1.7rem;
+    pointer-events: none;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      var(--bg) 85%
+    );
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  .tag-filter-wrap.is-collapsed .tag-filter-fade::after {
+    opacity: 1;
+  }
+
   .tag-filter {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
-    margin-bottom: 2rem;
+    max-height: var(--tag-filter-max, none);
+    overflow: hidden;
+    transition: max-height 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .tag-filter-wrap.is-collapsed .tag-filter {
+    max-height: 1.7rem;
+  }
+
+  .tag-toggle {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    min-height: 1.7rem;
+    padding: 0;
+    background: none;
+    border: none;
+    color: var(--text-3);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.18s ease;
+  }
+
+  .tag-toggle:hover {
+    color: var(--accent);
+  }
+
+  .tag-toggle-icon {
+    width: 0.7rem;
+    height: 0.7rem;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .tag-filter-wrap:not(.is-collapsed) .tag-toggle-icon {
+    transform: rotate(180deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tag-filter,
+    .tag-toggle-icon,
+    .tag-filter-fade::after {
+      transition: none;
+    }
   }
 
   .empty-state {
@@ -85,3 +191,74 @@ const schema = breadcrumbSchema([
     gap: 0;
   }
 </style>
+
+<script>
+  function setupTagFilter() {
+    const wraps =
+      document.querySelectorAll<HTMLElement>("[data-tag-filter]");
+
+    wraps.forEach((wrap) => {
+      if (wrap.dataset.bound === "true") return;
+      wrap.dataset.bound = "true";
+
+      const list = wrap.querySelector<HTMLElement>("[data-tag-list]");
+      const btn = wrap.querySelector<HTMLButtonElement>("[data-tag-toggle]");
+      const text = wrap.querySelector<HTMLElement>("[data-tag-toggle-text]");
+      if (!list || !btn || !text) return;
+
+      const showAllLabel = text.textContent ?? "Show all";
+
+      const measure = () => {
+        wrap.classList.add("is-collapsed");
+        const collapsedHeight = list.clientHeight;
+        wrap.classList.remove("is-collapsed");
+        const fullHeight = list.scrollHeight;
+        wrap.classList.add("is-collapsed");
+
+        if (fullHeight - collapsedHeight > 2) {
+          btn.hidden = false;
+        } else {
+          btn.hidden = true;
+          wrap.classList.remove("is-collapsed");
+        }
+      };
+
+      measure();
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+          if (wrap.classList.contains("is-collapsed") || btn.hidden) measure();
+        });
+      }
+
+      btn.addEventListener("click", () => {
+        const isCollapsed = wrap.classList.contains("is-collapsed");
+        if (isCollapsed) {
+          list.style.setProperty(
+            "--tag-filter-max",
+            `${list.scrollHeight}px`,
+          );
+          wrap.classList.remove("is-collapsed");
+          btn.setAttribute("aria-expanded", "true");
+          text.textContent = "Show less";
+        } else {
+          list.style.removeProperty("--tag-filter-max");
+          wrap.classList.add("is-collapsed");
+          btn.setAttribute("aria-expanded", "false");
+          text.textContent = showAllLabel;
+        }
+      });
+
+      let resizeRaf = 0;
+      window.addEventListener("resize", () => {
+        if (!wrap.classList.contains("is-collapsed") && btn.hidden) return;
+        cancelAnimationFrame(resizeRaf);
+        resizeRaf = requestAnimationFrame(() => {
+          if (wrap.classList.contains("is-collapsed")) measure();
+        });
+      });
+    });
+  }
+
+  setupTagFilter();
+  document.addEventListener("astro:after-swap", setupTagFilter);
+</script>
