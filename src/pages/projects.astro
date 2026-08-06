@@ -1,0 +1,33 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ProjectItem from "../components/ProjectItem.astro";
+import projects from "../data/projects.json";
+---
+
+<Layout
+  title="Projects | Oscar Fernandez"
+  description="Things I've built: Intake, a B2B SaaS platform, and Ardiq, a Rust-core task queue for Python."
+>
+  <div class="page-header">
+    <h1 class="page-title">Projects</h1>
+    <p class="page-desc">Things I've built or am building.</p>
+  </div>
+
+  <div class="project-grid">
+    {projects.map((project) => <ProjectItem project={project} />)}
+  </div>
+</Layout>
+
+<style>
+  .project-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+
+  @media (min-width: 640px) {
+    .project-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

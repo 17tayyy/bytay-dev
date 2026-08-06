@@ -25,6 +25,14 @@ const recentPosts = allPosts
         <p>
           Hi! I'm Oscar Fernandez, 18 y/o backend dev and hobbyist security researcher from Mataró, Barcelona. I spend most of my time in the Python ecosystem, whether that's building backends or digging into systems I probably shouldn't. I also build and contribute to open source whenever I get the chance.
         </p>
+        <p>
+          Right now I'm building the backend and infra at <a
+            href="https://www.intake.es"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-link">Intake</a
+          >, a B2B SaaS startup inside Lanzadera.
+        </p>
         <p>This is where I write about it.</p>
       </div>
 
@@ -133,6 +141,18 @@ const recentPosts = allPosts
 
   .intro p:last-child {
     margin-bottom: 0;
+  }
+
+  .inline-link {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+    text-underline-offset: 2px;
+    transition: color 0.2s ease;
+  }
+
+  .inline-link:hover {
+    color: var(--accent);
   }
 
   .socials {
