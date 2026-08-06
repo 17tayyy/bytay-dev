@@ -3,7 +3,7 @@
     "name": "Intake",
     "role": "Co-Founder & Head of Engineering",
     "description": "Intake is an AI-powered customer support platform for businesses: an agent that plugs into every channel and directly into your own SaaS product to answer customers automatically and take real actions, not just hand back generic responses. The difference from tools like Intercom or Zendesk is that the AI doesn't just inform, it connects to your product and actually resolves requests.",
-    "tags": ["Python", "FastAPI", "AWS", "RAG"],
+    "tags": ["Python", "FastAPI", "AWS", "AI"],
     "links": [{ "label": "Website", "url": "https://www.intake.es" }]
   },
   {
