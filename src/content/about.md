@@ -4,7 +4,7 @@ I got into programming the way most people probably shouldn't, cheating in FiveM
 
 That led me to hacking courses, pentesting and eventually to the realization that what I actually enjoy most is the other side. Designing systems, thinking through architecture, writing code that does what it's supposed to do and doesn't embarrass you six months later. Security gave me a way of thinking about software that most developers don't have at the start. I still use it.
 
-I'm currently working as a Backend Developer and DevOps at Intake, a B2B SaaS startup inside Lanzadera, Spain's main startup accelerator, while enrolled in two academic programs simultaneously. I took the opportunities as they came, and somehow this became my day to day.
+I'm currently Co-Founder and Head of Engineering at Intake, a startup inside [Lanzadera](https://lanzadera.es), Spain's main startup accelerator, while enrolled in two academic programs simultaneously. I took the opportunities as they came, and somehow this became my day to day.
 
 Day to day I work with Python, FastAPI, MongoDB, Redis, and whatever else the problem requires. What I enjoy most is the thinking part, breaking down a problem, doing research, designing a solution that actually makes sense, and implementing it cleanly. What I enjoy least is inheriting code that was written without any of that. It exists everywhere and it's always someone else's fault.
 

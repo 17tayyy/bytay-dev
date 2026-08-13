@@ -31,9 +31,11 @@ actually happened, in what order, and what it cost.
 
 ## What Celery did to us
 
-Intake is a B2B customer support SaaS with an AI agent in the middle of it.
-The details don't matter much here; what matters is that the backend is
-FastAPI and **every single background task was already async**. Sending a
+Intake is a customer support platform with an AI agent in the middle of it. I
+co-founded it and I run its engineering, which is the only reason a decision
+like this one was mine to make. The product details don't matter much here;
+what matters is that the backend is FastAPI and **every single background task
+was already async**. Sending a
 WhatsApp reply, running a custom AI action, importing a help-center article:
 all coroutines, all talking to services over HTTP.
 
