@@ -482,30 +482,6 @@ a.tag:hover {
   overscroll-behavior-x: contain;
 }
 
-/* Mobile: full-bleed blocks, tighter padding and slightly smaller text */
-@media (max-width: 639px) {
-  .prose pre {
-    margin-left: -1.25rem;
-    margin-right: -1.25rem;
-    padding: 1rem 1.25rem;
-    border-left: none;
-    border-right: none;
-    border-radius: 0;
-    font-size: 0.7rem;
-    line-height: 1.55;
-  }
-
-  .prose pre[data-language]:not([data-language="plaintext"]):not(
-      [data-language="text"]
-    ) {
-    padding-top: 2.2rem;
-  }
-
-  .prose pre[data-language]::before {
-    left: 1.25rem;
-  }
-}
-
 /* Language label */
 .prose pre[data-language]:not([data-language="plaintext"]):not(
     [data-language="text"]
@@ -529,6 +505,26 @@ a.tag:hover {
 .prose pre[data-language="plaintext"]::before,
 .prose pre[data-language="text"]::before {
   display: none;
+}
+
+/* Mobile: tighter padding and smaller text so more code fits */
+@media (max-width: 639px) {
+  .prose pre {
+    padding: 0.9rem 1rem;
+    font-size: 0.7rem;
+    line-height: 1.55;
+  }
+
+  .prose pre[data-language]:not([data-language="plaintext"]):not(
+      [data-language="text"]
+    ) {
+    padding-top: 2.1rem;
+  }
+
+  .prose pre[data-language]::before {
+    top: 0.6rem;
+    left: 1rem;
+  }
 }
 
 
