@@ -109,7 +109,7 @@ function formatDate(date: Date): string {
 
   function setupCopyButtons() {
     document.querySelectorAll<HTMLPreElement>(".prose pre").forEach((pre) => {
-      if (pre.querySelector(".copy-btn")) return;
+      if (pre.parentElement?.classList.contains("code-block")) return;
       const btn = document.createElement("button");
       btn.className = "copy-btn";
       btn.type = "button";
@@ -127,7 +127,11 @@ function formatDate(date: Date): string {
           btn.classList.remove("is-copied");
         }, 1500);
       });
-      pre.appendChild(btn);
+      // Wrap the <pre> so the button stays put when the code scrolls horizontally
+      const wrapper = document.createElement("div");
+      wrapper.className = "code-block";
+      pre.replaceWith(wrapper);
+      wrapper.append(pre, btn);
     });
   }
 

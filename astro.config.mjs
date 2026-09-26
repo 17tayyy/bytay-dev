@@ -26,7 +26,7 @@ export default defineConfig({
         dark: 'github-dark',
       },
       defaultColor: false,
-      wrap: true,
+      wrap: false,
     },
     remarkPlugins: [remarkAlert],
     rehypePlugins: [
