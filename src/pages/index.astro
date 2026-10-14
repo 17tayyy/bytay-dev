@@ -10,7 +10,7 @@ const allPosts = await getCollection("blog", ({ data }) =>
 
 const recentPosts = allPosts
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 1);
+  .slice(0, 2);
 ---
 
 <Layout
