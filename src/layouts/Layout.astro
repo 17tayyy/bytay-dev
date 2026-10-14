@@ -208,7 +208,7 @@ const pathname = Astro.url.pathname;
               `circle(${endRadius}px at ${x}px ${y}px)`,
             ];
             const reverse = next === "dark";
-            document.documentElement.animate(
+            const animation = document.documentElement.animate(
               {
                 clipPath: reverse ? [...clipPath].reverse() : clipPath,
               },
@@ -221,6 +221,9 @@ const pathname = Astro.url.pathname;
                   : "::view-transition-new(root)",
               },
             );
+            // fill: "forwards" holds the final clip until the transition ends, but the
+            // animation outlives it and would clip the next transition's snapshots
+            transition.finished.finally(() => animation.cancel());
           } catch {}
         });
       }
