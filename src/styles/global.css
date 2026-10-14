@@ -75,14 +75,6 @@
   z-index: var(--vt-new-z);
 }
 
-:root.theme-transitioning::view-transition-old(root) {
-  z-index: var(--vt-old-z);
-}
-
-:root.theme-transitioning::view-transition-new(root) {
-  z-index: var(--vt-new-z);
-}
-
 .astro-code,
 .astro-code span {
   color: light-dark(var(--shiki-light), var(--shiki-dark));
@@ -178,6 +170,11 @@ ol {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
+}
+
+/* Give .header-inner a definite height to fill, so the logo and nav center vertically */
+.site-header > .container {
+  height: 100%;
 }
 
 .header-inner {

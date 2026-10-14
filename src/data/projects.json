@@ -7,9 +7,9 @@
     "links": [{ "label": "Website", "url": "https://www.intake.es" }]
   },
   {
-    "name": "Ardiq",
+    "name": "ArdiQ",
     "role": "Creator",
-    "description": "Ardiq is a distributed task queue for Python with a Rust core, backed by Redis Streams: the worker loop and every Redis round-trip run in Rust on top of tokio, off the GIL, while tasks stay plain Python. It ships with priority queues, scheduled and cron tasks, retries with backoff, and crash recovery, and benchmarks show top-tier throughput at roughly a third of the memory of comparable queues.",
+    "description": "ArdiQ is a distributed task queue for Python with a Rust core, backed by Redis Streams: the worker loop and every Redis round-trip run in Rust on top of tokio, off the GIL, while tasks stay plain Python. It ships with priority queues, scheduled and cron tasks, retries with backoff, and crash recovery, and benchmarks show top-tier throughput at roughly a third of the memory of comparable queues.",
     "tags": ["Rust", "Python", "PyO3", "Redis"],
     "links": [
       { "label": "Website", "url": "https://ardiq.bytay.dev" },
