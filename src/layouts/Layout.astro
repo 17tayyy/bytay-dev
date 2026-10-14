@@ -32,10 +32,10 @@ const ogImage = image
   : DEFAULT_OG;
 
 const nav = [
-  { label: "About", href: "/about" },
-  { label: "Projects", href: "/projects" },
-  { label: "Resume", href: "/cv" },
-  { label: "Blog", href: "/blog" },
+  { label: "About", href: "/about/" },
+  { label: "Projects", href: "/projects/" },
+  { label: "Resume", href: "/cv/" },
+  { label: "Blog", href: "/blog/" },
 ];
 
 const pathname = Astro.url.pathname;
@@ -100,8 +100,7 @@ const pathname = Astro.url.pathname;
                 const isActive =
                   item.href === "/"
                     ? pathname === "/"
-                    : pathname === item.href ||
-                      pathname.startsWith(item.href + "/");
+                    : pathname.startsWith(item.href);
                 return (
                   <a
                     href={item.href}

@@ -61,7 +61,7 @@ function formatDate(date: Date): string {
   {schema}
 >
   <div class="post-header">
-    <a href="/blog" class="back-link">← blog</a>
+    <a href="/blog/" class="back-link">← blog</a>
     <div class="post-meta">
       <time datetime={post.data.date.toISOString()} class="post-date">
         {formatDate(post.data.date)}
@@ -71,7 +71,7 @@ function formatDate(date: Date): string {
         post.data.tags.length > 0 && (
           <div class="tags">
             {post.data.tags.map((tag) => (
-              <a href={`/blog/tags/${tagSlug(tag)}`} class="tag">
+              <a href={`/blog/tags/${tagSlug(tag)}/`} class="tag">
                 {tag}
               </a>
             ))}

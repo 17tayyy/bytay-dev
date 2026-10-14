@@ -10,6 +10,8 @@ import { remarkAlert } from 'remark-github-blockquote-alert';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://bytay.dev',
+  // Pages are served from /path/index.html, so link to /path/ to skip Cloudflare's redirect
+  trailingSlash: 'always',
   adapter: cloudflare(),
   integrations: [sitemap()],
   fonts: [
