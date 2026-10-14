@@ -1,4 +1,4 @@
-/* Fonts are loaded via <link> in Layout.astro */
+/* Fonts are self-hosted via Astro's fonts API (astro.config.mjs + <Font> in Layout.astro) */
 
 :root,
 :root[data-theme="dark"] {
@@ -23,10 +23,8 @@
   /* View-transition layer order: light sheet is always on top */
   --vt-old-z: 1;
   --vt-new-z: 2;
-  --font-sans:
-    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono:
-    "JetBrains Mono", "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
 
   --max-width: 720px;
   --header-height: 64px;

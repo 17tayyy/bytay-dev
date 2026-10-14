@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 
 import cloudflare from '@astrojs/cloudflare';
 import sitemap from '@astrojs/sitemap';
@@ -12,6 +12,23 @@ export default defineConfig({
   site: 'https://bytay.dev',
   adapter: cloudflare(),
   integrations: [sitemap()],
+  fonts: [
+    {
+      provider: fontProviders.fontsource(),
+      name: 'Inter',
+      cssVariable: '--font-inter',
+      weights: [400, 500],
+      styles: ['normal'],
+    },
+    {
+      provider: fontProviders.fontsource(),
+      name: 'JetBrains Mono',
+      cssVariable: '--font-jetbrains-mono',
+      weights: [400, 500],
+      styles: ['normal'],
+      fallbacks: ['monospace'],
+    },
+  ],
   prefetch: {
     prefetchAll: true,
     defaultStrategy: 'viewport',
