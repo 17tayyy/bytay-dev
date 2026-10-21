@@ -1,6 +1,6 @@
 {
   "name": "Oscar Fernandez",
-  "title": "Full Stack Developer · Security Researcher",
+  "title": "Co-Founder & CTO at Intake",
   "contact": {
     "email": "oscarfdst@proton.me",
     "github": "https://github.com/17tayyy",
@@ -8,42 +8,48 @@
   },
   "experience": [
     {
-      "role": "Co-Founder & Head of Engineering",
+      "role": "Co-Founder & CTO",
       "company": "Intake · Lanzadera",
-      "location": "Valencia (Remote)",
+      "location": "Valencia",
       "period": "April 2026 – present",
-      "description": "B2B SaaS platform for customer support and feedback management with AI — alternative to Intercom or Zendesk with an advanced conversational agent, knowledge base, and ticketing.",
+      "description": "AI-powered helpdesk for B2B companies: an AI agent that answers their customers on WhatsApp, web chat and email, with a shared inbox and help center. In production with paying customers.",
       "bullets": [
-        "Full design and ownership of the AWS architecture for the MVP: ECS Fargate, ECR, ElastiCache Redis, S3 + CloudFront for frontends, and Secrets Manager; stack selection and architectural decisions made independently.",
-        "Implemented the CI/CD pipeline with GitHub Actions: main branch → pre-production, v* tags → production, covering 10 ECS services across 4 repositories.",
-        "Backend development in FastAPI: domain error system, rate limiting, validation, and observability patterns for production.",
-        "Built integrations with Slack, Microsoft Teams, and WhatsApp Business for the conversational agent.",
-        "Designed and implemented the RAG pipeline (ai_core): embeddings, retrieval, and prompt construction, with final inference on Claude (Amazon Bedrock); function calling and custom tools system for agent orchestration."
+        "Led backend, AI and infrastructure end to end, from architecture to production operations, shipping 95+ releases since launch with a 4,600+ test suite.",
+        "Built an agentic customer-support system: a Claude tool-calling loop over each company's knowledge base (RAG), third-party and customer APIs via MCP, with guardrails and human handoff, running on Anthropic API and Amazon Bedrock EU with prompt caching and per-tenant cost tracking.",
+        "Designed the evaluation pipeline behind every AI change, using LLM-as-judge scoring of real conversations, retrieval benchmarks and blind model comparisons to choose, tune and migrate models.",
+        "Implemented the Model Context Protocol on both sides: an MCP server with its own OAuth 2.1 authorization server and an MCP client that connects customers' own tools to the agent.",
+        "Developed the channel and business integrations as a separate service, including WhatsApp Business as a verified Meta Tech Provider, Slack, email, Shopify and HubSpot.",
+        "Provisioned the AWS infrastructure as code with Terraform and built the delivery pipeline (GitHub Actions CI/CD, monitoring, alerting, backups), with background jobs running on ArdiQ, a self-built Rust-core task queue.",
+        "Ran regular security audits and hardening across the platform, covering multi-tenant isolation, access control and auditing, container hardening, data scrubbing in observability and incident response."
       ],
       "tags": [
         "Python",
         "FastAPI",
-        "MongoDB",
+        "MongoDB (Atlas Vector Search)",
         "PostgreSQL",
         "Redis",
-        "AWS (ECS Fargate, ECR, S3, CloudFront, ElastiCache, Secrets Manager)",
+        "ArdiQ",
+        "Claude (Anthropic API, Amazon Bedrock)",
+        "MCP",
+        "AWS (ECS Fargate, ALB, CloudFront, ElastiCache, Route 53, Secrets Manager, CloudWatch)",
+        "Terraform",
         "Docker",
         "GitHub Actions",
-        "Amazon Bedrock"
+        "Sentry"
       ]
     },
     {
       "role": "Full Stack Developer Intern",
-      "company": "Moodest · Lanzadera",
-      "location": "Tecnocampus, Mataró",
+      "company": "Moodest",
+      "location": "Mataró",
       "period": "September 2025 – April 2026",
       "description": "B2B SaaS AI platform for HR: intelligent helpdesk with conversational agent and people analytics.",
       "bullets": [
-        "Developed a REST API with FastAPI integrating with a time-tracking platform with 300,000+ users: authentication, role management, KPIs, and security.",
-        "Built 4 integrations with external channels (Slack, Teams, among others) for the conversational agent, from protocol design to deployment.",
-        "Main developer of the people analytics dashboard (Angular + TypeScript + NestJS): feature implementation, complex user flows, and end-to-end business logic.",
-        "DevOps: containerization with Docker Compose, Nginx configuration on production, and deploy management on own server.",
-        "Agile methodology with Scrum/Kanban, code reviews, and PR management in team."
+        "Developed a FastAPI REST API integrating with a time-tracking platform of 300,000+ users, covering authentication, role management, KPIs and security.",
+        "Built 4 integrations with external channels for the conversational agent, including Slack and Microsoft Teams, from protocol design to deployment.",
+        "Led development of the people analytics dashboard (Angular, TypeScript, NestJS), from complex user flows to end-to-end business logic.",
+        "Containerized services with Docker Compose, configured Nginx in production and managed deployments on a self-hosted server.",
+        "Collaborated in a Scrum/Kanban team, reviewing code and managing pull requests."
       ],
       "tags": [
         "TypeScript",
@@ -58,61 +64,104 @@
       ]
     }
   ],
+  "projects": [
+    {
+      "name": "ArdiQ",
+      "stack": "Rust / Python / PyO3 / Tokio",
+      "status": "active",
+      "description": "Python task queue with a Rust core. ARQ-compatible API, async runtime built on Tokio, native bindings via PyO3/maturin. Published on PyPI as ardiq and running all background jobs in production at Intake.",
+      "link": { "label": "github", "url": "https://github.com/17tayyy/ardiq" }
+    },
+    {
+      "name": "Zona 14",
+      "stack": "Python / NumPy / SciPy / Next.js",
+      "status": "active",
+      "description": "AI-powered pre-match football analytics. Built a Dixon-Coles bivariate Poisson goal model, fit per league from football APIs (time-decay form weighting, shrinkage priors, xG targets and closing-odds signals; L-BFGS-B with analytic gradients) and backtested against sharp-bookmaker baselines via closing line value. Its score grid drives betting markets flagged for value, with a grounded LLM layer explaining each pick in plain language.",
+      "link": { "label": "zona14.app", "url": "https://zona14.app" }
+    },
+    {
+      "name": "Fluxo",
+      "stack": "FastAPI / React / PostgreSQL / Redis",
+      "status": "active",
+      "description": "Decentralized crypto payment platform à la Stripe with multi-chain support (Ethereum, Solana, Polygon) and two custody models for merchants.",
+      "link": null
+    },
+    {
+      "name": "Agent skills & model benchmarks",
+      "stack": "Python",
+      "status": "",
+      "description": "Author of production agent skills (FastAPI, Beanie/MongoDB, async testing) published on the Agensi marketplace, each validated with blind evals against the base model. Public benchmarks on model behaviour, including thinking vs tool-calling reliability in Claude Haiku 5.5.",
+      "link": null
+    }
+  ],
   "education": [
     {
-      "degree": "Vocational Degree in Computer Systems and Networks",
-      "institution": "Escola Pia Santa Anna, Mataró",
-      "period": "2024 – 2026",
-      "note": "Sistemas Microinformáticos y Redes (SMR)"
-    },
-    {
-      "degree": "Master's in Programming and Web Development",
-      "institution": "",
-      "period": "2024 – 2026",
-      "note": "Frontend: HTML, CSS, JS, React, Next.js. Backend: Python, Django, Flask, FastAPI."
-    },
-    {
-      "degree": "Secondary Education (ESO)",
-      "institution": "Institut Esteve Albert, Sant Vicenç De Montalt",
-      "period": "2020 – 2024",
+      "degree": "Higher Vocational Diploma in Multiplatform Application Development (DAM)",
+      "institution": "Prometeo FP by thePower — Online, Official Spanish Vocational Education (Grado Superior)",
+      "period": "Expected 2028",
       "note": ""
+    },
+    {
+      "degree": "Cybersecurity Master's",
+      "institution": "Prometeo FP by thePower — Online",
+      "period": "Expected 2028",
+      "note": ""
+    },
+    {
+      "degree": "Project-driven self-taught learning",
+      "institution": "",
+      "period": "2022 – present",
+      "note": "Most of the stack learned independently through official documentation, books and real projects built from scratch and run in production. Every technology on this CV has been used in a real context, not just in tutorials."
+    },
+    {
+      "degree": "Intermediate Vocational Diploma in Computer Systems and Networks (SMR)",
+      "institution": "Escola Pia Santa Anna, Mataró — Spanish Vocational Education (Grado Medio)",
+      "period": "2026",
+      "note": ""
+    },
+    {
+      "degree": "Web Development and Programming Diploma",
+      "institution": "",
+      "period": "2026",
+      "note": "Frontend (HTML, CSS, JS, React, Next.js) and backend (Python: Django, Flask, FastAPI)."
     }
   ],
   "training": [
     {
-      "title": "Hack4u — Cybersecurity Academy",
+      "title": "Hack4u (Cybersecurity Academy)",
       "subtitle": "",
       "period": "2024",
-      "note": "Offensive Python, Intro to Hacking, Linux administration."
-    },
-    {
-      "title": "Self-Taught Development & Security Research",
-      "subtitle": "Self-directed",
-      "period": "2022 – Present",
-      "note": "3+ years of independent learning across backend engineering, offensive security, and systems programming. Built and published open-source tools in Python and Rust; researched and responsibly disclosed real-world vulnerabilities; hands-on with FastAPI, Docker, Redis, PostgreSQL, MongoDB, CI/CD pipelines, and cloud infrastructure (AWS). Driven entirely by personal projects and curiosity."
+      "note": "Offensive Python, Introduction to Hacking, Introduction to Linux."
     }
   ],
   "skills": [
     {
       "label": "Languages",
-      "value": "Python, TypeScript/JavaScript, Rust, Bash"
+      "value": "Python, TypeScript/JavaScript, Rust, Bash, SQL"
     },
     {
       "label": "Backend",
-      "value": "FastAPI, NestJS, Django, Flask, ARQ, Celery, asyncio"
+      "value": "FastAPI, NestJS, Django, ArdiQ, ARQ, Celery, aiohttp, asyncio"
     },
-    { "label": "Frontend", "value": "React, Angular, Next.js" },
+    {
+      "label": "Frontend",
+      "value": "Angular, React, Vite, TanStack Query, shadcn/ui"
+    },
     {
       "label": "Databases",
-      "value": "MongoDB, PostgreSQL, Redis (cache, pub/sub, rate limiting, queues)"
+      "value": "MongoDB Atlas (Vector Search), PostgreSQL, Redis (cache, pub/sub, rate limiting, queues)"
     },
     {
       "label": "Cloud & DevOps",
-      "value": "AWS (ECS Fargate, ECR, S3, CloudFront, ElastiCache, Secrets Manager), Docker, GitHub Actions, Nginx, Linux"
+      "value": "AWS (ECS Fargate, ECR, ALB, S3, CloudFront, ElastiCache, Route 53, Secrets Manager, SageMaker), Terraform, Docker, Docker Compose, GitHub Actions, Nginx, Linux"
     },
     {
       "label": "AI / ML",
-      "value": "Anthropic API, Amazon Bedrock, Hugging Face, RAG pipelines, embeddings, function calling"
+      "value": "RAG pipelines, LLM evaluation, MCP, Anthropic API, Amazon Bedrock, Ollama, Hugging Face, SSE streaming"
+    },
+    {
+      "label": "Agentic dev",
+      "value": "Claude Code (custom skills & hooks, subagent orchestration), eval-driven AI-assisted development"
     },
     {
       "label": "Security",
@@ -120,16 +169,16 @@
     },
     {
       "label": "Protocols",
-      "value": "REST, WebSockets, SSE, Redis Pub/Sub, JWT, OAuth2"
+      "value": "REST, WebSockets, SSE, Pub/Sub, JWT, OAuth2, MCP"
     },
     {
       "label": "Tools",
-      "value": "Git, Docker Compose, structlog, SQLAlchemy, Sentry, Telethon, aiogram, uv, pnpm"
+      "value": "Git, Telethon, aiogram, structlog, SQLAlchemy, Sentry, pnpm, uv"
     }
   ],
   "languages": [
     { "label": "Spanish", "value": "Native" },
     { "label": "Catalan", "value": "Native" },
-    { "label": "English", "value": "Professional" }
+    { "label": "English", "value": "Professional working proficiency" }
   ]
 }

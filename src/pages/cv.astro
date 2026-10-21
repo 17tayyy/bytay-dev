@@ -7,6 +7,7 @@ const {
   title,
   contact,
   experience,
+  projects,
   education,
   training,
   skills,
@@ -16,10 +17,10 @@ const {
 
 <Layout
   title="Resume | Oscar Fernandez"
-  description="Resume of Oscar Fernandez, Co-Founder and Head of Engineering at Intake. Backend and security, with skills in Python, Rust, FastAPI, AWS, and more."
+  description="Resume of Oscar Fernandez, Co-Founder and CTO at Intake. Backend, AI and infrastructure, with skills in Python, FastAPI, Claude, MCP, AWS, Terraform, Rust, and more."
 >
   <div class="cv-actions">
-    <a href="/cv.pdf" download class="print-btn">Download PDF</a>
+    <a href="/CV_Oscar_Fernandez.pdf" download class="print-btn">Download PDF</a>
     <button onclick="window.print()" class="print-btn">Print / Save PDF</button>
   </div>
 
@@ -61,6 +62,9 @@ const {
               </div>
               <span class="cv-entry-date">{entry.period}</span>
             </div>
+            {entry.description && (
+              <p class="cv-entry-desc">{entry.description}</p>
+            )}
             <ul class="cv-entry-body">
               {entry.bullets.map((bullet) => (
                 <li>{bullet}</li>
@@ -76,6 +80,58 @@ const {
           </div>
         ))
       }
+    </section>
+
+    <hr class="cv-rule" />
+
+    <!-- Projects -->
+    <section class="cv-section">
+      <h2 class="cv-section-title">Projects</h2>
+      {
+        projects.map((project) => (
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <div class="cv-entry-left">
+                <h3 class="cv-entry-title">{project.name}</h3>
+                <p class="cv-entry-sub">{project.stack}</p>
+              </div>
+              {project.status && (
+                <span class="cv-entry-date">{project.status}</span>
+              )}
+            </div>
+            <p class="cv-entry-note">
+              {project.description}
+              {project.link && (
+                <a
+                  href={project.link.url}
+                  class="cv-project-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {project.link.label} →
+                </a>
+              )}
+            </p>
+          </div>
+        ))
+      }
+    </section>
+
+    <hr class="cv-rule" />
+
+    <!-- Skills -->
+    <section class="cv-section">
+      <h2 class="cv-section-title">Technical Skills</h2>
+      <div class="cv-skills">
+        {
+          skills.map((skill) => (
+            <div class="cv-skill-row">
+              <span class="cv-skill-label">{skill.label}</span>
+              <span class="cv-skill-value">{skill.value}</span>
+            </div>
+          ))
+        }
+      </div>
     </section>
 
     <hr class="cv-rule" />
@@ -103,9 +159,26 @@ const {
 
     <hr class="cv-rule" />
 
-    <!-- Complementary Training -->
+    <!-- Languages -->
     <section class="cv-section">
-      <h2 class="cv-section-title">Complementary Training</h2>
+      <h2 class="cv-section-title">Languages</h2>
+      <div class="cv-skills">
+        {
+          languages.map((lang) => (
+            <div class="cv-skill-row">
+              <span class="cv-skill-label">{lang.label}</span>
+              <span class="cv-skill-value">{lang.value}</span>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <hr class="cv-rule" />
+
+    <!-- Additional Training -->
+    <section class="cv-section">
+      <h2 class="cv-section-title">Additional Training</h2>
       {
         training.map((entry) => (
           <div class="cv-entry">
@@ -122,40 +195,6 @@ const {
           </div>
         ))
       }
-    </section>
-
-    <hr class="cv-rule" />
-
-    <!-- Skills -->
-    <section class="cv-section">
-      <h2 class="cv-section-title">Technical Skills</h2>
-      <div class="cv-skills">
-        {
-          skills.map((skill) => (
-            <div class="cv-skill-row">
-              <span class="cv-skill-label">{skill.label}</span>
-              <span class="cv-skill-value">{skill.value}</span>
-            </div>
-          ))
-        }
-      </div>
-    </section>
-
-    <hr class="cv-rule" />
-
-    <!-- Languages -->
-    <section class="cv-section">
-      <h2 class="cv-section-title">Languages</h2>
-      <div class="cv-skills">
-        {
-          languages.map((lang) => (
-            <div class="cv-skill-row">
-              <span class="cv-skill-label">{lang.label}</span>
-              <span class="cv-skill-value">{lang.value}</span>
-            </div>
-          ))
-        }
-      </div>
     </section>
   </div>
 </Layout>
@@ -302,6 +341,27 @@ const {
     white-space: nowrap;
     flex-shrink: 0;
     padding-top: 0.1rem;
+  }
+
+  .cv-entry-desc {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--text-2);
+    line-height: 1.65;
+    margin-bottom: 0.6rem;
+  }
+
+  .cv-project-link {
+    margin-left: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-2);
+    white-space: nowrap;
+    transition: color 0.15s;
+  }
+
+  .cv-project-link:hover {
+    color: var(--accent);
   }
 
   .cv-entry-body {
