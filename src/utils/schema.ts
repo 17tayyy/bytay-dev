@@ -20,7 +20,12 @@ export function personSchema() {
     name: "Oscar Fernandez",
     alternateName: "Tay",
     url: SITE,
-    jobTitle: "Backend Developer & Security Researcher",
+    jobTitle: "Co-Founder & CTO",
+    worksFor: {
+      "@type": "Organization",
+      name: "Intake",
+      url: "https://www.intake.es",
+    },
     address: {
       "@type": "PostalAddress",
       addressLocality: "Mataró",

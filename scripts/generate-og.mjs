@@ -101,7 +101,7 @@ function buildSiteOg() {
             lineHeight: 1.4,
           },
         },
-        "Backend developer & security researcher",
+        "Co-founder & CTO at Intake",
       ),
     ),
     buildFooter(),
