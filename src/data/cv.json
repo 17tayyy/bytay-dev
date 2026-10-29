@@ -12,7 +12,7 @@
       "company": "Intake · Lanzadera",
       "location": "Valencia",
       "period": "April 2026 – present",
-      "description": "AI-powered helpdesk for B2B companies: an AI agent that answers their customers on WhatsApp, web chat and email, with a shared inbox and help center. In production with paying customers.",
+      "description": "AI-powered helpdesk for B2B companies: an AI agent that answers their customers on WhatsApp, web chat and email, with a shared inbox and help center.",
       "bullets": [
         "Led backend, AI and infrastructure end to end, from architecture to production operations, shipping 95+ releases since launch with a 4,600+ test suite.",
         "Built an agentic customer-support system: a Claude tool-calling loop over each company's knowledge base (RAG), third-party and customer APIs via MCP, with guardrails and human handoff, running on Anthropic API and Amazon Bedrock EU with prompt caching and per-tenant cost tracking.",

@@ -15,5 +15,12 @@
       { "label": "Website", "url": "https://ardiq.bytay.dev" },
       { "label": "GitHub", "url": "https://github.com/17tayyy/ardiq" }
     ]
+  },
+  {
+    "name": "Zona 14",
+    "role": "Creator",
+    "description": "Zona 14 is a pre-match football analytics app covering the top European leagues and competitions. A Dixon-Coles goal model, fit per league with time-decayed form, xG and closing odds, turns each match into probabilities and compares them with the bookmakers' prices to flag where the odds look off. An LLM layer grounded in the same data explains each read in plain language and answers questions about the match.",
+    "tags": ["Python", "NumPy", "SciPy", "Next.js"],
+    "links": [{ "label": "Website", "url": "https://zona14.app" }]
   }
 ]
