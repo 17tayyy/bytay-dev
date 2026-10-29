@@ -17,6 +17,16 @@
     ]
   },
   {
+    "name": "wong",
+    "role": "Creator",
+    "description": "wong is an external brain for coding agents. It puts Claude Code's memory in one place shared by every repo of a project, keeps a copy on each machine synced through your own server, and checks every note against the files, commits and issues it cites, so the agent finds out which notes went stale and fixes them. It comes with a dashboard to see and undo every change, an MCP server, and the brain opens as an Obsidian vault.",
+    "tags": ["Go", "SQLite", "MCP", "Claude Code"],
+    "links": [
+      { "label": "Website", "url": "https://wong.bytay.dev" },
+      { "label": "GitHub", "url": "https://github.com/17tayyy/wong" }
+    ]
+  },
+  {
     "name": "Zona 14",
     "role": "Creator",
     "description": "Zona 14 is a pre-match football analytics app covering the top European leagues and competitions. A Dixon-Coles goal model, fit per league with time-decayed form, xG and closing odds, turns each match into probabilities and compares them with the bookmakers' prices to flag where the odds look off. An LLM layer grounded in the same data explains each read in plain language and answers questions about the match.",
