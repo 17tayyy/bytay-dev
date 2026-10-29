@@ -100,6 +100,7 @@ const recentPosts = allPosts
     {
       recentPosts.length > 0 && (
         <section class="writing-section">
+          <h2 class="label section-label">Writing</h2>
           <div class="post-list">
             {recentPosts.map((post) => (
               <PostItem post={post} />
@@ -135,7 +136,7 @@ const recentPosts = allPosts
   }
 
   .intro p {
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     color: var(--text-2);
     line-height: 1.75;
     margin-bottom: 0.9rem;
@@ -148,7 +149,7 @@ const recentPosts = allPosts
   .inline-link {
     color: var(--text);
     text-decoration: underline;
-    text-decoration-color: currentColor;
+    text-decoration-color: var(--accent);
     text-underline-offset: 2px;
     transition: color 0.2s ease;
   }
@@ -215,6 +216,11 @@ const recentPosts = allPosts
     margin-top: 3.5rem;
   }
 
+  .section-label {
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
   .post-list {
     display: flex;
     flex-direction: column;
@@ -224,7 +230,7 @@ const recentPosts = allPosts
   .more-link {
     display: inline-block;
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.78rem;
     color: var(--text-2);
     margin-top: 0.75rem;
     transition: color 0.15s;

@@ -20,8 +20,7 @@ const {
   description="Resume of Oscar Fernandez, Co-Founder and CTO at Intake. Backend, AI and infrastructure, with skills in Python, FastAPI, Claude, MCP, AWS, Terraform, Rust, and more."
 >
   <div class="cv-actions">
-    <a href="/CV_Oscar_Fernandez.pdf" download class="print-btn">Download PDF</a>
-    <button onclick="window.print()" class="print-btn">Print / Save PDF</button>
+    <a href="/CV_Oscar_Fernandez.pdf" download class="cv-download">Download PDF</a>
   </div>
 
   <div class="cv" id="cv-print">
@@ -200,30 +199,27 @@ const {
 </Layout>
 
 <style>
-  /* Print button */
   .cv-actions {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 2rem;
   }
 
-  .print-btn {
+  .cv-download {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.78rem;
     color: var(--text-2);
     padding: 0.4rem 0.8rem;
     border: 1px solid var(--border-2);
     border-radius: var(--radius);
     background: var(--surface);
-    cursor: pointer;
     transition:
       color 0.15s,
       border-color 0.15s;
     letter-spacing: 0.02em;
-    margin-left: 1rem;
   }
 
-  .print-btn:hover {
+  .cv-download:hover {
     color: var(--text);
     border-color: var(--text-3);
   }
@@ -293,7 +289,7 @@ const {
 
   .cv-section-title {
     font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-size: 0.75rem;
     font-weight: 400;
     color: var(--text-2);
     text-transform: uppercase;
@@ -336,7 +332,7 @@ const {
 
   .cv-entry-date {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.78rem;
     color: var(--text-2);
     white-space: nowrap;
     flex-shrink: 0;
@@ -354,7 +350,7 @@ const {
   .cv-project-link {
     margin-left: 0.4rem;
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.78rem;
     color: var(--text-2);
     white-space: nowrap;
     transition: color 0.15s;
@@ -410,7 +406,7 @@ const {
 
   .cv-skill-label {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.78rem;
     color: var(--text-2);
     min-width: 8rem;
     flex-shrink: 0;

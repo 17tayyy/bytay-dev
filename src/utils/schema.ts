@@ -40,6 +40,7 @@ interface ArticleArgs {
   title: string;
   description: string;
   datePublished: Date;
+  dateModified?: Date;
   url: string;
   image: string;
   tags: string[];
@@ -49,6 +50,7 @@ export function articleSchema({
   title,
   description,
   datePublished,
+  dateModified,
   url,
   image,
   tags,
@@ -60,6 +62,7 @@ export function articleSchema({
     description,
     image,
     datePublished: datePublished.toISOString(),
+    dateModified: (dateModified ?? datePublished).toISOString(),
     author: AUTHOR,
     publisher: AUTHOR,
     mainEntityOfPage: { "@type": "WebPage", "@id": url },

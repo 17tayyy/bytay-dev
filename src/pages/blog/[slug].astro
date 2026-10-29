@@ -33,6 +33,7 @@ const schema = [
     title: post.data.title,
     description: post.data.description,
     datePublished: post.data.date,
+    dateModified: post.data.updated,
     url: postUrl,
     image: ogImageAbsolute,
     tags: post.data.tags,
@@ -66,6 +67,16 @@ function formatDate(date: Date): string {
       <time datetime={post.data.date.toISOString()} class="post-date">
         {formatDate(post.data.date)}
       </time>
+      {
+        post.data.updated && (
+          <span class="post-updated">
+            Updated{" "}
+            <time datetime={post.data.updated.toISOString()}>
+              {formatDate(post.data.updated)}
+            </time>
+          </span>
+        )
+      }
       <span class="post-reading">{reading}</span>
       {
         post.data.tags.length > 0 && (
@@ -181,7 +192,7 @@ function formatDate(date: Date): string {
   .back-link {
     display: inline-block;
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     color: var(--text-2);
     margin-bottom: 1.75rem;
     transition: color 0.15s;
@@ -200,14 +211,15 @@ function formatDate(date: Date): string {
   }
 
   .post-date,
+  .post-updated,
   .post-reading {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.78rem;
     color: var(--text-2);
   }
 
   .post-title {
-    font-size: 1.5rem;
+    font-size: 1.65rem;
     font-weight: 500;
     letter-spacing: -0.03em;
     line-height: 1.25;
@@ -216,12 +228,12 @@ function formatDate(date: Date): string {
 
   @media (min-width: 640px) {
     .post-title {
-      font-size: 1.75rem;
+      font-size: 2rem;
     }
   }
 
   .post-description {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: var(--text-2);
     line-height: 1.7;
   }
@@ -237,7 +249,7 @@ function formatDate(date: Date): string {
 
   .related-heading {
     font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-size: 0.75rem;
     font-weight: 400;
     color: var(--text-2);
     text-transform: uppercase;
