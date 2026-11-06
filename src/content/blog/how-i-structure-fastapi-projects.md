@@ -3,7 +3,7 @@ title: "How I Structure FastAPI Projects in Production: and Why"
 date: 2026-05-05
 updated: 2026-09-25
 description: "What most FastAPI tutorials skip: how I structure routes, services, transactions, exceptions, logging, multi-tenancy and background tasks in production, and the reasoning behind each decision."
-tags: ["fastapi", "architecture", "python"]
+tags: ["Python"]
 draft: false
 ---
 

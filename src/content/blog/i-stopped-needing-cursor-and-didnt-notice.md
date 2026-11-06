@@ -2,7 +2,7 @@
 title: "I Stopped Needing Cursor and Didn't Notice"
 date: 2026-07-19
 description: "I replaced VS Code without ever deciding to. What kept me there was never the editor, it was the agent living inside it, and ACP is what took that away."
-tags: ["zed", "acp", "developer-tools"]
+tags: ["Tooling"]
 slug: "i-stopped-needing-cursor-and-didnt-notice"
 draft: false
 ---

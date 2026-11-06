@@ -13,21 +13,13 @@ import projects from "../data/projects.json";
     <p class="page-desc">Things I've built or am building.</p>
   </div>
 
-  <div class="project-grid">
+  <div class="project-list">
     {projects.map((project) => <ProjectItem project={project} />)}
   </div>
 </Layout>
 
 <style>
-  .project-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.1rem;
-  }
-
-  @media (min-width: 640px) {
-    .project-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  .page-desc {
+    margin-bottom: 2.25rem;
   }
 </style>

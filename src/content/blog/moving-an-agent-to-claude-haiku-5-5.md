@@ -2,7 +2,7 @@
 title: "Thinking Off, Handoffs Missed: What I Measured Moving an Agent to Claude Haiku 5.5"
 date: 2026-10-09
 description: "Claude Haiku 5.5 thinks by default, and the obvious migration move is to turn that off. I ran 960 support conversations to see what it costs. With thinking off, the agent skipped a quarter of the handoffs it should have made. With thinking on at the lowest effort, none."
-tags: ["ai", "llm", "claude", "benchmarks"]
+tags: ["AI", "Benchmarks"]
 draft: false
 ---
 

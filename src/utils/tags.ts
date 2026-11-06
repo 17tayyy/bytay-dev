@@ -1,25 +1,16 @@
 import type { CollectionEntry } from "astro:content";
+import { TOPICS } from "./topics";
 
 export function tagSlug(tag: string): string {
   return tag.toLowerCase().trim().replace(/\s+/g, "-");
 }
 
 export function getAllTags(posts: CollectionEntry<"blog">[]) {
-  const counts = new Map<string, { tag: string; count: number }>();
-  for (const post of posts) {
-    for (const tag of post.data.tags) {
-      const slug = tagSlug(tag);
-      const existing = counts.get(slug);
-      if (existing) {
-        existing.count += 1;
-      } else {
-        counts.set(slug, { tag, count: 1 });
-      }
-    }
-  }
-  return Array.from(counts.entries())
-    .map(([slug, { tag, count }]) => ({ slug, tag, count }))
-    .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
+  return TOPICS.map((tag) => ({
+    tag,
+    slug: tagSlug(tag),
+    count: posts.filter((post) => post.data.tags.includes(tag)).length,
+  })).filter(({ count }) => count > 0);
 }
 
 export function getPostsByTagSlug(

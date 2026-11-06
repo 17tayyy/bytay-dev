@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import PostItem from "../../components/PostItem.astro";
+import Arrow from "../../components/Arrow.astro";
 import { readingTime } from "../../utils/reading";
 import { getRelatedPosts, tagSlug } from "../../utils/tags";
 import { articleSchema, breadcrumbSchema } from "../../utils/schema";
@@ -62,34 +63,38 @@ function formatDate(date: Date): string {
   {schema}
 >
   <div class="post-header">
-    <a href="/blog/" class="back-link">← blog</a>
-    <div class="post-meta">
-      <time datetime={post.data.date.toISOString()} class="post-date">
+    <a href="/blog/" class="back-link"><Arrow dir="left" /> Blog</a>
+    <p class="meta post-meta">
+      <time datetime={post.data.date.toISOString()}>
         {formatDate(post.data.date)}
       </time>
       {
         post.data.updated && (
-          <span class="post-updated">
-            Updated{" "}
+          <span>
+            {" · "}Updated{" "}
             <time datetime={post.data.updated.toISOString()}>
               {formatDate(post.data.updated)}
             </time>
           </span>
         )
       }
-      <span class="post-reading">{reading}</span>
+      {" · "}{reading}
       {
         post.data.tags.length > 0 && (
-          <div class="tags">
-            {post.data.tags.map((tag) => (
-              <a href={`/blog/tags/${tagSlug(tag)}/`} class="tag">
-                {tag}
-              </a>
+          <span>
+            {" · in "}
+            {post.data.tags.map((tag, i) => (
+              <>
+                {i > 0 && ", "}
+                <a href={`/blog/tags/${tagSlug(tag)}/`} class="post-topic">
+                  {tag}
+                </a>
+              </>
             ))}
-          </div>
+          </span>
         )
       }
-    </div>
+    </p>
     <h1 class="post-title">{post.data.title}</h1>
     <p class="post-description">{post.data.description}</p>
   </div>
@@ -103,7 +108,7 @@ function formatDate(date: Date): string {
   {
     related.length > 0 && (
       <section class="related">
-        <h2 class="related-heading">related</h2>
+        <h2 class="label related-heading">Related</h2>
         <div class="related-list">
           {related.map((p) => (
             <PostItem post={p} />
@@ -190,9 +195,10 @@ function formatDate(date: Date): string {
   }
 
   .back-link {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.9333rem;
     color: var(--text-2);
     margin-bottom: 1.75rem;
     transition: color 0.15s;
@@ -203,19 +209,22 @@ function formatDate(date: Date): string {
   }
 
   .post-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
     margin-bottom: 0.85rem;
-    flex-wrap: wrap;
   }
 
-  .post-date,
-  .post-updated,
-  .post-reading {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
+  .post-topic {
     color: var(--text-2);
+    text-decoration: underline;
+    text-decoration-color: var(--border-2);
+    text-underline-offset: 3px;
+    transition:
+      color 0.15s,
+      text-decoration-color 0.15s;
+  }
+
+  .post-topic:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
   }
 
   .post-title {
@@ -248,18 +257,11 @@ function formatDate(date: Date): string {
   }
 
   .related-heading {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 400;
-    color: var(--text-2);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
   }
 
   .related-list {
     display: flex;
     flex-direction: column;
-    gap: 0;
   }
 </style>

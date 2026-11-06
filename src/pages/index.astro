@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import PostItem from "../components/PostItem.astro";
+import Arrow from "../components/Arrow.astro";
 import { personSchema } from "../utils/schema";
 
 const allPosts = await getCollection("blog", ({ data }) =>
@@ -107,7 +108,7 @@ const recentPosts = allPosts
             ))}
           </div>
           <a href="/blog/" class="more-link">
-            all posts →
+            All posts <Arrow />
           </a>
         </section>
       )
@@ -217,20 +218,19 @@ const recentPosts = allPosts
   }
 
   .section-label {
-    font-weight: 400;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
   }
 
   .post-list {
     display: flex;
     flex-direction: column;
-    gap: 0;
   }
 
   .more-link {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.9333rem;
     color: var(--text-2);
     margin-top: 0.75rem;
     transition: color 0.15s;

@@ -1,0 +1,46 @@
+---
+import type { CollectionEntry } from "astro:content";
+import PostItem from "./PostItem.astro";
+
+interface Props {
+  posts: CollectionEntry<"blog">[];
+}
+
+const { posts } = Astro.props;
+
+const years = new Map<number, CollectionEntry<"blog">[]>();
+for (const post of posts) {
+  const year = post.data.date.getFullYear();
+  years.set(year, [...(years.get(year) ?? []), post]);
+}
+---
+
+<div class="post-index">
+  {
+    [...years].map(([year, yearPosts]) => (
+      <section class="year">
+        <h2 class="meta year-label">{year}</h2>
+        {yearPosts.map((post) => (
+          <PostItem post={post} compact />
+        ))}
+      </section>
+    ))
+  }
+</div>
+
+<style>
+  .post-index {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .year-label {
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+  }
+
+  .year :global(.post-row:last-child) {
+    border-bottom: none;
+  }
+</style>

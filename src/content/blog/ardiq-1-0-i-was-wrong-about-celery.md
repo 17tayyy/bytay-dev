@@ -2,7 +2,7 @@
 title: "ArdiQ 1.0: I Was Wrong About Celery"
 date: 2026-08-13
 description: "In May I wrote that Celery was the safe default and migrated our backend to it. Three months later Celery broke our async code in production, and we replaced it with the Rust-core queue I'd been building on the side. This is what that cost, and what it taught the queue."
-tags: ["python", "rust", "redis", "task-queue", "celery", "benchmarks"]
+tags: ["Python", "Rust", "Benchmarks"]
 draft: false
 ---
 

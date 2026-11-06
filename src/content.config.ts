@@ -1,5 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { TOPICS } from './utils/topics';
 
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
@@ -8,7 +9,7 @@ const blog = defineCollection({
     date: z.coerce.date(),
     updated: z.coerce.date().optional(),
     description: z.string(),
-    tags: z.array(z.string()).default([]),
+    tags: z.array(z.enum(TOPICS)).default([]),
     draft: z.boolean().default(false),
     // Optional per-post OG image. Can be an absolute URL or a /public-relative path.
     image: z.string().optional(),

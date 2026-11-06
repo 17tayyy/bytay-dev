@@ -4,91 +4,91 @@ import { readingTime } from "../utils/reading";
 
 interface Props {
   post: CollectionEntry<"blog">;
+  compact?: boolean;
 }
 
-const { post } = Astro.props;
-const reading = readingTime(post.body);
+const { post, compact = false } = Astro.props;
 
-function formatDate(date: Date): string {
-  return date.toLocaleDateString("en-GB", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-}
+const date = post.data.date;
+const label = date.toLocaleDateString("en-GB", {
+  day: "numeric",
+  month: "short",
+  ...(compact ? {} : { year: "numeric" }),
+});
 ---
 
-<a href={`/blog/${post.id}/`} class="post-item">
-  <div class="post-meta">
-    <time datetime={post.data.date.toISOString()} class="post-date">
-      {formatDate(post.data.date)}
-    </time>
-    <span class="post-reading">{reading}</span>
-    {
-      post.data.tags.length > 0 && (
-        <div class="post-tags">
-          {post.data.tags.slice(0, 3).map((tag) => (
-            <span class="tag">{tag}</span>
-          ))}
-        </div>
-      )
-    }
-  </div>
-  <div class="post-content">
-    <h2 class="post-title">{post.data.title}</h2>
-    <p class="post-desc">{post.data.description}</p>
-  </div>
-</a>
+{
+  compact ? (
+    <a href={`/blog/${post.id}/`} class="post-row">
+      <span class="post-row-title">{post.data.title}</span>
+      <time datetime={date.toISOString()} class="meta post-row-date">
+        {label}
+      </time>
+    </a>
+  ) : (
+    <a href={`/blog/${post.id}/`} class="post-item">
+      <span class="post-title">{post.data.title}</span>
+      <span class="post-desc">{post.data.description}</span>
+      <span class="meta">
+        <time datetime={date.toISOString()}>{label}</time> ·{" "}
+        {readingTime(post.body)}
+      </span>
+    </a>
+  )
+}
 
 <style>
   .post-item {
-    display: block;
-    padding: 1.5rem 0;
-    border-bottom: 1px solid var(--border);
-    transition: opacity 0.15s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 1.35rem 0;
   }
 
-  .post-item:first-child {
+  .post-item + .post-item {
     border-top: 1px solid var(--border);
   }
 
-  .post-item:hover .post-title {
-    color: var(--accent);
-  }
-
-  .post-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.5rem;
-    flex-wrap: wrap;
-  }
-
-  .post-date,
-  .post-reading {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--text-2);
-    flex-shrink: 0;
-  }
-
-  .post-tags {
-    display: flex;
-    gap: 0.3rem;
-    flex-wrap: wrap;
+  .post-item:first-child {
+    padding-top: 0;
   }
 
   .post-title {
-    font-size: 1.05rem;
+    font-size: 1.1333rem;
     font-weight: 500;
-    letter-spacing: -0.01em;
-    margin-bottom: 0.35rem;
+    letter-spacing: -0.015em;
+    line-height: 1.35;
     transition: color 0.15s;
   }
 
   .post-desc {
-    font-size: 0.92rem;
+    font-size: 0.9333rem;
+    line-height: 1.6;
     color: var(--text-2);
-    line-height: 1.65;
+  }
+
+  .post-item:hover .post-title,
+  .post-row:hover .post-row-title {
+    color: var(--accent);
+  }
+
+  .post-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1.25rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .post-row-title {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.45;
+    transition: color 0.15s;
+  }
+
+  .post-row-date {
+    flex-shrink: 0;
   }
 </style>

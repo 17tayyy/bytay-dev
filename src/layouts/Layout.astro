@@ -74,8 +74,11 @@ const pathname = Astro.url.pathname;
     />
 
     <!-- Fonts (self-hosted, configured in astro.config.mjs) -->
-    <Font cssVariable="--font-inter" preload={[{ weight: 400 }, { weight: 500 }]} />
-    <Font cssVariable="--font-jetbrains-mono" preload={[{ weight: 400 }]} />
+    <Font
+      cssVariable="--font-inter"
+      preload={[{ weight: 400 }, { weight: 500 }, { weight: 600 }]}
+    />
+    <Font cssVariable="--font-jetbrains-mono" />
 
     <SEO
       {title}
@@ -93,7 +96,7 @@ const pathname = Astro.url.pathname;
     <header class="site-header">
       <div class="container">
         <div class="header-inner">
-          <a href="/" class="site-logo">tay</a>
+          <a href="/" class="site-logo" aria-label="Home">tay<span class="site-logo-dot">.</span></a>
           <nav class="site-nav" aria-label="Main navigation">
             {
               nav.map((item) => {

@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Arrow from "../components/Arrow.astro";
 ---
 
 <Layout title="404 | Oscar Fernandez" description="Page not found.">
@@ -7,7 +8,7 @@ import Layout from "../layouts/Layout.astro";
     <p class="code">404</p>
     <h1 class="message">Page not found</h1>
     <p class="sub">Whatever you were looking for isn't here.</p>
-    <a href="/" class="home-link">← back home</a>
+    <a href="/" class="home-link"><Arrow dir="left" /> Back home</a>
   </div>
 </Layout>
 
@@ -20,10 +21,9 @@ import Layout from "../layouts/Layout.astro";
   }
 
   .code {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
+    font-size: 0.8667rem;
+    font-weight: 500;
     color: var(--accent);
-    letter-spacing: 0.05em;
     margin-bottom: 1rem;
   }
 
@@ -41,8 +41,10 @@ import Layout from "../layouts/Layout.astro";
   }
 
   .home-link {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.9333rem;
     color: var(--text-2);
     transition: color 0.15s;
   }

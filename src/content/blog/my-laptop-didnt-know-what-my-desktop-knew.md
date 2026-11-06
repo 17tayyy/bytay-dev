@@ -2,7 +2,7 @@
 title: "My Laptop Didn't Know What My Desktop Knew"
 date: 2026-11-05
 description: "Claude Code remembers things, but its memory is scattered across folders, stuck on one machine and slowly going out of date. So I built wong: one brain for all my projects, synced to every machine, checked against how the projects really are, and encrypted in the cloud so not even I can read it."
-tags: ["ai", "claude", "agents", "developer-tools"]
+tags: ["AI", "Tooling"]
 draft: false
 ---
 

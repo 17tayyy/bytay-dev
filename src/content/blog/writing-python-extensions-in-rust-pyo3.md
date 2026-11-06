@@ -3,7 +3,7 @@ title: "What Writing a Rust Extension Taught Me About Python"
 date: 2026-06-09
 slug: writing-python-extensions-in-rust-pyo3
 description: "PyO3 from the brain of a Python dev learning Rust: where the two languages disagree, what hurts first, and what stuck."
-tags: ["rust", "pyo3", "python", "maturin"]
+tags: ["Python", "Rust"]
 draft: false
 ---
 

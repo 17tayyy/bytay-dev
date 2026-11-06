@@ -2,7 +2,7 @@
 title: "Code Is Cheap, Judgment Is Not: What AI Can't Automate in Software Development"
 date: 2026-07-04
 description: "Any AI can generate code that works. Deciding if it makes sense in your system is a different skill, and it's the one that actually matters now."
-tags: ["ai", "software-engineering", "programming"]
+tags: ["AI"]
 draft: false
 ---
 

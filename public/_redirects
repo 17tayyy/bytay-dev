@@ -1,2 +1,23 @@
 # Old CV URL, kept working for existing links
 /cv.pdf /CV_Oscar_Fernandez.pdf 301
+
+# Old tags, merged into topics
+/blog/tags/acp/ /blog/tags/tooling/ 301
+/blog/tags/agents/ /blog/tags/ai/ 301
+/blog/tags/architecture/ /blog/tags/python/ 301
+/blog/tags/celery/ /blog/tags/python/ 301
+/blog/tags/claude/ /blog/tags/ai/ 301
+/blog/tags/developer-tools/ /blog/tags/tooling/ 301
+/blog/tags/devops/ /blog/tags/tooling/ 301
+/blog/tags/fastapi/ /blog/tags/python/ 301
+/blog/tags/idor/ /blog/tags/security/ 301
+/blog/tags/llm/ /blog/tags/ai/ 301
+/blog/tags/maturin/ /blog/tags/rust/ 301
+/blog/tags/programming/ /blog/tags/ai/ 301
+/blog/tags/pyo3/ /blog/tags/rust/ 301
+/blog/tags/redis/ /blog/tags/python/ 301
+/blog/tags/responsible-disclosure/ /blog/tags/security/ 301
+/blog/tags/software-engineering/ /blog/tags/ai/ 301
+/blog/tags/task-queue/ /blog/tags/python/ 301
+/blog/tags/web-security/ /blog/tags/security/ 301
+/blog/tags/zed/ /blog/tags/tooling/ 301

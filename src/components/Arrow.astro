@@ -1,0 +1,54 @@
+---
+interface Props {
+  dir?: "right" | "left" | "up-right" | "down";
+}
+
+const { dir = "right" } = Astro.props;
+
+const paths = {
+  right: "M5 12h14M13 6l6 6-6 6",
+  left: "M19 12H5M11 18l-6-6 6-6",
+  "up-right": "M7 17 17 7M8 7h9v9",
+  down: "M12 5v14M6 13l6 6 6-6",
+};
+---
+
+<svg
+  class:list={["arrow", `arrow-${dir}`]}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.75"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  <path d={paths[dir]}></path>
+</svg>
+
+<style>
+  .arrow {
+    display: inline-block;
+    width: 0.9em;
+    height: 0.9em;
+    vertical-align: -0.12em;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  :global(a:hover) > .arrow-right {
+    transform: translateX(2px);
+  }
+
+  :global(a:hover) > .arrow-left {
+    transform: translateX(-2px);
+  }
+
+  :global(a:hover) > .arrow-up-right {
+    transform: translate(1px, -1px);
+  }
+
+  :global(a:hover) > .arrow-down {
+    transform: translateY(1px);
+  }
+</style>

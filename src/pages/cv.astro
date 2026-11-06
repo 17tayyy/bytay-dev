@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Arrow from "../components/Arrow.astro";
 import cvData from "../data/cv.json";
 
 const {
@@ -13,184 +14,158 @@ const {
   skills,
   languages,
 } = cvData;
+
+function shortPeriod(period: string): string {
+  return period
+    .replace(
+      /\b(January|February|March|April|June|July|August|September|October|November|December)\b/g,
+      (month) => month.slice(0, 3),
+    )
+    .replace(/\bpresent\b/, "Present");
+}
+
 ---
 
 <Layout
   title="Resume | Oscar Fernandez"
   description="Resume of Oscar Fernandez, Co-Founder and CTO at Intake. Backend, AI and infrastructure, with skills in Python, FastAPI, Claude, MCP, AWS, Terraform, Rust, and more."
 >
-  <div class="cv-actions">
-    <a href="/CV_Oscar_Fernandez.pdf" download class="cv-download">Download PDF</a>
-  </div>
-
-  <div class="cv" id="cv-print">
-    <!-- Header -->
+  <div class="cv">
     <header class="cv-header">
       <div class="cv-identity">
         <h1 class="cv-name">{name}</h1>
         <p class="cv-title">{title}</p>
+        <p class="cv-contact">
+          <a href={`mailto:${contact.email}`}>{contact.email}</a>
+          <a href={contact.github} target="_blank" rel="noopener noreferrer"
+            >{contact.github.replace("https://", "")}</a
+          >
+          <a href={contact.linkedin} target="_blank" rel="noopener noreferrer"
+            >LinkedIn</a
+          >
+        </p>
       </div>
-      <div class="cv-contact">
-        <a href={`mailto:${contact.email}`}>{contact.email}</a>
-        <a href={contact.github} target="_blank" rel="noopener noreferrer"
-          >{contact.github.replace("https://", "")}</a
-        >
-        <a href={contact.linkedin} target="_blank" rel="noopener noreferrer"
-          >linkedin</a
-        >
-      </div>
+      <a href="/CV_Oscar_Fernandez.pdf" download class="cv-download">
+        Download PDF
+      </a>
     </header>
 
-    <hr class="cv-rule" />
-
-    <!-- Experience -->
     <section class="cv-section">
       <h2 class="cv-section-title">Experience</h2>
       {
         experience.map((entry) => (
           <div class="cv-entry">
-            <div class="cv-entry-header">
-              <div class="cv-entry-left">
+            <div>
+              <div class="cv-entry-head">
                 <h3 class="cv-entry-title">{entry.role}</h3>
-                <p class="cv-entry-sub">
-                  {entry.company}
-                  {entry.location && (
-                    <span class="cv-entry-loc">— {entry.location}</span>
-                  )}
-                </p>
+                <span class="meta">{shortPeriod(entry.period)}</span>
               </div>
-              <span class="cv-entry-date">{entry.period}</span>
+              <p class="cv-entry-sub">
+                {entry.company}
+                {entry.location && ` · ${entry.location}`}
+              </p>
             </div>
-            {entry.description && (
-              <p class="cv-entry-desc">{entry.description}</p>
-            )}
-            <ul class="cv-entry-body">
+            {entry.description && <p class="cv-text">{entry.description}</p>}
+            <ul class="cv-bullets">
               {entry.bullets.map((bullet) => (
                 <li>{bullet}</li>
               ))}
             </ul>
             {entry.tags.length > 0 && (
-              <div class="tags" style="margin-top: 0.85rem;">
-                {entry.tags.map((tag) => (
-                  <span class="tag">{tag}</span>
-                ))}
-              </div>
+              <p class="meta cv-stack">{entry.tags.join(", ")}</p>
             )}
           </div>
         ))
       }
     </section>
 
-    <hr class="cv-rule" />
-
-    <!-- Projects -->
     <section class="cv-section">
       <h2 class="cv-section-title">Projects</h2>
       {
         projects.map((project) => (
           <div class="cv-entry">
-            <div class="cv-entry-header">
-              <div class="cv-entry-left">
-                <h3 class="cv-entry-title">{project.name}</h3>
-                <p class="cv-entry-sub">{project.stack}</p>
-              </div>
-              {project.status && (
-                <span class="cv-entry-date">{project.status}</span>
-              )}
-            </div>
-            <p class="cv-entry-note">
-              {project.description}
+            <div class="cv-entry-head">
+              <h3 class="cv-entry-title">{project.name}</h3>
               {project.link && (
                 <a
                   href={project.link.url}
-                  class="cv-project-link"
+                  class="cv-link"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {project.link.label} →
+                  {project.link.label === "github"
+                    ? "GitHub"
+                    : project.link.label}{" "}
+                  <Arrow dir="up-right" />
                 </a>
               )}
-            </p>
+            </div>
+            <p class="cv-text">{project.description}</p>
+            <p class="meta cv-stack">{project.stack.split(" / ").join(", ")}</p>
           </div>
         ))
       }
     </section>
 
-    <hr class="cv-rule" />
-
-    <!-- Skills -->
     <section class="cv-section">
-      <h2 class="cv-section-title">Technical Skills</h2>
-      <div class="cv-skills">
+      <h2 class="cv-section-title">Technical skills</h2>
+      <div class="cv-lines">
         {
           skills.map((skill) => (
-            <div class="cv-skill-row">
-              <span class="cv-skill-label">{skill.label}</span>
-              <span class="cv-skill-value">{skill.value}</span>
-            </div>
+            <p>
+              <span class="cv-label">{skill.label}</span> {skill.value}
+            </p>
           ))
         }
       </div>
     </section>
 
-    <hr class="cv-rule" />
-
-    <!-- Education -->
     <section class="cv-section">
       <h2 class="cv-section-title">Education</h2>
       {
         education.map((entry) => (
           <div class="cv-entry">
-            <div class="cv-entry-header">
-              <div class="cv-entry-left">
+            <div>
+              <div class="cv-entry-head">
                 <h3 class="cv-entry-title">{entry.degree}</h3>
-                {entry.institution && (
-                  <p class="cv-entry-sub">{entry.institution}</p>
-                )}
+                <span class="meta">{shortPeriod(entry.period)}</span>
               </div>
-              <span class="cv-entry-date">{entry.period}</span>
+              {entry.institution && (
+                <p class="cv-entry-sub">{entry.institution}</p>
+              )}
             </div>
-            {entry.note && <p class="cv-entry-note">{entry.note}</p>}
+            {entry.note && <p class="cv-text">{entry.note}</p>}
           </div>
         ))
       }
     </section>
 
-    <hr class="cv-rule" />
-
-    <!-- Languages -->
     <section class="cv-section">
       <h2 class="cv-section-title">Languages</h2>
-      <div class="cv-skills">
+      <div class="cv-lines">
         {
           languages.map((lang) => (
-            <div class="cv-skill-row">
-              <span class="cv-skill-label">{lang.label}</span>
-              <span class="cv-skill-value">{lang.value}</span>
-            </div>
+            <p>
+              <span class="cv-label">{lang.label}</span> {lang.value}
+            </p>
           ))
         }
       </div>
     </section>
 
-    <hr class="cv-rule" />
-
-    <!-- Additional Training -->
     <section class="cv-section">
-      <h2 class="cv-section-title">Additional Training</h2>
+      <h2 class="cv-section-title">Additional training</h2>
       {
         training.map((entry) => (
           <div class="cv-entry">
-            <div class="cv-entry-header">
-              <div class="cv-entry-left">
+            <div>
+              <div class="cv-entry-head">
                 <h3 class="cv-entry-title">{entry.title}</h3>
-                {entry.subtitle && <p class="cv-entry-sub">{entry.subtitle}</p>}
+                {entry.period && <span class="meta">{entry.period}</span>}
               </div>
-              {entry.period && (
-                <span class="cv-entry-date">{entry.period}</span>
-              )}
+              {entry.subtitle && <p class="cv-entry-sub">{entry.subtitle}</p>}
             </div>
-            {entry.note && <p class="cv-entry-note">{entry.note}</p>}
+            {entry.note && <p class="cv-text">{entry.note}</p>}
           </div>
         ))
       }
@@ -199,221 +174,158 @@ const {
 </Layout>
 
 <style>
-  .cv-actions {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 2rem;
-  }
-
-  .cv-download {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--text-2);
-    padding: 0.4rem 0.8rem;
-    border: 1px solid var(--border-2);
-    border-radius: var(--radius);
-    background: var(--surface);
-    transition:
-      color 0.15s,
-      border-color 0.15s;
-    letter-spacing: 0.02em;
-  }
-
-  .cv-download:hover {
-    color: var(--text);
-    border-color: var(--text-3);
-  }
-
-  /* CV layout */
   .cv {
-    max-width: 660px;
+    display: flex;
+    flex-direction: column;
+    gap: 3.25rem;
+    padding-top: 0.5rem;
   }
 
-  /* CV header */
   .cv-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    gap: 2rem;
+    align-items: flex-end;
+    gap: 1.25rem 2rem;
     flex-wrap: wrap;
-    margin-bottom: 2rem;
+  }
+
+  .cv-identity {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
   }
 
   .cv-name {
-    font-size: 1.5rem;
-    font-weight: 500;
+    font-size: 2rem;
+    font-weight: 600;
     letter-spacing: -0.03em;
-    margin-bottom: 0.25rem;
+    line-height: 1.15;
   }
 
   .cv-title {
-    font-size: 0.82rem;
+    font-size: 1.0667rem;
     color: var(--text-2);
   }
 
   .cv-contact {
     display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    align-items: flex-end;
-    text-align: right;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.1rem;
+    margin-top: 0.3rem;
+    font-size: 0.8667rem;
   }
 
-  @media (max-width: 520px) {
-    .cv-contact {
-      align-items: flex-start;
-      text-align: left;
-    }
-  }
-
-  .cv-contact a {
-    font-size: 0.78rem;
+  .cv-contact a,
+  .cv-link {
     color: var(--text-2);
     transition: color 0.15s;
   }
 
-  .cv-contact a:hover {
+  .cv-contact a:hover,
+  .cv-link:hover {
     color: var(--accent);
   }
 
-  .cv-rule {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 2rem 0;
+  .cv-download {
+    font-size: 0.9333rem;
+    color: var(--text);
+    padding: 0.5rem 0.95rem;
+    border: 1px solid var(--border-2);
+    border-radius: 6px;
+    transition:
+      color 0.15s,
+      border-color 0.15s;
   }
 
-  /* CV sections */
+  .cv-download:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
   .cv-section {
-    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
   }
 
   .cv-section-title {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 400;
-    color: var(--text-2);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 1.25rem;
+    font-size: 1.3333rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: -0.25rem;
   }
 
-  /* CV entries */
   .cv-entry {
-    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
   }
 
-  .cv-entry:last-child {
-    margin-bottom: 0;
-  }
-
-  .cv-entry-header {
+  .cv-entry-head {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 0.5rem;
+    align-items: baseline;
+    gap: 0.15rem 1rem;
     flex-wrap: wrap;
   }
 
   .cv-entry-title {
-    font-size: 0.9rem;
-    font-weight: 500;
-    margin-bottom: 0.1rem;
+    font-size: 1.0667rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.35;
   }
 
   .cv-entry-sub {
-    font-size: 0.8rem;
+    margin-top: 0.15rem;
+    font-size: 0.9667rem;
     color: var(--text-2);
   }
 
-  .cv-entry-loc {
-    color: var(--text-3);
-  }
-
-  .cv-entry-date {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
+  .cv-text,
+  .cv-bullets {
+    font-size: 0.9667rem;
+    line-height: 1.6;
     color: var(--text-2);
-    white-space: nowrap;
-    flex-shrink: 0;
-    padding-top: 0.1rem;
   }
 
-  .cv-entry-desc {
-    font-size: 0.85rem;
-    font-style: italic;
-    color: var(--text-2);
-    line-height: 1.65;
-    margin-bottom: 0.6rem;
-  }
-
-  .cv-project-link {
-    margin-left: 0.4rem;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--text-2);
-    white-space: nowrap;
-    transition: color 0.15s;
-  }
-
-  .cv-project-link:hover {
-    color: var(--accent);
-  }
-
-  .cv-entry-body {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  .cv-bullets {
+    list-style: disc;
+    padding-left: 1.15rem;
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 0.35rem;
   }
 
-  .cv-entry-body li {
-    font-size: 0.85rem;
-    color: var(--text-2);
-    line-height: 1.65;
-    padding-left: 1rem;
-    position: relative;
-  }
-
-  .cv-entry-body li::before {
-    content: "–";
-    position: absolute;
-    left: 0;
+  .cv-bullets li::marker {
     color: var(--text-3);
   }
 
-  .cv-entry-note {
-    font-size: 0.82rem;
-    color: var(--text-2);
+  .cv-stack {
     line-height: 1.6;
   }
 
-  /* Skills table */
-  .cv-skills {
+  .cv-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    flex-shrink: 0;
+    font-size: 0.9333rem;
+  }
+
+  .cv-lines {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .cv-skill-row {
-    display: flex;
-    gap: 1.5rem;
-    font-size: 0.85rem;
-    align-items: baseline;
-  }
-
-  .cv-skill-label {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
+    gap: 0.55rem;
+    font-size: 0.9667rem;
+    line-height: 1.6;
     color: var(--text-2);
-    min-width: 8rem;
-    flex-shrink: 0;
   }
 
-  .cv-skill-value {
+  .cv-label {
+    font-weight: 500;
     color: var(--text);
+    margin-right: 0.35rem;
   }
 
   @media print {
@@ -424,16 +336,16 @@ const {
       --border: #e0e0e0;
       --border-2: #c8c8c8;
       --text: #111111;
-      --text-2: #555555;
-      --text-3: #aaaaaa;
-      --accent: #e55d00;
+      --text-2: #444444;
+      --text-3: #666666;
+      --accent: #c2410c;
     }
 
     body {
       background: #fff;
     }
 
-    .cv-actions {
+    .cv-download {
       display: none;
     }
 
@@ -447,17 +359,11 @@ const {
     }
 
     .cv {
-      max-width: 100%;
+      gap: 2rem;
     }
 
-    .cv-rule {
-      border-color: #ddd;
-    }
-
-    .tag {
-      border-color: #ccc;
-      background: #f4f4f4;
-      color: #555;
+    .cv-entry {
+      break-inside: avoid;
     }
 
     a {

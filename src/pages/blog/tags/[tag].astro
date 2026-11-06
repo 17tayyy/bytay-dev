@@ -1,71 +1,55 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../../../layouts/Layout.astro";
-import PostItem from "../../../components/PostItem.astro";
+import PostIndex from "../../../components/PostIndex.astro";
+import TopicTabs from "../../../components/TopicTabs.astro";
 import { getAllTags, getPostsByTagSlug, tagSlug } from "../../../utils/tags";
 import { breadcrumbSchema } from "../../../utils/schema";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog", ({ data }) =>
-    import.meta.env.PROD ? !data.draft : true,
-  );
+  const posts = (
+    await getCollection("blog", ({ data }) =>
+      import.meta.env.PROD ? !data.draft : true,
+    )
+  ).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
   const tags = getAllTags(posts);
   return tags.map(({ slug, tag }) => ({
     params: { tag: slug },
     props: {
       tagName: tag,
-      posts: getPostsByTagSlug(posts, slug).sort(
-        (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-      ),
+      tags,
+      total: posts.length,
+      posts: getPostsByTagSlug(posts, slug),
     },
   }));
 }
 
-const { tagName, posts } = Astro.props;
+const { tagName, tags, total, posts } = Astro.props;
+const slug = tagSlug(tagName);
 
 const schema = breadcrumbSchema([
   { name: "Home", url: "https://bytay.dev/" },
   { name: "Blog", url: "https://bytay.dev/blog/" },
-  { name: `#${tagName}`, url: `https://bytay.dev/blog/tags/${tagSlug(tagName)}/` },
+  { name: tagName, url: `https://bytay.dev/blog/tags/${slug}/` },
 ]);
 ---
 
 <Layout
-  title={`Posts tagged "${tagName}" | Oscar Fernandez`}
-  description={`Posts tagged with ${tagName}.`}
+  title={`${tagName} posts | Oscar Fernandez`}
+  description={`Posts about ${tagName}.`}
   {schema}
 >
   <div class="page-header">
-    <a href="/blog/" class="back-link">← blog</a>
-    <h1 class="page-title">#{tagName}</h1>
-    <p class="page-desc">
-      {posts.length}
-      {posts.length === 1 ? "post" : "posts"} tagged "{tagName}"
-    </p>
+    <h1 class="page-title">Blog</h1>
+    <p class="page-desc">Technical notes. Irregularly updated.</p>
   </div>
 
-  <div class="post-list">
-    {posts.map((post) => <PostItem post={post} />)}
-  </div>
+  <TopicTabs topics={tags} {total} active={slug} />
+  <PostIndex {posts} />
 </Layout>
 
 <style>
-  .back-link {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--text-2);
-    margin-bottom: 1.75rem;
-    transition: color 0.15s;
-  }
-
-  .back-link:hover {
-    color: var(--accent);
-  }
-
-  .post-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+  .page-desc {
+    margin-bottom: 2rem;
   }
 </style>
