@@ -9,5 +9,7 @@
 	},
 	"observability": {
 		"enabled": true
-	}
+	},
+	// Per-request cap so a bug cannot burn unbounded CPU on the paid plan.
+	"limits": { "cpu_ms": 50, "subrequests": 50 }
 }
